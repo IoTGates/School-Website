@@ -3,143 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="موقع المدرسة الإلكترونية - تعليم متميز وشامل">
-    <title>مدرسة النور - الموقع الرسمي</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="مدرسة أبي بكر الصديق الأساسية للبنين الثانية - موقع تعليمي شامل">
+    <title>مدرسة أبي بكر الصديق الأساسية للبنين الثانية</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">مدرسة النور</div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">الرئيسية</a></li>
-                <li><a href="#about" class="nav-link">عن المدرسة</a></li>
-                <li><a href="#features" class="nav-link">الخدمات</a></li>
-                <li><a href="#contact" class="nav-link">التواصل</a></li>
-            </ul>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 class="school-name-short">أبي بكر الصديق</h1>
+            </div>
             <button class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
+            <ul class="nav-menu" id="navMenu"></ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>مرحباً بك في مدرسة النور</h1>
-            <p>مؤسسة تعليمية رائدة في تخريج الأجيال الواعية والمثقفة</p>
-            <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">تواصل معنا</button>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">عن المدرسة</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>رسالتنا</h3>
-                    <p>
-                        مدرسة النور تسعى لتوفير تعليم متميز يجمع بين الأصالة والحداثة،
-                        ويُعد الطلاب ليكونوا قادة المستقبل وأعضاء فاعلين في مجتمعهم.
-                    </p>
-                    <h3>رؤيتنا</h3>
-                    <p>
-                        تحقيق التميز التعليمي والتربوي من خلال برامج تعليمية حديثة
-                        وملتزمة بالقيم الإسلامية والأخلاقية.
-                    </p>
+    <!-- Main Content Wrapper -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title" id="heroSchoolName"></h1>
+                <p class="hero-slogan" id="heroSlogan"></p>
+                <p class="hero-intro">مدرسة متميزة معتمدة دولياً في التعليم والتطوير المستدام</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('events')">أحدث الفعاليات</button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('about')">استكشف المدرسة</button>
                 </div>
-                <div class="about-stats">
-                    <div class="stat">
-                        <div class="stat-number">٢٥+</div>
-                        <div class="stat-label">سنة خبرة</div>
+            </div>
+        </section>
+
+        <!-- Vision & Mission Section -->
+        <section id="about" class="section vision-mission-section">
+            <div class="container">
+                <h2 class="section-title">رؤيتنا ورسالتنا</h2>
+                <div class="vision-mission-grid">
+                    <div class="vision-card card">
+                        <div class="card-icon">🌟</div>
+                        <h3>رؤيتنا</h3>
+                        <p id="visionText"></p>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number">١٫٥K</div>
-                        <div class="stat-label">طالب وطالبة</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">١٠٠+</div>
-                        <div class="stat-label">معلم ومعلمة</div>
+                    <div class="mission-card card">
+                        <div class="card-icon">🎯</div>
+                        <h3>رسالتنا</h3>
+                        <p id="missionText"></p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title">خدماتنا</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📚</div>
-                    <h3>مناهج متطورة</h3>
-                    <p>منهاج حديث ومحدّث يواكب التطورات العالمية في مجال التعليم</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">👥</div>
-                    <h3>معلمون متميزون</h3>
-                    <p>كادر تعليمي مؤهل وذو خبرة طويلة في المجال التربوي</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>تقنية متقدمة</h3>
-                    <p>قاعات مجهزة بأحدث التقنيات التعليمية والتفاعلية</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏆</div>
-                    <h3>أنشطة متنوعة</h3>
-                    <p>برامج لاصفية وأنشطة رياضية وثقافية وفنية متعددة</p>
-                </div>
+        <!-- Development Plan Section -->
+        <section id="development-plan" class="section development-plan-section">
+            <div class="container">
+                <h2 class="section-title">الخطة التطويرية 2026-2027</h2>
+                <p class="section-subtitle">أربع مجالات رئيسية لتطوير أداء المدرسة</p>
+                <div class="development-cards" id="developmentCardsContainer"></div>
+            </div>
+        </section>
+
+        <!-- Development Plan Details Modal -->
+        <div class="modal" id="detailsModal">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <div id="modalBody"></div>
             </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">تواصل معنا</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="info-item">
-                        <h3>📍 العنوان</h3>
-                        <p>شارع التعليم، المدينة التعليمية</p>
+        <!-- Grades Section -->
+        <section id="grades" class="section grades-section">
+            <div class="container">
+                <h2 class="section-title">الصفوف والبرامج</h2>
+                <p class="section-subtitle">فصول الدراسة وبرامج الدعم التعليمي</p>
+                <div class="grades-grid" id="studentPortalsContainer"></div>
+            </div>
+        </section>
+
+        <!-- Latest Events Section -->
+        <section id="events" class="section events-section">
+            <div class="container">
+                <h2 class="section-title">أحدث الفعاليات</h2>
+                <p class="section-subtitle">تعرف على أحدث الأنشطة والفعاليات في مدرستنا</p>
+                <div class="events-grid" id="eventsContainer"></div>
+            </div>
+        </section>
+
+        <!-- Initiatives Section -->
+        <section id="initiatives" class="section initiatives-section">
+            <div class="container">
+                <h2 class="section-title">المبادرات</h2>
+                <p class="section-subtitle">مبادرات تعليمية وتربوية متنوعة</p>
+                <div class="initiatives-grid" id="initiativesContainer"></div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="section achievements-section">
+            <div class="container">
+                <h2 class="section-title">الإنجازات</h2>
+                <p class="section-subtitle">إنجازات الطلبة والمدرسة</p>
+                <div class="achievements-content">
+                    <div class="achievement-item card">
+                        <div class="achievement-icon">🏆</div>
+                        <h4>تفوق أكاديمي</h4>
+                        <p>معدلات نجاح عالية في الامتحانات الوطنية</p>
                     </div>
-                    <div class="info-item">
-                        <h3>📞 الهاتف</h3>
-                        <p>+966 12 345 6789</p>
+                    <div class="achievement-item card">
+                        <div class="achievement-icon">🎯</div>
+                        <h4>برامج متخصصة</h4>
+                        <p>برامج دعم وإثراء للطلبة المتفوقين والعاديين</p>
                     </div>
-                    <div class="info-item">
-                        <h3>✉️ البريد الإلكتروني</h3>
-                        <p>info@noor-school.edu.sa</p>
+                    <div class="achievement-item card">
+                        <div class="achievement-icon">🤝</div>
+                        <h4>شراكات مجتمعية</h4>
+                        <p>تعاون فعّال مع المؤسسات الحكومية والأهلية</p>
+                    </div>
+                    <div class="achievement-item card">
+                        <div class="achievement-icon">🌱</div>
+                        <h4>تطوير مستمر</h4>
+                        <p>التزام بالتطوير والابتكار في المناهج والأداء</p>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm">
-                    <input type="text" placeholder="الاسم الكامل" required>
-                    <input type="email" placeholder="البريد الإلكتروني" required>
-                    <textarea placeholder="رسالتك" rows="5" required></textarea>
-                    <button type="submit" class="cta-button">إرسال</button>
-                </form>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section resources-section">
+            <div class="container">
+                <h2 class="section-title">الموارد التعليمية</h2>
+                <p class="section-subtitle">مكتبة شاملة للمراجع والأدوات التعليمية</p>
+                <div class="resources-grid" id="resourcesContainer"></div>
+            </div>
+        </section>
+
+        <!-- Important Links Section -->
+        <section id="links" class="section links-section">
+            <div class="container">
+                <h2 class="section-title">روابط مهمة</h2>
+                <p class="section-subtitle">روابط سريعة للمنصات والخدمات التعليمية</p>
+                <div class="links-grid" id="linksContainer"></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section">
+            <div class="container">
+                <h2 class="section-title">تواصل معنا</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>معلومات الاتصال</h3>
+                        <p><strong>المدرسة:</strong> <span id="schoolName"></span></p>
+                        <p><strong>الجهة الإشرافية:</strong> <span id="directorate"></span></p>
+                        <p><strong>رقم الرمز المدرسي:</strong> <span id="schoolNumber"></span></p>
+                        <p><strong>السنة الأكاديمية:</strong> <span id="academicYear"></span></p>
+                    </div>
+                    <div class="contact-form">
+                        <h3>أرسل لنا رسالة</h3>
+                        <form id="contactFormElement">
+                            <input type="text" placeholder="اسمك الكامل" required>
+                            <input type="email" placeholder="بريدك الإلكتروني" required>
+                            <textarea placeholder="رسالتك" rows="5" required></textarea>
+                            <button type="submit" class="btn btn-primary">إرسال الرسالة</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" id="footer">
         <div class="container">
-            <p>&copy; 2026 مدرسة النور. جميع الحقوق محفوظة.</p>
-            <div class="social-links">
-                <a href="#" title="تويتر">𝕏</a>
-                <a href="#" title="فيسبوك">f</a>
-                <a href="#" title="إنستجرام">📷</a>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>عن المدرسة</h4>
+                    <p id="footerSchoolName"></p>
+                    <p id="footerDirectorate"></p>
+                    <p id="footerSchoolNumber"></p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul id="footerQuickLinks"></ul>
+                </div>
+                <div class="footer-section">
+                    <h4>المنصات التعليمية</h4>
+                    <ul id="footerPlatforms"></ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تابعنا على مواقع التواصل</h4>
+                    <div class="social-links" id="socialLinks"></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <span id="copyrightYear">جميع الحقوق محفوظة</span></p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Scripts -->
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
