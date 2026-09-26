@@ -1,0 +1,5 @@
+﻿# Cline Operating Protocol
+- Resume work exclusively from TASK_STATUS.md.
+- Keep modifications atomic; avoid full-file rewrites.
+- Read only targeted files needed for the task.
+- Update TASK_STATUS.md before ending sessions.
