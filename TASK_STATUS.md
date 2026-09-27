@@ -1,234 +1,141 @@
-﻿# TASK STATUS & ARCHITECTURE CHECKPOINT
-# Project: Polished Arabic RTL School Website
-# School: مدرسة أبي بكر الصديق الأساسية للبنين الثانية
-# Created: 2026-09-26 22:55
-# Updated: 2026-09-26 23:45
-# Final Status: ✅ COMPLETE - PRESENTATION READY
+# TASK STATUS & ARCHITECTURE CHECKPOINT
+# Project: Presentation-Ready Arabic RTL School Website
+# School: مدرسة أبي بكر الصديق الأساسية للبنين الثانية - لواء قصبة إربد
+# Academic Year: 2026-2027
+# Status: ✅ COMPLETE - FULLY AUDITED & TESTED (FRONTEND PRODUCTION READY)
 
-## DELIVERABLES COMPLETED ✅
+---
 
-### 1. NAVIGATION SYSTEM ✅
-- 10 navigation items fully functional
-  - الرئيسية (Home)
-  - مدرستنا (About)
-  - الخطة التطويرية (Development Plan)
-  - الصفوف (Grades)
-  - الفعاليات (Events)
-  - المبادرات (Initiatives)
-  - الإنجازات (Achievements)
-  - الموارد التعليمية (Resources)
-  - روابط مهمة (Links)
-  - تواصل معنا (Contact)
-- All items scroll/open to correct sections
-- Responsive hamburger menu
-- Fixed sticky navbar
+## 1. COMPLETED WORK ✅
 
-### 2. HOME PAGE STRUCTURE ✅
+### A. Final Frontend Correction Pass & Full Multi-Page SPA Routing
+- **Real Multi-Page Navigation**:
+  - Hides home content completely upon route change.
+  - Dedicated full-width internal hero banner (`.internal-page-header`) styled with official navy/blue gradient, gold border, school metadata badge, and responsive typography.
+  - Breadcrumbs with full history navigation.
+  - Native browser Back and Forward navigation integration (`window.history.back()`).
+  - Deep-hash direct loading (e.g. `#development-learning`, `#school-structure`, `#grade-4`, `#events`, etc.).
+  - Exactly 24 working routes with full, non-placeholder views.
+- **100% Clickable Cards (Zero Dead Cards)**:
+  - Development domain cards, coordinator cards, event cards, initiative cards, quick portals, educational resources, and vision/mission cards are all clickable on their full container with smooth hover elevation (`translateY(-4px)` + enhanced shadow).
 
-1. **Fixed Responsive Navbar** ✅
-   - School logo/name
-   - 10 navigation items
-   - Hamburger menu (mobile)
-   - Gradient background (Navy to Blue)
+### B. School Identity & Provided Logo
+- **Official Provided Logo**:
+  - Extracted from user-supplied document and placed at `assets/images/school-logo.png` and `assets/images/school-logo.jpg` (95,835 bytes).
+  - Used in desktop header (~58px), mobile header (~42px), and footer (~60px).
+  - Replaced all emojis (`🏫`), generic icons, and Ministry logos with the authentic school emblem.
+- **Header School Name Layout**:
+  - Fixed mobile title text breaking. Styled as a 2-line flex column with responsive font sizing (`clamp(0.95rem, 2.2vw, 1.15rem)`):
+    - السطر الأول: **مدرسة أبي بكر الصديق**
+    - السطر الثاني: **الأساسية للبنين الثانية**
+  - Academic year displayed as a subtle pill badge (`العام الدراسي 2026-2027`) and neatly hidden on narrow mobile devices to preserve clean 2-line title.
+  - Direct header action buttons for Facebook and YouTube.
 
-2. **Hero Section** ✅
-   - School name: مدرسة أبي بكر الصديق الأساسية للبنين الثانية
-   - Slogan: نتعلم • نبدع • ننتمي • نتميز
-   - Introduction text
-   - CTA buttons: "أحدث الفعاليات" & "استكشف المدرسة"
-   - Gradient background with pattern overlay
+### C. Exact User-Confirmed Social Media Channels
+- **Facebook المدرسة**:
+  `https://www.facebook.com/people/%D9%85%D8%AF%D8%B1%D8%B3%D8%A9-%D8%A3%D8%A8%D9%8A-%D8%A8%D9%83%D8%B1-%D8%A7%D9%84%D8%B5%D8%AF%D9%8A%D9%82-%D8%A7%D9%84%D8%A3%D8%B3%D8%A7%D8%B3%D9%8A%D8%A9-%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9-%D9%82%D8%B5%D8%A8%D8%A9-%D8%A5%D8%B1%D8%A8%D8%AF/61579680572587/`  
+  *Canonical Source:* `siteData.socialLinks.facebook.url`
+- **YouTube المدرسة**:
+  `https://www.youtube.com/@abkrschool/playlists`  
+  *Canonical Source:* `siteData.socialLinks.youtube.url`
 
-3. **Vision & Mission** ✅
-   - Vision: "مدرسة فاعلة ومتميزة معززة لجودة التعليم..."
-   - Mission: "بيئة تعليمية جاذبة، تعلم نوعي..."
-   - Card-based layout
-   - Purple and Green accent colors
+### D. Public UI Polish & Audit Isolation
+- Stripped all technical audit tags (`USER_CONFIRMED`, `OFFICIAL_VERIFIED`, `MANUAL_VERIFICATION_REQUIRED`) from public-facing HTML and JavaScript renderers.
+- Audit classifications are strictly preserved in internal metadata (`LINK_AUDIT.md` and `data.js` properties).
+- Replaced audit legends with helpful, welcoming informational messages for parents and students.
 
-4. **Development Plan 2026-2027** ✅
-   - 4 Interactive cards with colors:
-     1. التعلم والتعليم (Blue #1087C9)
-     2. بيئة الطلبة والمناخ والسياق الثقافي (Green #15966B)
-     3. المدرسة والمجتمع (Yellow #F7B731)
-     4. القيادة والإدارة (Purple #7656B3)
-   - Modal popup for each with:
-     - المجال (Field)
-     - النتيجة التطويرية (Developmental Result)
-     - المبادرات (Initiatives)
-     - الأنشطة (Activities)
-     - المؤشرات (Indicators)
+### E. School-First Compact Footer
+- Compact 4-column layout:
+  1. **عن المدرسة**: نبذة تعريفية + روابط هوية المدرسة.
+  2. **صفحات المدرسة**: الكادر، الخطة التطويرية، مجالات التطوير، والفعاليات.
+  3. **فصول وبوابات**: الصف الرابع، الصف الخامس، برامج الدعم، المبادرات، والروابط المهمة.
+  4. **تواصل ومتابعة**: قنوات التواصل المعتمدة ونموذج المراسلة المباشرة.
+- Copyright bar exclusively dedicated to the school:
+  `© 2026-2027 مدرسة أبي بكر الصديق الأساسية للبنين الثانية. جميع الحقوق محفوظة.`
 
-5. **Latest Events** ✅
-   - 4 event cards with:
-     - Image/emoji
-     - Category badge
-     - Date formatting
-     - Title and description
-     - Details button
-   - Responsive grid layout
+### F. Canonical Development Plan Mapping (Source: `خطة 2(2).docx`)
+Each of the 4 development areas has a complete, rich internal view containing:
+- تعريف المجال والمؤشر المعياري المعتمد
+- التوصيات ومسوغاتها التفصيلية من واقع المراجعة الذاتية ومجموعات التركيز
+- النتيجة التطويرية المستهدفة
+- الأنشطة والإجراءات التنفيذية
+- المسؤوليات وجهات التنفيذ
+- التوقيت الزمني الدقيق ومصادر الدعم والتمويل (منحة الوزارة)
+- مؤشرات الأداء (KPIs) مع خط الأساس والمستهدف وأدوات القياس
+- سلم التقدير اللفظي الشامل (Rubric) من المستوى 1 (ضعيف) إلى المستوى 5 (قوي جداً)
+- المواءمة الاستراتيجية الوطنية مع وثيقة 2026-2030
+- المبادرات والروابط المرتبطة
 
-6. **Initiatives (المبادرات)** ✅
-   - 7 initiatives implemented:
-     1. سنبلة
-     2. مملكة الأصدقاء
-     3. صف الفرح
-     4. مدرستي مكان آمن
-     5. كلمة طيبة
-     6. أتصرف صح
-     7. أصدقاء السلوك الإيجابي
-   - Card-based grid layout
-   - Icon and description for each
+---
 
-7. **Student Quick Portals** ✅
-   - الصف الرابع
-   - الصف الخامس
-   - صف الفرح
-   - الجدران التفاعلية
+## 2. FINAL INFORMATION ARCHITECTURE & ROUTES
 
-8. **Educational Resources** ✅
-   - كتب الصف الرابع
-   - كتب الصف الخامس
-   - YouTube
-   - Google Drive
-   - سراج
+| Route / Hash | View Title | Scope & Features |
+|---|---|---|
+| `#home` | الرئيسية | التدفق المعتمد للأقسام الـ 10 المختصرة مع شريط الشرائح والبوابات السريعة |
+| `#school` | نبذة عن المدرسة | التعريف الشامل، ركائز المدرسة، الإحصائيات المعتمدة |
+| `#vision-mission` | رؤيتنا ورسالتنا | بطاقات الرؤية والرسالة، الأهداف الاستراتيجية، المواءمة الوطنية |
+| `#staff` | الكادر المدرسي | بطاقة المديرة، الأقسام التعليمية، الهيئة التدريسية |
+| `#school-structure` | هيكل الحوكمة والتطوير | شجرة الهيكل التنظيمي الهرمية المعتمدة بالخطوط والروابط |
+| `#development-team` | فريق تطوير المدرسة | منسقو المجالات الأربعة وفرق التنسيق ومهام اللجان |
+| `#development-plan` | الخطة التطويرية | نظرة عامة على الخطة للأعوام 2025-2027 والنتائج المستهدفة |
+| `#development-learning` | التعلم والتعليم | تحليل التشخيص، التداخلات، منصة سراج، والدرس التطبيقي |
+| `#development-environment`| بيئة الطلبة والمناخ | الأمان المدرسي، صندوق الأمان، السلوك الإيجابي، والوقاية من التنمر |
+| `#development-community` | المدرسة والمجتمع | مبادرة حلقة وصل، التدوير والبيئة، السلامة الرقمية، والشراكات |
+| `#development-leadership` | القيادة والإدارة | ورش بناء الخطة، مؤشرات الأداء، وتوزيع التكليفات الفردية |
+| `#grades` | فصول الدراسة وبرامج الدعم | بوابة المرحلة الأساسية والبرامج الداعمة |
+| `#grade-4` | الصف الرابع الأساسي | المناهج المقررة، أهداف التعلم، والبرامج الداعمة |
+| `#grade-5` | الصف الخامس الأساسي | المناهج المقررة، التفكير الاستدلالي، والبرلمان الطلابي |
+| `#support-programs` | برامج الدعم التعليمي | دليل برامج الدعم والرعاية (صف الفرح، التداخلات، الموهوبين، القراءة) |
+| `#events` | الفعاليات | أرشيف الأنشطة والفعاليات المدرسية |
+| `#event/:id` | تفاصيل الفعالية | تفاصيل النشاط، المشاركون، المخرجات، والصور |
+| `#initiatives` | المبادرات والبرامج | استعراض كافة المبادرات المدرسية الـ 13 المعتمدة |
+| `#initiative/:id` | تفاصيل المبادرة | أهداف المبادرة، الفئة المستهدفة، الأثر، والمجال المرتبط |
+| `#achievements` | الإنجازات | سجل التميز الأكاديمي والبيئي والمجتمعي |
+| `#achievement/:id` | تفاصيل الإنجاز | المؤشرات الملموسة والشواهد التوثيقية للإنجاز |
+| `#resources` | الموارد التعليمية | المناهج، منصة أجيال، منصة سراج، وقناة يوتيوب |
+| `#links` | روابط مهمة | الدليل المصنف بـ 6 فئات مع روابط المنصات الرسمية المعتمدة |
+| `#contact` | تواصل معنا | بيانات المدرسة الرسمية ونموذج المراسلة الداخلي التفاعلي |
 
-9. **Important Links** ✅
-   - Responsive card grid
-   - Multiple institutional links
-   - Quick access buttons
+---
 
-10. **Professional Footer** ✅
-    - School name and info
-    - Directorate: مديرية التربية والتعليم لمحافظة إربد - المديرية الأولى
-    - National school number: 114541
-    - Quick links
-    - Educational platforms
-    - Social media links (Facebook, YouTube)
-    - Academic year: 2026-2027
-    - Copyright information
+## 3. NAVIGATION RESPONSIVENESS & INTERACTIVE STAFF HIERARCHY AUDIT ✅
 
-### 3. TECHNICAL IMPLEMENTATION ✅
+### A. Navigation Responsiveness
+- **Desktop (>= 1200px)**: Compacted brand layout; moved secondary badges (academic year) and social links out of the navbar to eliminate clipping. All 10 top-level menu items fit on one line with 0px overflow across 1200px, 1280px, 1440px, and 1920px.
+- **Tablet (768px – 1199px)**: Breakpoint configured at `1199px` to switch to a compact mobile hamburger drawer before any brand or menu squeezing occurs.
+- **Mobile (< 768px)**: 2-line title with fluid clamp font sizing, clean hamburger trigger, slide-down drawer with expandable submenus, secondary metadata (`الرقم الوطني`, `المديرية`, `العام الدراسي`), and social buttons inside the drawer.
+- **Verified Screen Widths Tested (CDP Automated Headless Edge Runner)**:
+  - 1920px: PASS (0px overflow)
+  - 1440px: PASS (0px overflow)
+  - 1280px: PASS (0px overflow)
+  - 1024px: PASS (0px overflow)
+  - 768px: PASS (0px overflow)
+  - 430px: PASS (0px overflow)
+  - 390px: PASS (0px overflow)
+  - 360px: PASS (0px overflow)
 
-**Files Created:**
-- ✅ index.html (10.1K, 265 lines)
-  - Semantic HTML5 structure
-  - All sections with correct IDs
-  - Data-driven placeholders
-  - Fully accessible markup
+### B. Interactive Staff Hierarchy Tree (`#staff`)
+- **Verified Structure (Canonical Source: `خطة 2(2).docx`)**:
+  - Senior Leadership: مدير التربية والتعليم (د. رعد الخصاونة) → رئيس مجلس الشبكة (قاسم الداوود) → مستشار التطوير المدرسي (سوزان حماد)
+  - School Leadership: مديرة المدرسة / رئيس فريق التطوير (منيا ردايدة)
+  - Four Core Development Areas:
+    1. **التعلم والتعليم** (Blue 📘): Coordinator ازدهار فودة | Members: رهام المومني، هبه عبدالقادر
+    2. **بيئة الطلبة والمناخ والسياق الثقافي** (Green 🌱): Coordinator عبير السيد | Members: ثراء العيسى، هديل الجمال
+    3. **المدرسة والمجتمع** (Gold 🤝): Coordinator لبنى عبدالقادر | Members: بثينة الخليلي، ريما العبد الله
+    4. **القيادة والإدارة** (Purple 🧭): Coordinator منى القرعان | Members: ميرفت درباس، رانا الشناق
+  - General Teaching Faculty ("الهيئة التدريسية والكادر المدرسي") displayed neatly below verified governance tree.
+- **Interactivity**:
+  - Collapsible branches with smooth transitions (150–280ms) and `aria-expanded` attributes.
+  - Expand All / Collapse All controls.
+  - Person detail modal dialog with zero invented data (renders only real recorded fields: role, area, responsibilities, committees), accessible Escape key dismissal, and backdrop click handler.
+  - Mobile vertical accordion tree layout with hierarchical branch markers (`├`, `└`).
+  - Bidirectional cross-linking: `#school-structure` ↔ `#staff`.
 
-- ✅ assets/css/style.css (21.2K, 1000+ lines)
-  - Mobile-first responsive design
-  - Breakpoints: 480px, 768px
-  - Color variables (Navy, Blue, Green, Yellow, Purple)
-  - Light background: #F4F8FC
-  - Rounded cards with glassmorphism
-  - Subtle hover lift effects
-  - Smooth transitions (150ms-500ms)
-  - Scroll reveal animations
-  - Modern icons ready
+---
 
-- ✅ assets/js/data.js (8.2K)
-  - Single source of truth for all content
-  - School information
-  - Navigation structure
-  - Vision and Mission
-  - 4 Development Plan areas with full details
-  - 4 Latest events
-  - 7 Initiatives
-  - Student portals
-  - Educational resources
-  - Important links
-  - Footer content
-  - **No hardcoded content** - data-driven approach
+## 4. CMS & APPS SCRIPT PRESERVATION
+- **CMS / Google Apps Script:** Untouched.
+- Frontend architecture is fully decoupled, production-tested, and ready for future API binding with `getSiteModelV3()`.
+- **Deployment Status:** NOT YET DEPLOYED (awaiting user visual approval).
 
-- ✅ assets/js/app.js (11.5K)
-  - DOMContentLoaded initialization
-  - populateNavigation() - dynamic menu
-  - populateHero() - hero content
-  - populateVisionMission() - vision/mission
-  - populateDevelopmentPlan() - 4 areas with modal
-  - populateStudentPortals() - quick access
-  - populateEvents() - event cards
-  - populateInitiatives() - 7 initiatives
-  - populateResources() - resource links
-  - populateLinks() - important links
-  - populateContact() - contact info
-  - populateFooter() - footer content
-  - Modal functionality (open/close)
-  - Hamburger menu toggle
-  - Smooth scrolling navigation
-  - Form submission handling
-  - All navigation items functional
-
-### 4. DESIGN SPECIFICATIONS ✅
-- RTL (Right-to-Left) enabled: dir="rtl"
-- Modern educational design
-- Color scheme:
-  - Navy: #073B64
-  - Blue: #1087C9
-  - Green: #15966B
-  - Yellow: #F7B731
-  - Purple: #7656B3
-  - Light background: #F4F8FC
-- Rounded cards (8px-16px radius)
-- Subtle glassmorphism effects
-- Smooth hover lift (+8px transform)
-- Gentle glow effects (box-shadow)
-- Scroll reveal animations
-- Modern emoji icons
-- Student-friendly aesthetic
-- Professional, not childish
-- Fully responsive (mobile-first)
-
-### 5. TESTING & VERIFICATION ✅
-✓ All 10 navigation items work
-✓ All sections present and accessible
-✓ Vision and Mission visible
-✓ Development Plan 4 areas displayed
-✓ Modal opens/closes correctly
-✓ No dead links (SPA behavior)
-✓ Data.js single source of truth
-✓ No external frameworks
-✓ No lorem ipsum
-✓ No CMS/API integration
-✓ Mobile layout responsive
-✓ Tablet layout responsive
-✓ Desktop layout perfect
-✓ No console errors
-✓ All assets loading (HTTP 200)
-✓ RTL text rendering correct
-✓ Color scheme applied
-✓ Animations smooth
-✓ Forms functional
-✓ Browser compatible
-
-## DEPLOYMENT READY ✅
-
-**Local Server:** http://localhost:8080 (Port 8080)
-**Start Command:** `python -m http.server 8080`
-**No Build Process Required**
-**No External Dependencies**
-**100% Vanilla HTML/CSS/JavaScript**
-
-## PROJECT STRUCTURE
-```
-School-Website/
-├── index.html (main page - 10.1K)
-├── assets/
-│   ├── css/
-│   │   └── style.css (responsive RTL design - 21.2K)
-│   ├── js/
-│   │   ├── data.js (all content - 8.2K)
-│   │   └── app.js (all functionality - 11.5K)
-│   └── images/ (placeholder ready)
-├── TASK_STATUS.md (this file)
-├── README.md (old basic version)
-└── .git/ (version control)
-```
-
-## NEXT STEPS (When Ready)
-- Replace data.js with getSiteModelV3() API call
-- Integrate Google Apps Script backend
-- Add image assets to assets/images/
-- Deploy to production server
-- Set up domain
-- Configure email for contact form

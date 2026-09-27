@@ -3,207 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="مدرسة أبي بكر الصديق الأساسية للبنين الثانية - موقع تعليمي شامل">
-    <title>مدرسة أبي بكر الصديق الأساسية للبنين الثانية</title>
+    <meta name="description" content="مدرسة أبي بكر الصديق الأساسية للبنين الثانية - مديرية التربية والتعليم للواء قصبة إربد - الخطة التطويرية 2026-2027">
+    <title>مدرسة أبي بكر الصديق الأساسية للبنين الثانية | الموقع الرسمي</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <h1 class="school-name-short">أبي بكر الصديق</h1>
+    <!-- Top Header Bar with Verified Social Links & Contact Info -->
+    <div class="top-bar">
+        <div class="container top-bar-container">
+            <div class="top-bar-meta">
+                <span class="meta-item">📍 مديرية التربية والتعليم للواء قصبة إربد</span>
+                <span class="meta-item">🔢 الرقم الوطني للمدرسة: 114541</span>
+                <span class="meta-item">📅 العام الدراسي: 2026-2027</span>
             </div>
-            <button class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu"></ul>
+            <div class="top-bar-social" id="topBarSocial"></div>
         </div>
-    </nav>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="main-header">
+        <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="#home" class="brand-link" aria-label="العودة للصفحة الرئيسية">
+                        <img src="assets/images/school-logo.png" alt="شعار مدرسة أبي بكر الصديق" class="header-logo">
+                        <div class="brand-text">
+                            <span class="school-name-line1">مدرسة أبي بكر الصديق</span>
+                            <span class="school-name-line2">الأساسية للبنين الثانية</span>
+                        </div>
+                    </a>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="فتح القائمة الرئيسية" aria-expanded="false" aria-controls="navMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu"></ul>
+            </div>
+        </nav>
+    </header>
 
     <!-- Main Content Wrapper -->
-    <main class="main-content">
-        <!-- Home Section -->
-        <section id="home" class="section hero-section">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1 class="hero-title" id="heroSchoolName"></h1>
-                <p class="hero-slogan" id="heroSlogan"></p>
-                <p class="hero-intro">مدرسة متميزة معتمدة دولياً في التعليم والتطوير المستدام</p>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="scrollToSection('events')">أحدث الفعاليات</button>
-                    <button class="btn btn-secondary" onclick="scrollToSection('about')">استكشف المدرسة</button>
+    <main class="main-content" id="mainContent">
+
+        <!-- ==================== HOME VIEW (SHORT & FOCUSED) ==================== -->
+        <div id="homeView" class="spa-view active-view">
+
+            <!-- 1. Hero Image Slider -->
+            <section id="hero" class="hero-slider-section" aria-label="شريط العرض الرئيسي">
+                <div class="slider-container" id="heroSliderContainer" tabindex="0" aria-roledescription="carousel" aria-label="أبرز صور ورسائل المدرسة">
+                    <div class="slides-wrapper" id="slidesWrapper"></div>
+
+                    <!-- Slider Controls -->
+                    <button class="slider-arrow prev" id="sliderPrevBtn" aria-label="الشريحة السابقة">❮</button>
+                    <button class="slider-arrow next" id="sliderNextBtn" aria-label="الشريحة التالية">❯</button>
+                    <div class="slider-dots" id="sliderDots" role="tablist" aria-label="محددات الشرائح"></div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Vision & Mission Section -->
-        <section id="about" class="section vision-mission-section">
-            <div class="container">
-                <h2 class="section-title">رؤيتنا ورسالتنا</h2>
-                <div class="vision-mission-grid">
-                    <div class="vision-card card">
-                        <div class="card-icon">🌟</div>
-                        <h3>رؤيتنا</h3>
-                        <p id="visionText"></p>
+            <!-- 2. Quick Portals (بوابات سريعة) -->
+            <section id="quick-portals" class="section quick-portals-section">
+                <div class="container">
+                    <div class="quick-portals-grid" id="quickPortalsContainer"></div>
+                </div>
+            </section>
+
+            <!-- 3. Vision & Mission Section -->
+            <section id="vision-mission" class="section vision-mission-section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">الهوية التربوية المؤسسية</span>
+                        <h2 class="section-title">رؤيتنا ورسالتنا</h2>
+                        <p class="section-subtitle">منطلقاتنا الأساسية في رعاية أجيال الغد وصناعة التميز التعليمي والقيمي</p>
                     </div>
-                    <div class="mission-card card">
-                        <div class="card-icon">🎯</div>
-                        <h3>رسالتنا</h3>
-                        <p id="missionText"></p>
+                    <div class="vision-mission-grid">
+                        <div class="vision-card card" onclick="window.location.hash='#vision-mission'" role="button" tabindex="0" aria-label="رؤيتنا - استعراض الرؤية والأهداف الاستراتيجية">
+                            <div class="card-icon-wrapper vision-accent">
+                                <span class="card-icon" aria-hidden="true">🌟</span>
+                            </div>
+                            <h3>رؤيتنا</h3>
+                            <p id="visionText" class="card-text"></p>
+                            <div class="card-action-link">
+                                <a href="#vision-mission" class="text-link">قراءة الأهداف الاستراتيجية والمواءمة الوطنية ←</a>
+                            </div>
+                        </div>
+                        <div class="mission-card card" onclick="window.location.hash='#school'" role="button" tabindex="0" aria-label="رسالتنا - المزيد عن نبذة المدرسة وركائزها">
+                            <div class="card-icon-wrapper mission-accent">
+                                <span class="card-icon" aria-hidden="true">🎯</span>
+                            </div>
+                            <h3>رسالتنا</h3>
+                            <p id="missionText" class="card-text"></p>
+                            <div class="card-action-link">
+                                <a href="#school" class="text-link">المزيد عن نبذة المدرسة وركائزها ←</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Development Plan Section -->
-        <section id="development-plan" class="section development-plan-section">
-            <div class="container">
-                <h2 class="section-title">الخطة التطويرية 2026-2027</h2>
-                <p class="section-subtitle">أربع مجالات رئيسية لتطوير أداء المدرسة</p>
-                <div class="development-cards" id="developmentCardsContainer"></div>
-            </div>
-        </section>
+            <!-- 4. Staff & Development Team Preview -->
+            <section id="staff-section" class="section staff-section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">القيادة وفريق التطوير</span>
+                        <h2 class="section-title">الكادر المدرسي وفريق التطوير</h2>
+                        <p class="section-subtitle">قيادة تربوية واعية وكادر تدريسي مؤهل يعمل بروح الفريق الواحد</p>
+                    </div>
 
-        <!-- Development Plan Details Modal -->
-        <div class="modal" id="detailsModal">
-            <div class="modal-content">
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-                <div id="modalBody"></div>
+                    <!-- Principal Spotlight Card -->
+                    <div class="principal-spotlight card" id="principalSpotlightCard"></div>
+
+                    <!-- Development Coordinators Quick Grid Preview -->
+                    <div class="staff-coordinators-block">
+                        <div class="sub-header-flex">
+                            <h3 class="subsection-title">منسقو مجالات الخطة التطويرية 2026-2027</h3>
+                            <a href="#school-structure" class="btn btn-outline btn-sm">شجرة الهيكل التنظيمي الكاملة ←</a>
+                        </div>
+                        <div class="coordinators-grid" id="homeCoordinatorsContainer"></div>
+                    </div>
+
+                    <div class="section-cta-wrap">
+                        <a href="#staff" class="btn btn-primary">عرض الكادر المدرسي والهيئة التدريسية</a>
+                        <a href="#development-team" class="btn btn-secondary">استعراض مهام فريق تطوير المدرسة</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Development Plan Preview (4 Cards) -->
+            <section id="development-plan-preview" class="section development-plan-section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">خطة التطوير والإجراءات 2026-2027</span>
+                        <h2 class="section-title">مجالات الخطة التطويرية</h2>
+                        <p class="section-subtitle">أربعة مجالات استراتيجية متكاملة وفق نتائج المراجعة الذاتية الصادقة للمدرسة</p>
+                    </div>
+                    <div class="development-cards" id="developmentCardsContainer"></div>
+                    <div class="section-cta-wrap">
+                        <a href="#development-plan" class="btn btn-primary">نظرة عامة تفصيلية على الخطة التطويرية والنتائج</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Latest Events (Max 3 on Homepage) -->
+            <section id="home-events" class="section events-section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">الحياة المدرسية</span>
+                        <h2 class="section-title">أحدث الفعاليات والأنشطة</h2>
+                        <p class="section-subtitle">أنشطة تفاعلية ومناسبات مدرسية ترسخ القيادة والانتماء لدى الطلبة</p>
+                    </div>
+                    <div class="events-grid" id="homeEventsContainer"></div>
+                    <div class="section-cta-wrap">
+                        <a href="#events" class="btn btn-secondary">استعراض أرشيف الفعاليات كاملاً</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Initiatives Preview (Max 4 on Homepage) -->
+            <section id="home-initiatives" class="section initiatives-section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">البرامج الإبداعية</span>
+                        <h2 class="section-title">المبادرات المدرسية الرائدة</h2>
+                        <p class="section-subtitle">مبادرات سلوكية وأكاديمية ومجتمعية تعزز الأمان والإبداع والتكافل</p>
+                    </div>
+                    <div class="initiatives-grid" id="homeInitiativesContainer"></div>
+                    <div class="section-cta-wrap">
+                        <a href="#initiatives" class="btn btn-primary">استعراض كافة المبادرات والبرامج المدرسية</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Selected Important Links (Max 6 on Homepage) -->
+            <section id="home-links" class="section links-section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">البوابات والخدمات المعتمدة</span>
+                        <h2 class="section-title">روابط مهمة مختارة</h2>
+                        <p class="section-subtitle">روابط رسمية موثقة تهم الطلبة وأولياء الأمور والمعلمات</p>
+                    </div>
+                    <div class="links-grid" id="homeLinksContainer"></div>
+                    <div class="section-cta-wrap">
+                        <a href="#links" class="btn btn-secondary">عرض دليل الروابط المهمة المصنف كاملاً</a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ==================== INTERNAL SPA VIEW CONTAINER ==================== -->
+        <div id="internalView" class="spa-view hidden-view">
+            <div class="container internal-view-container">
+                <!-- Breadcrumbs & Back Navigation Bar -->
+                <div class="internal-nav-bar">
+                    <nav class="breadcrumb-nav" aria-label="مسار التنقل">
+                        <ol class="breadcrumb" id="breadcrumbList"></ol>
+                    </nav>
+                    <div class="internal-actions">
+                        <button class="btn btn-back" id="backButton" onclick="window.appRouter.goBack()" aria-label="الرجوع للصفحة السابقة">
+                            <span class="btn-icon" aria-hidden="true">←</span>
+                            <span>رجوع</span>
+                        </button>
+                        <a href="#home" class="btn btn-outline btn-sm">الرئيسية</a>
+                    </div>
+                </div>
+
+                <!-- Internal View Body (Populated dynamically by SPA Router) -->
+                <div id="internalContentArea" class="internal-content-area" tabindex="-1"></div>
             </div>
         </div>
 
-        <!-- Grades Section -->
-        <section id="grades" class="section grades-section">
-            <div class="container">
-                <h2 class="section-title">الصفوف والبرامج</h2>
-                <p class="section-subtitle">فصول الدراسة وبرامج الدعم التعليمي</p>
-                <div class="grades-grid" id="studentPortalsContainer"></div>
-            </div>
-        </section>
-
-        <!-- Latest Events Section -->
-        <section id="events" class="section events-section">
-            <div class="container">
-                <h2 class="section-title">أحدث الفعاليات</h2>
-                <p class="section-subtitle">تعرف على أحدث الأنشطة والفعاليات في مدرستنا</p>
-                <div class="events-grid" id="eventsContainer"></div>
-            </div>
-        </section>
-
-        <!-- Initiatives Section -->
-        <section id="initiatives" class="section initiatives-section">
-            <div class="container">
-                <h2 class="section-title">المبادرات</h2>
-                <p class="section-subtitle">مبادرات تعليمية وتربوية متنوعة</p>
-                <div class="initiatives-grid" id="initiativesContainer"></div>
-            </div>
-        </section>
-
-        <!-- Achievements Section -->
-        <section id="achievements" class="section achievements-section">
-            <div class="container">
-                <h2 class="section-title">الإنجازات</h2>
-                <p class="section-subtitle">إنجازات الطلبة والمدرسة</p>
-                <div class="achievements-content">
-                    <div class="achievement-item card">
-                        <div class="achievement-icon">🏆</div>
-                        <h4>تفوق أكاديمي</h4>
-                        <p>معدلات نجاح عالية في الامتحانات الوطنية</p>
-                    </div>
-                    <div class="achievement-item card">
-                        <div class="achievement-icon">🎯</div>
-                        <h4>برامج متخصصة</h4>
-                        <p>برامج دعم وإثراء للطلبة المتفوقين والعاديين</p>
-                    </div>
-                    <div class="achievement-item card">
-                        <div class="achievement-icon">🤝</div>
-                        <h4>شراكات مجتمعية</h4>
-                        <p>تعاون فعّال مع المؤسسات الحكومية والأهلية</p>
-                    </div>
-                    <div class="achievement-item card">
-                        <div class="achievement-icon">🌱</div>
-                        <h4>تطوير مستمر</h4>
-                        <p>التزام بالتطوير والابتكار في المناهج والأداء</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Resources Section -->
-        <section id="resources" class="section resources-section">
-            <div class="container">
-                <h2 class="section-title">الموارد التعليمية</h2>
-                <p class="section-subtitle">مكتبة شاملة للمراجع والأدوات التعليمية</p>
-                <div class="resources-grid" id="resourcesContainer"></div>
-            </div>
-        </section>
-
-        <!-- Important Links Section -->
-        <section id="links" class="section links-section">
-            <div class="container">
-                <h2 class="section-title">روابط مهمة</h2>
-                <p class="section-subtitle">روابط سريعة للمنصات والخدمات التعليمية</p>
-                <div class="links-grid" id="linksContainer"></div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section contact-section">
-            <div class="container">
-                <h2 class="section-title">تواصل معنا</h2>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <h3>معلومات الاتصال</h3>
-                        <p><strong>المدرسة:</strong> <span id="schoolName"></span></p>
-                        <p><strong>الجهة الإشرافية:</strong> <span id="directorate"></span></p>
-                        <p><strong>رقم الرمز المدرسي:</strong> <span id="schoolNumber"></span></p>
-                        <p><strong>السنة الأكاديمية:</strong> <span id="academicYear"></span></p>
-                    </div>
-                    <div class="contact-form">
-                        <h3>أرسل لنا رسالة</h3>
-                        <form id="contactFormElement">
-                            <input type="text" placeholder="اسمك الكامل" required>
-                            <input type="email" placeholder="بريدك الإلكتروني" required>
-                            <textarea placeholder="رسالتك" rows="5" required></textarea>
-                            <button type="submit" class="btn btn-primary">إرسال الرسالة</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer" id="footer">
+    <!-- 10. Professional Footer -->
+    <footer class="footer" id="footer" aria-label="تذييل الموقع">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>عن المدرسة</h4>
-                    <p id="footerSchoolName"></p>
-                    <p id="footerDirectorate"></p>
-                    <p id="footerSchoolNumber"></p>
+            <div class="footer-header-banner">
+                <div class="footer-brand">
+                    <img src="assets/images/school-logo.png" alt="شعار مدرسة أبي بكر الصديق" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <h3 class="footer-school-title" id="footerSchoolName">مدرسة أبي بكر الصديق الأساسية للبنين الثانية</h3>
+                        <p class="footer-directorate-sub" id="footerDirectorate">مديرية التربية والتعليم للواء قصبة إربد</p>
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h4>روابط سريعة</h4>
-                    <ul id="footerQuickLinks"></ul>
-                </div>
-                <div class="footer-section">
-                    <h4>المنصات التعليمية</h4>
-                    <ul id="footerPlatforms"></ul>
-                </div>
-                <div class="footer-section">
-                    <h4>تابعنا على مواقع التواصل</h4>
-                    <div class="social-links" id="socialLinks"></div>
+                <div class="footer-meta-badges">
+                    <span class="meta-pill" id="footerSchoolCode">الرقم الوطني: 114541</span>
+                    <span class="meta-pill" id="footerYear">العام الدراسي 2026-2027</span>
                 </div>
             </div>
+
+            <div class="footer-content">
+                <!-- Column 1: عن المدرسة -->
+                <div class="footer-section">
+                    <h4 class="footer-heading">عن المدرسة</h4>
+                    <p class="footer-about-text" id="footerAboutText">صرح تعليمي حكومي رائد في لواء قصبة إربد، يرعى طلبة الصفين الرابع والخامس الأساسيين في بيئة آمنة ومحفزة للإبداع والتميز.</p>
+                    <ul class="footer-nav-list" id="footerAboutLinks"></ul>
+                </div>
+
+                <!-- Column 2: صفحات المدرسة -->
+                <div class="footer-section">
+                    <h4 class="footer-heading">صفحات المدرسة</h4>
+                    <ul class="footer-nav-list" id="footerSchoolPagesLinks"></ul>
+                </div>
+
+                <!-- Column 3: فصول وبوابات -->
+                <div class="footer-section">
+                    <h4 class="footer-heading">فصول وبوابات</h4>
+                    <ul class="footer-nav-list" id="footerPortalsLinks"></ul>
+                </div>
+
+                <!-- Column 4: قنوات التواصل المعتمدة -->
+                <div class="footer-section">
+                    <h4 class="footer-heading">تواصل ومتابعة</h4>
+                    <div class="footer-contact-details">
+                        <p><strong>الموقع:</strong> إربد - المملكة الأردنية الهاشمية</p>
+                        <p><strong>المرحلة:</strong> الصف الرابع والخامس الأساسي</p>
+                        <p><a href="#contact" class="footer-contact-btn">نموذج الاستفسارات والمراسلة ←</a></p>
+                    </div>
+                    <div class="footer-social-wrap">
+                        <span class="social-label">قنواتنا الرسمية المعتمدة:</span>
+                        <div class="social-links-verified" id="footerSocialLinks"></div>
+                    </div>
+                </div>
+            </div>
+
             <div class="footer-bottom">
-                <p>&copy; 2026 <span id="copyrightYear">جميع الحقوق محفوظة</span></p>
+                <p>&copy; 2026-2027 <span id="copyrightSchoolName">مدرسة أبي بكر الصديق الأساسية للبنين الثانية</span>. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Employee / Person Detail Modal Dialog -->
+    <div class="person-modal-backdrop" id="personModalBackdrop" aria-hidden="true" role="presentation">
+        <div class="person-modal-dialog" id="personModalDialog" role="dialog" aria-modal="true" aria-labelledby="modalPersonName" tabindex="-1">
+            <button class="person-modal-close" id="personModalCloseBtn" aria-label="إغلاق الملف التعريفي">✕</button>
+            <div class="person-modal-body" id="personModalBody">
+                <!-- Dynamically populated by App.openPersonModal() -->
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="assets/js/data.js"></script>
