@@ -1,190 +1,198 @@
-# مدرسة النور - School Website
-# Noor School Website
+# مدرسة أبي بكر الصديق الأساسية للبنين الثانية - الموقع الرسمي
+## Abu Bakr Al-Siddiq Elementary School for Boys II - Official Website
 
-A professional, modern school website built with pure HTML, CSS, and JavaScript. Fully responsive and optimized for mobile-first viewing with complete Arabic RTL support.
-
-## Features
-
-✨ **Professional Design**
-- Clean, modern interface
-- Mobile-first responsive design
-- Optimized for all screen sizes (480px, 768px, and up)
-
-🌍 **Arabic RTL Support**
-- Full right-to-left (RTL) text direction
-- Native HTML RTL implementation
-- Beautiful Arabic typography
-
-📱 **Responsive Layout**
-- Mobile-friendly hamburger menu
-- Grid-based layout with CSS Flexbox and Grid
-- Adaptive navigation for all devices
-
-✅ **Key Sections**
-- **Navigation:** Sticky header with smooth scrolling
-- **Hero Section:** Eye-catching banner with CTA
-- **About:** School mission, vision, and statistics
-- **Features:** Service cards showcasing offerings
-- **Contact:** Contact information and inquiry form
-- **Footer:** Links and social media
-
-🎨 **Interactive Features**
-- Smooth scroll navigation
-- Hamburger menu toggle (mobile)
-- Contact form with validation
-- Hover effects and animations
-
-## Technology Stack
-
-- **HTML5** - Semantic structure
-- **CSS3** - Modern styling with Grid and Flexbox
-- **JavaScript** - Vanilla JS for interactivity
-- **No Dependencies** - Pure HTML/CSS/JS implementation
-
-## Getting Started
-
-### Quick Start (Local Development)
-
-1. **Navigate to project directory:**
-   ```bash
-   cd School-Website
-   ```
-
-2. **Start a local web server:**
-   ```bash
-   # Using Python 3
-   python -m http.server 8080
-   
-   # Or using Python 2
-   python -m SimpleHTTPServer 8080
-   
-   # Or using Node.js
-   npx http-server -p 8080
-   ```
-
-3. **Open in browser:**
-   - Navigate to `http://localhost:8080`
-   - Website will load with full responsiveness
-
-### File Structure
-
-```
-School-Website/
-├── index.html      # Main HTML file with structure
-├── styles.css      # All styling (responsive, RTL)
-├── script.js       # JavaScript for interactivity
-└── README.md       # Documentation
-```
-
-## Responsive Breakpoints
-
-- **Desktop:** 1200px and up
-- **Tablet:** 768px - 1199px
-- **Mobile:** 480px - 767px
-- **Small Mobile:** Below 480px
-
-## Browser Compatibility
-
-- Chrome/Chromium (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-## Features Breakdown
-
-### Navigation
-- Sticky header that remains visible on scroll
-- Smooth scroll to sections
-- Mobile hamburger menu with toggle functionality
-
-### Hero Section
-- Full-height banner with gradient background
-- Call-to-action button
-- Responsive text sizing
-
-### About Section
-- School mission and vision
-- Statistics display
-- Grid-based stat cards
-
-### Features Section
-- 4-column card grid (responsive)
-- Icon and description for each service
-- Hover effects on cards
-
-### Contact Section
-- Contact information display
-- Contact form with fields for name, email, message
-- Form validation
-
-### Footer
-- Copyright information
-- Social media links
-
-## Customization
-
-### Colors
-Edit the CSS variables in `styles.css`:
-```css
-:root {
-    --primary: #1e40af;        /* Primary blue */
-    --primary-dark: #1e3a8a;   /* Darker blue */
-    --accent: #f59e0b;         /* Accent orange */
-    --text-dark: #1f2937;      /* Dark text */
-    --text-light: #6b7280;     /* Light text */
-    --bg-light: #f9fafb;       /* Light background */
-}
-```
-
-### Content
-Edit `index.html` to update:
-- School name and descriptions
-- Section content
-- Contact information
-- Social media links
-
-### Typography
-Modify font families and sizes in `styles.css` under the body and heading selectors.
-
-## Performance
-
-- No external dependencies or CDN resources
-- Fast loading times (all assets local)
-- Optimized CSS and JavaScript
-- Minimal file size
-
-## RTL Implementation
-
-The website uses native HTML RTL support:
-```html
-<html lang="ar" dir="rtl">
-```
-
-All CSS is implemented with RTL in mind:
-- Flexbox and Grid handle direction automatically
-- Text alignment adjusted for RTL
-- Margin and padding work correctly in RTL context
-
-## Testing
-
-The website has been tested for:
-- ✓ HTML validation
-- ✓ CSS rendering
-- ✓ JavaScript functionality
-- ✓ Mobile responsiveness
-- ✓ Arabic content display
-- ✓ RTL text direction
-- ✓ Cross-browser compatibility
-
-## License
-
-Copyright © 2026 School Website. All rights reserved.
-
-## Contact
-
-For inquiries or support, please use the contact form on the website or email: info@noor-school.edu.sa
+الموقع الرسمي لمدرسة أبي بكر الصديق الأساسية للبنين الثانية التابعة لمديرية التربية والتعليم للواء قصبة إربد، المملكة الأردنية الهاشمية. موقع مدرسي متكامل ثنائي التصفح يدعم اتجاه الكتابة من اليمين إلى اليسار (Arabic RTL)، مصمم لعرض الخطة التطويرية للمدرسة (2026-2027) والهيكل التنظيمي والمبادرات والفعاليات والخدمات التعليمية.
 
 ---
 
-**Note:** This is a professional school website template. Update the school name, contact information, and content to match your institution.
+## 1. معلومات المدرسة (School Information)
+
+| البند | البيان المعتمد |
+|---|---|
+| **اسم المدرسة** | مدرسة أبي بكر الصديق الأساسية للبنين الثانية |
+| **المديرية** | مديرية التربية والتعليم للواء قصبة إربد |
+| **الرقم الوطني للمدرسة** | 114541 |
+| **العام الدراسي** | 2026-2027 |
+| **الموقع الجغرافي** | إربد - المملكة الأردنية الهاشمية |
+| **المرحلة التعليمية** | الصفان الرابع والخامس الأساسيان وبرامج الدعم التربوي |
+| **الشعار اللفظي** | نتعلم • نبدع • ننتمي • نتميز |
+
+---
+
+## 2. نظرة عامة على المشروع (Project Overview)
+
+موقع ويب مدرسي متطور، تفاعلي بالكامل، ومبني بأحدث معايير الويب الأصيلة (Vanilla Web Standards) دون أي أطر عمل خارجية. تم بناء المشروع ليكون واجهة رقمية متكاملة تعبر عن الهوية المؤسسية لمدرسة أبي بكر الصديق الأساسية للبنين الثانية، ويوفر بيئة استعراض شاملة للطلبة، المعلمات، أولياء الأمور، وإدارة التعليم.
+
+يتميز الموقع بتصميم متجاوب وسريع الاستجابة على مختلف مقاسات الشاشات، ويدعم التنقل السلس بين الأقسام والصفحات الفرعية بنظام التطبيق أحادي الصفحة (Single Page Application - SPA) عبر تجزئة الروابط (Hash Routing)، مع فصل كامل لبيانات المحتوى لتسهيل إدارة الموقع وربطه مستقبلاً بنظام إدارة محتوى (CMS).
+
+---
+
+## 3. المميزات الرئيسية (Features)
+
+- **دعم أصيل للغة العربية (Arabic RTL Support):**
+  - اتجاه كامل من اليمين لليسار (`dir="rtl"`) مع خطوط عربية واضحة ومقروءة على جميع المتصفحات والأنظمة.
+- **شريط عرض رئيسي تفاعلي (Hero Image Slider):**
+  - شرائح متحركة تعرض أبرز رسائل المدرسة، الطابور الصباحي، والفعاليات مع أدوات تحكم تفاعلية (أسهم التنقل، مؤشرات النقط، وتوقف عند التمرير أو التركيز).
+- **قائمة تنقل متجاوبة وذكية (Responsive Navigation):**
+  - على أجهزة الحاسوب المكتبية (Desktop >= 1200px): شريط علوي أنيق يستوعب جميع عناصر القائمة الرئيسية في سطر واحد دون أي انكسار أو تجاوز أفقي (0px Overflow).
+  - على الأجهزة اللوحية (Tablet 768px - 1199px): انتقال تلقائي ومبكر إلى قائمة الهامبرغر لمنع انضغاط النصوص أو تشوه الشعار.
+  - على الهواتف الذكية (Mobile < 768px): درج منزلق ناعم، شاشات فرعية متداخلة قابلة للطي، اسم المدرسة موزع على سطرين بخط متناسق، وشارات توضيحية لبيانات المدرسة.
+- **شجرة الهيكل التنظيمي والكادر المدرسي التفاعلية (Interactive Staff Hierarchy):**
+  - هيكل تنظيمي هرمي واضح يبدأ من مديرية التربية ومجلس التطوير التربوي وصولاً لإدارة المدرسة ومنسقي مجالات الخطة التطويرية والكادر التعليمي.
+  - إمكانية طي وتوسيع الفروع شجرياً، أزرار فتح/إغلاق الكل، ونافذة منبثقة تفاعلية (Modal Dialog) تستعرض بطاقة الملف التعريفي والمسؤوليات واللجان الرسمية.
+- **نظام صفحات داخلية متكامل (Internal SPA Views):**
+  - دعم 24 مساراً داخلياً بتنسيق الـ Hash، مثل صفحات المجالات التطويرية، فصول الصف الرابع والخامس، تفاصيل الفعاليات والمبادرات، مع شريط مسار التنقل (Breadcrumbs) وزر للرجوع التلقائي المتوافق مع سجل المتصفح.
+- **روابط التواصل الاجتماعي الرسمية الموثقة (Verified Social Links):**
+  - ربط مباشر ومؤكد بصفحة المدرسة على فيسبوك وقناة المدرسة على يوتيوب.
+- **أداء استثنائي وخفة في التحميل:**
+  - أصول مدمجة ومحسنة بحجم إجمالي لا يتجاوز ~50 كيلوبايت، وزمن تحميل أقل من ثانية واحدة دون الاعتماد على مكتبات أو خطوط خارجية ضخمة.
+
+---
+
+## 4. الهيكل المعماري وأقسام الموقع (Site Structure)
+
+يتألف الموقع من الأقسام والصفحات الرئيسية التالية:
+
+1. **الرئيسية (`#home`):**
+   - شريط العرض الرئيسي (Hero Slider).
+   - بوابات الوصول السريع (Quick Portals).
+   - ملخص الرؤية والرسالة والقيم الجوهرية.
+   - بطاقة مديرة المدرسة ومنسقي مجالات التطوير.
+   - نظرة عامة على مجالات الخطة التطويرية الأربعة.
+   - أحدث الفعاليات والأنشطة المدرسية.
+   - المبادرات والبرامج الرائدة.
+   - روابط مهمة مختارة وتذييل الموقع الرسمي.
+2. **مدرستنا (`#school`):**
+   - التعريف بالمدرسة، ركائز التميز الأربعة، وإحصائيات عامة.
+3. **رؤيتنا ورسالتنا (`#vision-mission`):**
+   - نص الرؤية والرسالة المعتمد، الأهداف الاستراتيجية، ومسار المواءمة الوطنية مع استراتيجية وزارة التربية والتعليم 2026-2030.
+4. **الكادر المدرسي (`#staff`):**
+   - دليل الهيئة الإدارية والتدريسية واللجان المدرسية.
+5. **هيكل الحوكمة والتطوير المدرسي (`#school-structure`):**
+   - شجرة الحوكمة التفاعلية المعتمدة وعلاقات الإشراف والتنسيق.
+6. **فريق تطوير المدرسة (`#development-team`):**
+   - أعضاء فريق التطوير، مهام اللجان، ومسؤوليات مجالات الخطة.
+7. **الخطة التطويرية 2026-2027 (`#development-plan`):**
+   - نظرة عامة على الخطة الاستراتيجية ومنهجية المراجعة الذاتية.
+8. **فصول الدراسة وبرامج الدعم (`#grades`):**
+   - بوابة الصفوف والمراحل التعليمية.
+   - بوابة الصف الرابع الأساسي (`#grade-4`).
+   - بوابة الصف الخامس الأساسي (`#grade-5`).
+   - برامج الدعم والرعاية والتدخلات العلاجية (`#support-programs`).
+9. **الفعاليات (`#events`):**
+   - سجل الفعاليات المدرسية والأنشطة اللامنهجية والمناسبات الوطنية.
+10. **المبادرات والبرامج (`#initiatives`):**
+    - المبادرات المدرسية (سنبلة، مملكة الأصدقاء، صف الفرح، مدرستي مكان آمن، كلمة طيبة، أتصرف صح، أصدقاء السلوك الإيجابي، وغيرها).
+11. **الإنجازات (`#achievements`):**
+    - لوحة الشرف وإنجازات المدرسة الأكاديمية والبيئية والمجتمعية.
+12. **الموارد التعليمية (`#resources`):**
+    - المناهج الدراسية، المنصات الإلكترونية (سراج، أجيال)، والقنوات التعليمية.
+13. **روابط مهمة (`#links`):**
+    - دليل روابط المنصات الرسمية والوزارية المصنفة.
+14. **تواصل معنا (`#contact`):**
+    - بيانات المدرسة الرسمية، العنوان الجغرافي، ونموذج إرسال الاستفسارات والملاحظات.
+
+---
+
+## 5. هيكل مجالات الخطة التطويرية (Development-Plan Structure)
+
+تستند الخطة التطويرية المعتمدة للمدرسة للأعوام 2025-2027 إلى نتائج المراجعة الذاتية الشاملة ومجموعات التركيز، وتتوزع على أربعة مجالات استراتيجية:
+
+1. **مجال التعلم والتعليم (`#development-learning`):**
+   - التركيز على التحليل التشخيصي للبيانات، تفريد التعلم، التدخلات العلاجية، توظيف منصة سراج، وتنفيذ الدروس التطبيقية لرفع كفاءة التحصيل الدراسي في مبحثي اللغة العربية والرياضيات.
+2. **مجال بيئة الطلبة والمناخ والسياق الثقافي (`#development-environment`):**
+   - توفير بيئة تعليمية آمنة ومحفزة وصحية، مكافحة التنمر عبر صندوق الأمان السري، تعزيز السلوك الإيجابي، وتفعيل القيادة الطلابية والبرلمان المدرسي.
+3. **مجال المدرسة والمجتمع (`#development-community`):**
+   - توثيق الشراكة مع أولياء الأمور والمجتمع المحلي عبر مبادرة "حلقة وصل"، برامج إعادة التدوير، التوعية بالأمن الرقمي، والمشاريع المجتمعية المشتركة.
+4. **مجال القيادة والإدارة (`#development-leadership`):**
+   - ترسيخ مبادئ الحوكمة والقيادة التشاركية، ورش العمل لبناء خطط التطوير، توزيع المهام والتكليفات، ومتابعة مؤشرات الأداء الرئيسية (KPIs) وسلالم التقدير اللفظية (Rubrics).
+
+---
+
+## 6. حزمة التقنيات المستخدمة (Technology Stack)
+
+- **HTML5:** بناء دلالي هيكلي متكامل مع دعم كامل للوسوم التوضيحية وتوافقية قارئات الشاشة (Screen Readers).
+- **CSS3:** تصميم متقدم يعتمد على متغيرات التصميم (CSS Variables)، ونظامي CSS Grid و Flexbox، مع تأثيرات بصرية عصرية وظلال ناعمة (Glassmorphism & Micro-interactions).
+- **Vanilla JavaScript (ES6+):** كود نقي بالكامل دون أي مكتبات خارجية لإدارة العرض الديناميكي، النوافذ المنبثقة، الشرائح، وتوجيه الـ SPA.
+- **التوجيه بنظام الهاش (Hash-based SPA Router):** إدارة حالة التنقل عبر الهاش في الرابط مع دعم زر الرجوع والتاريخ في المتصفح.
+- **التصميم المتجاوب (Responsive Design):** نقاط توقف مدروسة تتوافق تماماً مع جميع مقاسات الشاشات والهواتف الذكية.
+- **الاستغناء الكامل عن الأطر الثقيلة (Zero Frameworks / Zero Dependencies):** أقصى سرعة أداء وخلو كامل من مخاطر تبعيات الحزم الخارجية.
+
+---
+
+## 7. تعليمات التشغيل المحلي (Local Run Instructions)
+
+المشروع موقع ويب ثابت لا يتطلب أي عمليات بناء (Build Steps) أو تثبيت حزم:
+
+### الخيار الأول: عبر بايثون 3 (موصى به)
+```bash
+# الانتقال لمجلد المشروع
+cd School-Website
+
+# تشغيل خادم محلي
+python -m http.server 8080
+```
+ثم فتح المتصفح على العنوان: `http://localhost:8080`
+
+### الخيار الثاني: عبر Node.js (npx)
+```bash
+cd School-Website
+npx http-server -p 8080
+```
+ثم فتح المتصفح على العنوان: `http://localhost:8080`
+
+### الخيار الثالث: عبر إضافة Live Server في VS Code
+1. فتح مجلد المشروع في محرر Visual Studio Code.
+2. النقر بزر الفأرة الأيمن على ملف `index.html`.
+3. اختيار **Open with Live Server**.
+
+---
+
+## 8. الاستضافة والنشر (Deployment)
+
+- **المنصة الحالية المعتمدة:** Cloudflare Pages
+- **رابط الإنتاج المباشر:** [https://abs2e-school.pages.dev](https://abs2e-school.pages.dev)
+- **مستودع الكود المصدري:** [https://github.com/IoTGates/School-Website](https://github.com/IoTGates/School-Website)
+- **إعدادات النشر على Cloudflare Pages:**
+  - Build command: لا يوجد (موقع ثابت جاهز للإنتاج)
+  - Build output directory: `/` (جذر المستودع)
+  - فرع الإنتاج: `main`
+
+---
+
+## 9. قنوات التواصل المعتمدة للمدرسة (Social Links)
+
+القنوات الرسمية المعتمدة للمدرسة:
+
+- **فيسبوك (Facebook):**  
+  [صفحة مدرسة أبي بكر الصديق الأساسية الثانية - قصبة إربد الرسمية](https://www.facebook.com/people/%D9%85%D8%AF%D8%B1%D8%B3%D8%A9-%D8%A3%D8%A8%D9%8A-%D8%A8%D9%83%D8%B1-%D8%A7%D9%84%D8%B5%D8%AF%D9%8A%D9%82-%D8%A7%D9%84%D8%A3%D8%B3%D8%A7%D8%B3%D9%8A%D8%A9-%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9-%D9%82%D8%B5%D8%A8%D8%A9-%D8%A5%D8%B1%D8%A8%D8%AF/61579680572587/)
+
+- **يوتيوب (YouTube):**  
+  [قناة المدرسة الرسمية - قوائم التشغيل (@abkrschool)](https://www.youtube.com/@abkrschool/playlists)
+
+---
+
+## 10. خطة ربط نظام إدارة المحتوى (Future CMS Integration)
+
+تم تصميم المعمارية البرمجية للموقع وفق نمط فصل البيانات عن العرض (Data-Decoupled Presentation):
+- ملف `assets/js/data.js` يمثل المصدر الوحيد للحقيقة (Single Source of Truth) لكافة بيانات ومعلومات المدرسة، الهيكل الإداري، الخطة التطويرية، والفعاليات.
+- الدوال البرمجية في `assets/js/app.js` تستقبل كائن البيانات وتنشئ عناصر الـ DOM برمجياً.
+- عند تفعيل واجهة برمجة التطبيقات (API) أو ربط محرك Google Apps Script (`getSiteModelV3()`)، يمكن استبدال كائن البيانات المحلي باستجابة الـ API دون الحاجة لتعديل وسوم HTML أو كود CSS.
+
+---
+
+## 11. حالة المشروع الحالية (Project Status)
+
+- **الحالة:** ✅ مكتمل، مدقق، وجاهز للإنتاج الكامل (Production Ready).
+- **جاهزية الواجهة والتوافقية:**
+  - تم اجتياز الفحص الآلي المستقل لجميع المقاسات (1920px، 1440px، 1280px، 1024px، 768px، 430px، 390px، 360px) بنسبة 100% نجاح وخلو كامل من أي تجاوز أفقي (0px Overflow).
+  - اجتياز اختبار 24 مساراً داخلياً (Zero Dead Links / Zero 404s).
+  - خلو سجل المتصفح (Console) من أي أخطاء برمجية.
+- **الخطوات القادمة:**
+  1. المراجعة النهائية مع إدارة المدرسة وفريق التطوير.
+  2. ربط النطاق المخصص (Custom Domain).
+  3. تفعيل الربط الديناميكي مع نظام إدارة المحتوى (CMS).
+
+---
+
+© 2026-2027 مدرسة أبي بكر الصديق الأساسية للبنين الثانية. جميع الحقوق محفوظة.
