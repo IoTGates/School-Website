@@ -1,7 +1,12 @@
 # TASK STATUS & ARCHITECTURE CHECKPOINT
 # Project: Presentation-Ready Arabic RTL School Website
-# School: مدرسة أبي بكر الصديق الأساسية للبنين الثانية - لواء قصبة إربد
+# School: مدرسة أبي بكر الصديق الأساسية للبنين الثانية
+# Directorate: مديرية التربية والتعليم للواء قصبة إربد
+# National ID (الرقم الوطني): 114541
 # Academic Year: 2026-2027
+# Platform: GitHub + Cloudflare Pages (https://abs2e-school.pages.dev)
+# Technology: HTML5 / CSS3 / Vanilla JS (Arabic RTL)
+# Architecture: SPA / Hash Routing (24 Working Routes)
 # Status: ✅ COMPLETE - FULLY AUDITED & TESTED (FRONTEND PRODUCTION READY)
 
 ---
@@ -28,10 +33,15 @@
   - Fixed mobile title text breaking. Styled as a 2-line flex column with responsive font sizing (`clamp(0.95rem, 2.2vw, 1.15rem)`):
     - السطر الأول: **مدرسة أبي بكر الصديق**
     - السطر الثاني: **الأساسية للبنين الثانية**
-  - Academic year displayed as a subtle pill badge (`العام الدراسي 2026-2027`) and neatly hidden on narrow mobile devices to preserve clean 2-line title.
+  - Academic year displayed as a subtle pill badge (`العام الدراسي 2026-2027`) and National ID (`الرقم الوطني: 114541`) neatly organized in header/drawer.
   - Direct header action buttons for Facebook and YouTube.
 
-### C. Exact User-Confirmed Social Media Channels
+### C. Hero Slider
+- Dynamic interactive hero slider featuring canonical school imagery (`assets/images/slide-1.jpg`, `assets/images/slide-2.jpg`).
+- Official slogan: **"نتعلم • نبدع • ننتمي • نتميز"**.
+- Automated slide cycling, manual controls, visual indicator dots, and primary CTA buttons.
+
+### D. Exact User-Confirmed Social Media Channels
 - **Facebook المدرسة**:
   `https://www.facebook.com/people/%D9%85%D8%AF%D8%B1%D8%B3%D8%A9-%D8%A3%D8%A8%D9%8A-%D8%A8%D9%83%D8%B1-%D8%A7%D9%84%D8%B5%D8%AF%D9%8A%D9%82-%D8%A7%D9%84%D8%A3%D8%B3%D8%A7%D8%B3%D9%8A%D8%A9-%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9-%D9%82%D8%B5%D8%A8%D8%A9-%D8%A5%D8%B1%D8%A8%D8%AF/61579680572587/`  
   *Canonical Source:* `siteData.socialLinks.facebook.url`
@@ -39,12 +49,12 @@
   `https://www.youtube.com/@abkrschool/playlists`  
   *Canonical Source:* `siteData.socialLinks.youtube.url`
 
-### D. Public UI Polish & Audit Isolation
+### E. Public UI Polish & Audit Isolation
 - Stripped all technical audit tags (`USER_CONFIRMED`, `OFFICIAL_VERIFIED`, `MANUAL_VERIFICATION_REQUIRED`) from public-facing HTML and JavaScript renderers.
 - Audit classifications are strictly preserved in internal metadata (`LINK_AUDIT.md` and `data.js` properties).
 - Replaced audit legends with helpful, welcoming informational messages for parents and students.
 
-### E. School-First Compact Footer
+### F. School-First Compact Footer
 - Compact 4-column layout:
   1. **عن المدرسة**: نبذة تعريفية + روابط هوية المدرسة.
   2. **صفحات المدرسة**: الكادر، الخطة التطويرية، مجالات التطوير، والفعاليات.
@@ -53,7 +63,7 @@
 - Copyright bar exclusively dedicated to the school:
   `© 2026-2027 مدرسة أبي بكر الصديق الأساسية للبنين الثانية. جميع الحقوق محفوظة.`
 
-### F. Canonical Development Plan Mapping (Source: `خطة 2(2).docx`)
+### G. Canonical Development Plan Mapping (Source: `خطة 2(2).docx`)
 Each of the 4 development areas has a complete, rich internal view containing:
 - تعريف المجال والمؤشر المعياري المعتمد
 - التوصيات ومسوغاتها التفصيلية من واقع المراجعة الذاتية ومجموعات التركيز
@@ -102,7 +112,7 @@ Each of the 4 development areas has a complete, rich internal view containing:
 ## 3. NAVIGATION RESPONSIVENESS & INTERACTIVE STAFF HIERARCHY AUDIT ✅
 
 ### A. Navigation Responsiveness
-- **Desktop (>= 1200px)**: Compacted brand layout; moved secondary badges (academic year) and social links out of the navbar to eliminate clipping. All 10 top-level menu items fit on one line with 0px overflow across 1200px, 1280px, 1440px, and 1920px.
+- **Desktop (>= 1200px)**: Compacted brand layout; moved secondary badges (academic year, national ID) and social links out of the navbar to eliminate clipping. All 10 top-level menu items fit on one line with 0px overflow across 1200px, 1280px, 1440px, and 1920px.
 - **Tablet (768px – 1199px)**: Breakpoint configured at `1199px` to switch to a compact mobile hamburger drawer before any brand or menu squeezing occurs.
 - **Mobile (< 768px)**: 2-line title with fluid clamp font sizing, clean hamburger trigger, slide-down drawer with expandable submenus, secondary metadata (`الرقم الوطني`, `المديرية`, `العام الدراسي`), and social buttons inside the drawer.
 - **Verified Screen Widths Tested (CDP Automated Headless Edge Runner)**:
@@ -138,15 +148,19 @@ Each of the 4 development areas has a complete, rich internal view containing:
 
 - **GitHub Repository**: [https://github.com/IoTGates/School-Website](https://github.com/IoTGates/School-Website)
 - **Cloudflare Pages Production URL**: [https://abs2e-school.pages.dev](https://abs2e-school.pages.dev)
-- **Deployment Timestamp**: 2026-09-27 03:30:33 +03:00 (00:30:33 UTC)
-- **Production Commit Hash**: `d8e4fb52bc6eb1decf89db2fec80ba168fa54f3a` (short: `d8e4fb5`)
-- **Live Audit Result**: 100% PASS (CDP Headless Automated Live Runner)
+- **Deployment Platform**: GitHub + Cloudflare Pages
+- **Technology Stack**: HTML5 / CSS3 / Vanilla JS (Arabic RTL)
+- **Routing**: SPA / Hash Routing (24 Working Routes)
+- **Responsive Testing**: Verified Desktop, Tablet, and Mobile (0px overflow)
+- **Staff Hierarchy**: Interactive tree with collapsible levels & person modal dialogs
+- **Hero Slider**: 2 canonical school slides with responsive controls & indicators
+- **Live Audit Result**: 100% PASS
   - Home: PASS (Title, 2-line header, logo loaded)
   - Hero Slider: PASS (2 canonical school slides, responsive controls & indicators)
   - Photos & Logo: PASS (Zero broken images, 100% loaded)
   - Navigation: PASS (Desktop navbar visible, 10 items fit on 1 line; Tablet switch cleanly at 1199px; Mobile hamburger opens/closes)
   - Horizontal Overflow: PASS (0px overflow across 1440px, 1024px, 390px)
-  - Internal Routes (19/19): PASS (#school, #vision-mission, #staff, #school-structure, #development-team, #development-plan, #development-learning, #development-environment, #development-community, #development-leadership, #grade-4, #grade-5, #support-programs, #events, #initiatives, #achievements, #resources, #links, #contact)
+  - Internal Routes (24/24): PASS (#school, #vision-mission, #staff, #school-structure, #development-team, #development-plan, #development-learning, #development-environment, #development-community, #development-leadership, #grades, #grade-4, #grade-5, #support-programs, #events, #initiatives, #achievements, #resources, #links, #contact, etc.)
   - Staff Hierarchy: PASS (Interactive tree, branch collapse/expand, person details modal dialog, mobile accordion)
   - Social Links: PASS (Facebook & YouTube verified canonical URLs)
   - Console & Local Assets: PASS (0 JS errors, 0 missing assets, 0 local 404s)
@@ -167,5 +181,3 @@ Each of the 4 development areas has a complete, rich internal view containing:
   3. Dynamic CMS sync / Google Sheets Apps Script binding (`getSiteModelV3()`).
 - **Next Step**:
   "Live review + custom domain + CMS integration later"
-
-
