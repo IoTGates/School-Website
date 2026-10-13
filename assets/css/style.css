@@ -623,7 +623,8 @@ button {
 .slide-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(7, 59, 100, 0.88) 0%, rgba(4, 37, 64, 0.72) 100%);
+    background: none;
+    pointer-events: none;
 }
 
 .slide-content {
@@ -658,15 +659,16 @@ button {
     font-weight: 800;
     line-height: 1.25;
     margin-bottom: 0.8rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 .slide-subtitle {
     font-size: 1.35rem;
-    color: rgba(255, 255, 255, 0.95);
+    color: #ffffff;
     margin-bottom: 1.8rem;
-    font-weight: 500;
+    font-weight: 600;
     max-width: 720px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 3px 15px rgba(0, 0, 0, 0.5);
 }
 
 .slide-actions {
@@ -1203,7 +1205,8 @@ button {
     min-height: calc(100vh - 120px - 360px);
 }
 
-.spa-view {
+.spa-view,
+.home-view-container {
     animation: fadeIn var(--transition-normal);
 }
 

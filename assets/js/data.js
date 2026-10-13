@@ -57,8 +57,8 @@ const siteData = {
       badge: "العام الدراسي 2026-2027 • لواء قصبة إربد",
       title: "نتعلم • نبدع • ننتمي • نتميز",
       subtitle: "مدرسة آمنة، جاذبة ومحفزة للإبداع والتميز",
-      primaryCta: { label: "استكشف مدرستنا", route: "#school" },
-      secondaryCta: { label: "الخطة التطويرية", route: "#development-plan" }
+      primaryCta: { label: "استكشف مدرستنا", route: "about.html" },
+      secondaryCta: { label: "الخطة التطويرية", route: "development-plan.html" }
     },
     {
       id: 2,
@@ -67,63 +67,62 @@ const siteData = {
       badge: "رؤية تربوية متجددة • شراكة مجتمعية",
       title: "معًا نبني مدرسة أفضل",
       subtitle: "تعلم نوعي • قيادة طلابية • شراكة مجتمعية",
-      primaryCta: { label: "أحدث الفعاليات", route: "#events" },
-      secondaryCta: { label: "المبادرات والبرامج", route: "#initiatives" }
+      primaryCta: { label: "أحدث الفعاليات", route: "events.html" },
+      secondaryCta: { label: "المبادرات والبرامج", route: "initiatives.html" }
     }
   ],
 
   navigation: [
-    { id: "home", label: "الرئيسية", route: "#home" },
+    { id: "home", label: "الرئيسية", route: "index.html" },
     {
       id: "our-school",
       label: "مدرستنا",
-      route: "#school",
+      route: "about.html",
       children: [
-        { id: "school-about", label: "نبذة عن المدرسة", route: "#school" },
-        { id: "school-vision", label: "رؤيتنا ورسالتنا", route: "#vision-mission" },
-        { id: "school-staff", label: "الكادر المدرسي", route: "#staff" },
-        { id: "school-gov", label: "هيكل الحوكمة والتطوير", route: "#school-structure" },
-        { id: "school-dev-team", label: "فريق تطوير المدرسة", route: "#development-team" }
+        { id: "school-about", label: "نبذة عن المدرسة", route: "about.html" },
+        { id: "school-vision", label: "رؤيتنا ورسالتنا", route: "about.html#vision-mission" },
+        { id: "school-staff", label: "الكادر المدرسي", route: "staff.html" },
+        { id: "school-gov", label: "هيكل الحوكمة والتطوير", route: "staff.html#school-structure" },
+        { id: "school-dev-team", label: "فريق تطوير المدرسة", route: "staff.html#development-team" }
       ]
     },
     {
       id: "dev-plan",
       label: "الخطة التطويرية",
-      route: "#development-plan",
+      route: "development-plan.html",
       children: [
-        { id: "dev-overview", label: "نظرة عامة على الخطة", route: "#development-plan" },
-        { id: "dev-learning", label: "التعلم والتعليم", route: "#development-learning" },
-        { id: "dev-environment", label: "بيئة الطلبة والمناخ والسياق الثقافي", route: "#development-environment" },
-        { id: "dev-community", label: "المدرسة والمجتمع", route: "#development-community" },
-        { id: "dev-leadership", label: "القيادة والإدارة", route: "#development-leadership" }
+        { id: "dev-overview", label: "نظرة عامة على الخطة", route: "development-plan.html" },
+        { id: "dev-learning", label: "التعلم والتعليم", route: "development-plan.html#development-learning" },
+        { id: "dev-environment", label: "بيئة الطلبة والمناخ والسياق الثقافي", route: "development-plan.html#development-environment" },
+        { id: "dev-community", label: "المدرسة والمجتمع", route: "development-plan.html#development-community" },
+        { id: "dev-leadership", label: "القيادة والإدارة", route: "development-plan.html#development-leadership" }
       ]
     },
     {
       id: "grades-menu",
       label: "فصول الدراسة وبرامج الدعم",
-      route: "#grades",
+      route: "grades.html",
       children: [
-        { id: "grades-overview", label: "فصول الدراسة", route: "#grades" },
-        { id: "grade-4-nav", label: "الصف الرابع الأساسي", route: "#grade-4" },
-        { id: "grade-5-nav", label: "الصف الخامس الأساسي", route: "#grade-5" },
-        { id: "support-prog-nav", label: "برامج الدعم التعليمي", route: "#support-programs" }
+        { id: "grades-overview", label: "فصول الدراسة", route: "grades.html" },
+        { id: "grade-4-nav", label: "الصف الرابع الأساسي", route: "grades.html#grade-4" },
+        { id: "grade-5-nav", label: "الصف الخامس الأساسي", route: "grades.html#grade-5" },
+        { id: "support-prog-nav", label: "برامج الدعم التعليمي", route: "grades.html#support-programs" }
       ]
     },
-    { id: "events", label: "الفعاليات", route: "#events" },
-    { id: "initiatives", label: "المبادرات", route: "#initiatives" },
-    { id: "achievements", label: "الإنجازات", route: "#achievements" },
-    { id: "resources", label: "الموارد التعليمية", route: "#resources" },
-    { id: "links", label: "روابط مهمة", route: "#links" },
-    { id: "contact", label: "تواصل معنا", route: "#contact" }
+    { id: "events", label: "الفعاليات", route: "events.html" },
+    { id: "initiatives", label: "المبادرات", route: "initiatives.html" },
+    { id: "resources", label: "الموارد التعليمية", route: "resources.html" },
+    { id: "links", label: "روابط مهمة", route: "links.html" },
+    { id: "contact", label: "تواصل معنا", route: "contact.html" }
   ],
 
   quickPortals: [
-    { title: "فصول الدراسة", icon: "📚", desc: "الصفان الرابع والخامس وبرامج الدعم", route: "#grades", color: "#073B64" },
-    { title: "الخطة التطويرية", icon: "📈", desc: "المجالات الأربعة لعام 2026-2027", route: "#development-plan", color: "#1087C9" },
-    { title: "هيكل الحوكمة", icon: "🏛️", desc: "الهيكل الإداري وفريق تطوير المدرسة", route: "#school-structure", color: "#7656B3" },
-    { title: "المبادرات والبرامج", icon: "🌟", desc: "مشاريع ريادية وسلوكية ومجتمعية", route: "#initiatives", color: "#15966B" },
-    { title: "الموارد التعليمية", icon: "💻", desc: "المناهج والمنصات التعليمية المعتمدة", route: "#resources", color: "#F7B731" },
-    { title: "تواصل معنا", icon: "📬", desc: "الاستفسارات والمراسلة المباشرة", route: "#contact", color: "#D9534F" }
+    { title: "فصول الدراسة", icon: "📚", desc: "الصفان الرابع والخامس وبرامج الدعم", route: "grades.html", color: "#073B64" },
+    { title: "الخطة التطويرية", icon: "📈", desc: "المجالات الأربعة لعام 2026-2027", route: "development-plan.html", color: "#1087C9" },
+    { title: "هيكل الحوكمة", icon: "🏛️", desc: "الهيكل الإداري وفريق تطوير المدرسة", route: "staff.html#school-structure", color: "#7656B3" },
+    { title: "المبادرات والبرامج", icon: "🌟", desc: "مشاريع ريادية وسلوكية ومجتمعية", route: "initiatives.html", color: "#15966B" },
+    { title: "الموارد التعليمية", icon: "💻", desc: "المناهج والمنصات التعليمية المعتمدة", route: "resources.html", color: "#F7B731" },
+    { title: "تواصل معنا", icon: "📬", desc: "الاستفسارات والمراسلة المباشرة", route: "contact.html", color: "#D9534F" }
   ],
 
   visionMission: {
@@ -373,7 +372,7 @@ const siteData = {
       coordinatorId: "coord-izdehar",
       memberIds: ["mem-reham", "mem-heba"],
       summary: "تطوير استراتيجيات التدريس، تحليل نتائج الاختبارات، وتفعيل مجتمعات التعلم والدروس التطبيقية.",
-      route: "#development-learning"
+      route: "development-plan.html#development-learning"
     },
     {
       id: "environment",
@@ -386,7 +385,7 @@ const siteData = {
       coordinatorId: "coord-abeer",
       memberIds: ["mem-tharaa", "mem-hadeel"],
       summary: "ترسيخ الأمان المدرسي، تفعيل صندوق الأمان، تعزيز السلوك الإيجابي، والحد من التنمر والتخريب.",
-      route: "#development-environment"
+      route: "development-plan.html#development-environment"
     },
     {
       id: "community",
@@ -399,7 +398,7 @@ const siteData = {
       coordinatorId: "coord-lubna",
       memberIds: ["mem-buthaina", "mem-reema"],
       summary: "توطيد الشراكة مع أولياء الأمور عبر مبادرة حلقة وصل، التشبيك المجتمعي، والأنشطة البيئية والتطوعية.",
-      route: "#development-community"
+      route: "development-plan.html#development-community"
     },
     {
       id: "leadership",
@@ -412,7 +411,7 @@ const siteData = {
       coordinatorId: "coord-muna",
       memberIds: ["mem-mervat", "mem-rana"],
       summary: "بناء الخطة وتوزيع الأدوار، متابعة مؤشرات الأداء، تفعيل مجتمعات الممارسة، والتوثيق المؤسسي الشامل.",
-      route: "#development-leadership"
+      route: "development-plan.html#development-leadership"
     }
   ],
 
@@ -473,7 +472,7 @@ const siteData = {
           ],
           color: "#1087C9",
           icon: "📘",
-          route: "#development-learning"
+          route: "development-plan.html#development-learning"
         },
         {
           id: "environment",
@@ -489,7 +488,7 @@ const siteData = {
           ],
           color: "#15966B",
           icon: "🌱",
-          route: "#development-environment"
+          route: "development-plan.html#development-environment"
         },
         {
           id: "community",
@@ -505,7 +504,7 @@ const siteData = {
           ],
           color: "#D97706",
           icon: "🤝",
-          route: "#development-community"
+          route: "development-plan.html#development-community"
         },
         {
           id: "leadership",
@@ -521,7 +520,7 @@ const siteData = {
           ],
           color: "#7656B3",
           icon: "🧭",
-          route: "#development-leadership"
+          route: "development-plan.html#development-leadership"
         }
       ]
     }
@@ -609,7 +608,7 @@ const siteData = {
   developmentPlan: [
     {
       id: "learning",
-      route: "#development-learning",
+      route: "development-plan.html#development-learning",
       title: "التعلم والتعليم",
       icon: "📚",
       color: "#1087C9",
@@ -714,7 +713,7 @@ const siteData = {
 
     {
       id: "environment",
-      route: "#development-environment",
+      route: "development-plan.html#development-environment",
       title: "بيئة الطلبة والمناخ والسياق الثقافي",
       icon: "🌱",
       color: "#15966B",
@@ -826,7 +825,7 @@ const siteData = {
 
     {
       id: "community",
-      route: "#development-community",
+      route: "development-plan.html#development-community",
       title: "المدرسة والمجتمع",
       icon: "🤝",
       color: "#F7B731",
@@ -917,7 +916,7 @@ const siteData = {
 
     {
       id: "leadership",
-      route: "#development-leadership",
+      route: "development-plan.html#development-leadership",
       title: "القيادة والإدارة",
       icon: "🎯",
       color: "#7656B3",
@@ -1025,7 +1024,7 @@ const siteData = {
   grades: [
     {
       id: "grade-4",
-      route: "#grade-4",
+      route: "grades.html#grade-4",
       title: "الصف الرابع الأساسي",
       badge: "المرحلة الأساسية الأولى",
       ageGroup: "9 - 10 سنوات",
@@ -1045,11 +1044,11 @@ const siteData = {
         "غرس السلوك الإيجابي والتعاون والعمل الجماعي داخل الغرفة الصفية.",
         "تحديد مواطن القوة والاحتياج مبكراً وتقديم الدعم الفردي المناسب."
       ],
-      supportProgramsLink: "#support-programs"
+      supportProgramsLink: "grades.html#support-programs"
     },
     {
       id: "grade-5",
-      route: "#grade-5",
+      route: "grades.html#grade-5",
       title: "الصف الخامس الأساسي",
       badge: "المرحلة الأساسية المتقدمة",
       ageGroup: "10 - 11 سنة",
@@ -1069,7 +1068,7 @@ const siteData = {
         "تعزيز المهارات الرقمية واستخدام الموارد الإلكترونية في البحث والتعلم الذاتي.",
         "دعم التفوق ورعاية المواهب ومعالجة الفجوات التحصيلية عبر الخطط الموجهة."
       ],
-      supportProgramsLink: "#support-programs"
+      supportProgramsLink: "grades.html#support-programs"
     }
   ],
 
@@ -1084,7 +1083,7 @@ const siteData = {
       desc: "برنامج مدرسي رائد ونشاط نوعي يهدف إلى كسر روتين التعلم وتقديم حصص تفاعلية قائمة على اللعب الهادف، الرسم، والمسرح، ورعاية الطلبة الذين يحتاجون لدعم معنوي أو نفسي، لتعزيز دافعيتهم للتعلم ومحبتهم للمدرسة.",
       targetGroup: "طلبة المدرسة وبخاصة الفئات الأكثر حاجة للدعم النفسي والانفعالي",
       activities: ["حصص التفريغ الانفعالي واللعب الحركي", "ورش الرسم والتلوين الهادف", "تمثيل الأدوار والمسرح المدرسي التربوي"],
-      route: "#initiative/joy-class"
+      route: "initiatives.html#initiative/joy-class"
     },
     {
       id: "remedial-prog",
@@ -1095,7 +1094,7 @@ const siteData = {
       desc: "تطبيق خطط علاجية موجهة ومكثفة تركز على المهارات المفتاحية في القراءة والكتابة والحساب التي كشفت عنها الاختبارات التشخيصية، لضمان وصول كافة الطلبة لمستوى الإتقان المطلوب ومواكبة زملائهم بثقة.",
       targetGroup: "الطلبة ذوو التحصيل المتدني الذين كشفت الاختبارات التشخيصية عن وجود فجوات لديهم",
       activities: ["حصص تقوية فردية وجماعية في العربية والرياضيات", "أوراق عمل مهارية متدرجة", "متابعة دورية لقياس معدل التحسن"],
-      route: "#initiative/remedial-support"
+      route: "initiatives.html#initiative/remedial-support"
     },
     {
       id: "talents-prog",
@@ -1106,7 +1105,7 @@ const siteData = {
       desc: "برنامج متكامل لاكتشاف ورعاية المواهب الطلابية المتميزة في العلوم، الرياضيات، الخطابة، الرسم، والرياضة، وتقديم تحديات إثرائية متقدمة وتمثيل المدرسة في المسابقات التربوية والوطنية.",
       targetGroup: "الطلبة الموهوبون والمتفوقون وأصحاب المهارات الخاصة",
       activities: ["أندية علمية وإثرائية متقدمة", "المشاركة في المسابقات والمعارض", "معارض إنتاج الطلبة الموهوبين"],
-      route: "#initiative/talents-program"
+      route: "initiatives.html#initiative/talents-program"
     },
     {
       id: "reading-prog",
@@ -1117,14 +1116,14 @@ const siteData = {
       desc: "بيئة ثقافية نشطة داخل المكتبة المدرسية يلتقي فيها الطلبة لقراءة القصص المشوقة، تلخيص الكتب، تنمية مهارات التحدث والارتجال، وتكريم رواد القراءة دورياً في الطابور الصباحي.",
       targetGroup: "جميع طلبة المدرسة ومحبو المطالعة واكتساب المعرفة",
       activities: ["جلسات قراءة قصصية حوارية", "مسابقة قارئ الشهر وتلخيص الكتب", "معارض الكتب والقصص في المكتبة المدرسية"],
-      route: "#initiative/reading-club"
+      route: "initiatives.html#initiative/reading-club"
     }
   ],
 
   events: [
     {
       id: "event-1",
-      route: "#event/event-1",
+      route: "events.html#event/event-1",
       title: "انطلاق العام الدراسي وتوزيع الكتب المدرسية",
       date: "2026-09-01",
       category: "فعالية مدرسية",
@@ -1141,7 +1140,7 @@ const siteData = {
     },
     {
       id: "event-2",
-      route: "#event/event-2",
+      route: "events.html#event/event-2",
       title: "انتخابات البرلمان الطلابي المدرسي",
       date: "2026-09-15",
       category: "نشاط قيادي",
@@ -1158,7 +1157,7 @@ const siteData = {
     },
     {
       id: "event-3",
-      route: "#event/event-3",
+      route: "events.html#event/event-3",
       title: "لقاء أولياء الأمور التعريفي (حلقة وصل)",
       date: "2026-09-22",
       category: "شراكة مجتمعية",
@@ -1175,7 +1174,7 @@ const siteData = {
     },
     {
       id: "event-4",
-      route: "#event/event-4",
+      route: "events.html#event/event-4",
       title: "يوم الرياضة المدرسية والصحة البدنية",
       date: "2026-09-29",
       category: "نشاط رياضي",
@@ -1192,7 +1191,7 @@ const siteData = {
     },
     {
       id: "event-5",
-      route: "#event/event-5",
+      route: "events.html#event/event-5",
       title: "معرض المشاريع والمبتكرات الطلابية",
       date: "2026-10-06",
       category: "معرض تعليمي",
@@ -1212,7 +1211,7 @@ const siteData = {
   initiatives: [
     {
       id: "safe-school",
-      route: "#initiative/safe-school",
+      route: "initiatives.html#initiative/safe-school",
       name: "مدرستي مكان آمن",
       category: "برنامج بيئة ومناخ مدرسي",
       icon: "🛡️",
@@ -1229,7 +1228,7 @@ const siteData = {
     },
     {
       id: "connect-link",
-      route: "#initiative/connect-link",
+      route: "initiatives.html#initiative/connect-link",
       name: "حلقة وصل (المدرسة والمجتمع)",
       category: "برنامج شراكة مجتمعية وأولياء أمور",
       icon: "🔗",
@@ -1246,7 +1245,7 @@ const siteData = {
     },
     {
       id: "know-and-need",
-      route: "#initiative/know-and-need",
+      route: "initiatives.html#initiative/know-and-need",
       name: "اعرف واحتاج",
       category: "مبادرة تشخيصية وتفريد تعلم",
       icon: "🔍",
@@ -1263,7 +1262,7 @@ const siteData = {
     },
     {
       id: "kind-word",
-      route: "#initiative/kind-word",
+      route: "initiatives.html#initiative/kind-word",
       name: "كلمة طيبة",
       category: "برنامج قيمي وسلوكي",
       icon: "💬",
@@ -1280,7 +1279,7 @@ const siteData = {
     },
     {
       id: "right-behavior",
-      route: "#initiative/right-behavior",
+      route: "initiatives.html#initiative/right-behavior",
       name: "أتصرف صح",
       category: "برنامج إرشادي وقائي",
       icon: "✔️",
@@ -1297,7 +1296,7 @@ const siteData = {
     },
     {
       id: "positive-behavior-friends",
-      route: "#initiative/positive-behavior-friends",
+      route: "initiatives.html#initiative/positive-behavior-friends",
       name: "أصدقاء السلوك الإيجابي",
       category: "برنامج قيادة طلابية وقدوة",
       icon: "⭐",
@@ -1314,7 +1313,7 @@ const siteData = {
     },
     {
       id: "joy-class",
-      route: "#initiative/joy-class",
+      route: "initiatives.html#initiative/joy-class",
       name: "صف الفرح",
       category: "برنامج دعم ورعاية وترفيه هادف",
       icon: "😊",
@@ -1331,7 +1330,7 @@ const siteData = {
     },
     {
       id: "sambalah",
-      route: "#initiative/sambalah",
+      route: "initiatives.html#initiative/sambalah",
       name: "مبادرة سنبلة",
       category: "مبادرة ريادية وتنموية",
       icon: "🌾",
@@ -1348,7 +1347,7 @@ const siteData = {
     },
     {
       id: "green-school",
-      route: "#initiative/green-school",
+      route: "initiatives.html#initiative/green-school",
       name: "المدرسة الخضراء وإعادة التدوير",
       category: "مبادرة بيئية ومجتمعية",
       icon: "🌿",
@@ -1365,7 +1364,7 @@ const siteData = {
     },
     {
       id: "cyber-safety",
-      route: "#initiative/cyber-safety",
+      route: "initiatives.html#initiative/cyber-safety",
       name: "السلامة الرقمية والأمن السيبراني",
       category: "برنامج توعية رقمية وحماية",
       icon: "💻",
@@ -1382,7 +1381,7 @@ const siteData = {
     },
     {
       id: "remedial-support",
-      route: "#initiative/remedial-support",
+      route: "initiatives.html#initiative/remedial-support",
       name: "برنامج التداخلات العلاجية",
       category: "برنامج أكاديمي علاجي",
       icon: "🎯",
@@ -1399,7 +1398,7 @@ const siteData = {
     },
     {
       id: "reading-club",
-      route: "#initiative/reading-club",
+      route: "initiatives.html#initiative/reading-club",
       name: "نادي القراءة والمطالعة",
       category: "برنامج إثراء لغوي وثقافي",
       icon: "📖",
@@ -1416,7 +1415,7 @@ const siteData = {
     },
     {
       id: "talents-program",
-      route: "#initiative/talents-program",
+      route: "initiatives.html#initiative/talents-program",
       name: "رعاية الموهوبين والأنشطة الإبداعية",
       category: "برنامج إثرائي ورعاية تميز",
       icon: "⭐",
@@ -1474,7 +1473,7 @@ const siteData = {
       title: "مناهج وكتب الصف الرابع الأساسي",
       icon: "📕",
       type: "internal",
-      route: "#grade-4",
+      route: "grades.html#grade-4",
       desc: "استعراض المواد والكتب المقررة وأهداف التعلم للصف الرابع الأساسي."
     },
     {
@@ -1482,7 +1481,7 @@ const siteData = {
       title: "مناهج وكتب الصف الخامس الأساسي",
       icon: "📗",
       type: "internal",
-      route: "#grade-5",
+      route: "grades.html#grade-5",
       desc: "استعراض المواد والكتب المقررة وأهداف التعلم للصف الخامس الأساسي."
     },
     {
@@ -1636,7 +1635,7 @@ const siteData = {
           title: "بوابة أولياء الأمور (مبادرة حلقة وصل)",
           shortDesc: "بوابة التواصل والتنسيق المباشر بين أولياء الأمور والإدارة المدرسية.",
           icon: "🔗",
-          url: "#initiative/connect-link",
+          url: "initiatives.html#initiative/connect-link",
           source: "مدرسة أبي بكر الصديق الأساسية الثانية",
           verificationStatus: "USER_CONFIRMED",
           featuredOnHome: false
@@ -1656,24 +1655,24 @@ const siteData = {
     aboutText: "صرح تعليمي حكومي رائد في لواء قصبة إربد، يرعى طلبة الصفين الرابع والخامس الأساسيين في بيئة آمنة ومحفزة للإبداع والتميز.",
     columns: {
       about: [
-        { label: "نبذة عن المدرسة", route: "#school" },
-        { label: "الرؤية والرسالة", route: "#vision-mission" },
-        { label: "الهيكل التنظيمي للمدرسة", route: "#school-structure" },
-        { label: "فريق تطوير المدرسة", route: "#development-team" }
+        { label: "نبذة عن المدرسة", route: "about.html" },
+        { label: "الرؤية والرسالة", route: "about.html#vision-mission" },
+        { label: "الهيكل التنظيمي للمدرسة", route: "staff.html#school-structure" },
+        { label: "فريق تطوير المدرسة", route: "staff.html#development-team" }
       ],
       schoolPages: [
-        { label: "الكادر المدرسي والتدريسي", route: "#staff" },
-        { label: "الخطة التطويرية الشاملة", route: "#development-plan" },
-        { label: "مجال التعلم والتعليم", route: "#development-learning" },
-        { label: "مجال بيئة الطالب", route: "#development-environment" },
-        { label: "الفعاليات والأنشطة", route: "#events" }
+        { label: "الكادر المدرسي والتدريسي", route: "staff.html" },
+        { label: "الخطة التطويرية الشاملة", route: "development-plan.html" },
+        { label: "مجال التعلم والتعليم", route: "development-plan.html#development-learning" },
+        { label: "مجال بيئة الطالب", route: "development-plan.html#development-environment" },
+        { label: "الفعاليات والأنشطة", route: "events.html" }
       ],
       quickLinks: [
-        { label: "الصف الرابع الأساسي", route: "#grade-4" },
-        { label: "الصف الخامس الأساسي", route: "#grade-5" },
-        { label: "برامج الدعم والمساندة", route: "#support-programs" },
-        { label: "المبادرات الرائدة", route: "#initiatives" },
-        { label: "دليل الروابط المهمة", route: "#links" }
+        { label: "الصف الرابع الأساسي", route: "grades.html#grade-4" },
+        { label: "الصف الخامس الأساسي", route: "grades.html#grade-5" },
+        { label: "برامج الدعم والمساندة", route: "grades.html#support-programs" },
+        { label: "المبادرات الرائدة", route: "initiatives.html" },
+        { label: "دليل الروابط المهمة", route: "links.html" }
       ],
       socialMedia: [
         {

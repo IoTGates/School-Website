@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="الخطة التطويرية المدرسية 2026-2027 لمدرسة أبي بكر الصديق الأساسية للبنين الثانية - المجالات الاستراتيجية الأربعة والأهداف والأنشطة الإجرائية">
+    <title>الخطة التطويرية 2026-2027 | مدرسة أبي بكر الصديق الأساسية للبنين الثانية</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Top Header Bar with Verified Social Links & Contact Info -->
+    <div class="top-bar">
+        <div class="container top-bar-container">
+            <div class="top-bar-meta">
+                <span class="meta-item">📍 مديرية التربية والتعليم للواء قصبة إربد</span>
+                <span class="meta-item">🔢 الرقم الوطني للمدرسة: 114541</span>
+                <span class="meta-item">📅 العام الدراسي: 2026-2027</span>
+            </div>
+            <div class="top-bar-social" id="topBarSocial"></div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="main-header">
+        <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="index.html" class="brand-link" aria-label="العودة للصفحة الرئيسية">
+                        <img src="assets/images/school-logo.png" alt="شعار مدرسة أبي بكر الصديق" class="header-logo">
+                        <div class="brand-text">
+                            <span class="school-name-line1">مدرسة أبي بكر الصديق</span>
+                            <span class="school-name-line2">الأساسية للبنين الثانية</span>
+                        </div>
+                    </a>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="فتح القائمة الرئيسية" aria-expanded="false" aria-controls="navMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu"></ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="main-content" id="mainContent">
+        <div class="container internal-view-container" style="padding: 2.5rem 0;">
+            <!-- Breadcrumbs & Back Navigation Bar -->
+            <div class="internal-nav-bar">
+                <nav class="breadcrumb-nav" aria-label="مسار التنقل">
+                    <ol class="breadcrumb" id="breadcrumbList"></ol>
+                </nav>
+                <div class="internal-actions">
+                    <button class="btn btn-back" onclick="window.history.back()" aria-label="الرجوع للصفحة السابقة">
+                        <span class="btn-icon" aria-hidden="true">←</span>
+                        <span>رجوع</span>
+                    </button>
+                    <a href="index.html" class="btn btn-outline btn-sm">الرئيسية</a>
+                </div>
+            </div>
+
+            <!-- Content Container populated dynamically from canonical data.js by app.js -->
+            <div id="internalContentArea" class="internal-content-area" tabindex="-1"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer" aria-label="تذييل الموقع">
+        <div class="container">
+            <div class="footer-header-banner">
+                <div class="footer-brand">
+                    <img src="assets/images/school-logo.png" alt="شعار مدرسة أبي بكر الصديق" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <h3 class="footer-school-title" id="footerSchoolName">مدرسة أبي بكر الصديق الأساسية للبنين الثانية</h3>
+                        <p class="footer-directorate-sub" id="footerDirectorate">مديرية التربية والتعليم للواء قصبة إربد</p>
+                    </div>
+                </div>
+                <div class="footer-meta-badges">
+                    <span class="meta-pill" id="footerSchoolCode">الرقم الوطني: 114541</span>
+                    <span class="meta-pill" id="footerYear">العام الدراسي 2026-2027</span>
+                </div>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-heading">عن المدرسة</h4>
+                    <p class="footer-about-text" id="footerAboutText">صرح تعليمي حكومي رائد في لواء قصبة إربد، يرعى طلبة الصفين الرابع والخامس الأساسيين في بيئة آمنة ومحفزة للإبداع والتميز.</p>
+                    <ul class="footer-nav-list" id="footerAboutLinks"></ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">صفحات المدرسة</h4>
+                    <ul class="footer-nav-list" id="footerSchoolPagesLinks"></ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">فصول وبوابات</h4>
+                    <ul class="footer-nav-list" id="footerPortalsLinks"></ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">تواصل ومتابعة</h4>
+                    <div class="footer-contact-details">
+                        <p><strong>الموقع:</strong> إربد - المملكة الأردنية الهاشمية</p>
+                        <p><strong>المرحلة:</strong> الصف الرابع والخامس الأساسي</p>
+                        <p><a href="contact.html" class="footer-contact-btn">نموذج الاستفسارات والمراسلة ←</a></p>
+                    </div>
+                    <div class="footer-social-wrap">
+                        <span class="social-label">قنواتنا الرسمية المعتمدة:</span>
+                        <div class="social-links-verified" id="footerSocialLinks"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026-2027 <span id="copyrightSchoolName">مدرسة أبي بكر الصديق الأساسية للبنين الثانية</span>. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Employee / Person Detail Modal Dialog -->
+    <div class="person-modal-backdrop" id="personModalBackdrop" aria-hidden="true" role="presentation">
+        <div class="person-modal-dialog" id="personModalDialog" role="dialog" aria-modal="true" aria-labelledby="modalPersonName" tabindex="-1">
+            <button class="person-modal-close" id="personModalCloseBtn" aria-label="إغلاق الملف التعريفي">✕</button>
+            <div class="person-modal-body" id="personModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -14,23 +14,103 @@
         sliderAutoPlayDelay: 5500,
         isSliderPaused: false,
 
+        getCurrentPage() {
+            const path = window.location.pathname;
+            const filename = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
+            if (!filename || filename === 'index.html' || filename === '') return 'index.html';
+            return filename;
+        },
+
+        resolveHref(route) {
+            if (!route) return '#';
+            if (route.startsWith('http://') || route.startsWith('https://') || route.startsWith('mailto:') || route.startsWith('tel:')) {
+                return route;
+            }
+            if (route.endsWith('.html') || route.includes('.html#')) {
+                return route;
+            }
+            if (route === '#home' || route === '#' || route === '') {
+                return 'index.html';
+            }
+            if (route === '#school' || route === '#about') {
+                return 'about.html';
+            }
+            if (route === '#vision-mission') {
+                return 'about.html#vision-mission';
+            }
+            if (route === '#staff') {
+                return 'staff.html';
+            }
+            if (route === '#school-structure') {
+                return 'staff.html#school-structure';
+            }
+            if (route === '#development-team') {
+                return 'staff.html#development-team';
+            }
+            if (route === '#development-plan') {
+                return 'development-plan.html';
+            }
+            if (route.startsWith('#development-')) {
+                return `development-plan.html${route}`;
+            }
+            if (route === '#grades') {
+                return 'grades.html';
+            }
+            if (route.startsWith('#grade-') || route === '#support-programs') {
+                return `grades.html${route}`;
+            }
+            if (route === '#events') {
+                return 'events.html';
+            }
+            if (route.startsWith('#event/')) {
+                return `events.html${route}`;
+            }
+            if (route === '#initiatives') {
+                return 'initiatives.html';
+            }
+            if (route.startsWith('#initiative/') || route === '#achievements' || route.startsWith('#achievement/')) {
+                return `initiatives.html${route}`;
+            }
+            if (route === '#resources') {
+                return 'resources.html';
+            }
+            if (route === '#links') {
+                return 'links.html';
+            }
+            if (route === '#contact') {
+                return 'contact.html';
+            }
+            return route;
+        },
+
         init() {
             this.populateTopBar();
             this.populateNavigation();
-            this.initHeroSlider();
-            this.populateQuickPortals();
-            this.populateVisionMission();
-            this.populateHomeStaff();
-            this.populateDevelopmentPlanPreview();
-            this.populateHomeEvents();
-            this.populateHomeInitiatives();
-            this.populateHomeImportantLinks();
             this.populateFooter();
             this.initPersonModal();
             this.setupEventListeners();
-            this.setupRouter();
 
-            console.log('✓ مدرسة أبي بكر الصديق الأساسية الثانية - تم تهيئة الموقع بنجاح');
+            const currentPage = this.getCurrentPage();
+
+            if (currentPage === 'index.html') {
+                this.initHeroSlider();
+                this.populateQuickPortals();
+                this.populateVisionMission();
+                this.populateHomeStaff();
+                this.populateDevelopmentPlanPreview();
+                this.populateHomeEvents();
+                this.populateHomeInitiatives();
+                this.populateHomeImportantLinks();
+            }
+
+            this.routePage();
+
+            window.addEventListener('hashchange', () => {
+                this.routePage();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            console.log(`✓ مدرسة أبي بكر الصديق الأساسية الثانية - تم تحميل الصفحة (${currentPage}) بنجاح`);
         },
 
         // ==================== TOP BAR & VERIFIED SOCIAL ====================
@@ -149,12 +229,31 @@
             navMenu.appendChild(mobileFooterLi);
         },
 
-        updateActiveNav(activeRoute) {
+        updateActiveNav(activePage, activeHash) {
+            const page = activePage || this.getCurrentPage();
+            const hash = activeHash !== undefined ? activeHash : (window.location.hash || '');
             const navLinks = document.querySelectorAll('#navMenu a');
             navLinks.forEach(link => {
-                const route = link.getAttribute('data-route');
-                if (route === activeRoute || (activeRoute && activeRoute.startsWith(route) && route !== '#home' && route !== '#')) {
+                const route = link.getAttribute('data-route') || link.getAttribute('href') || '';
+                const parts = route.split('#');
+                const linkPage = parts[0];
+                const linkHash = parts.length > 1 ? parts[1] : '';
+                const cleanLinkPage = (!linkPage || linkPage === 'index.html' || linkPage === '') ? 'index.html' : linkPage;
+
+                let isActive = false;
+                if (linkHash) {
+                    isActive = (cleanLinkPage === page && ('#' + linkHash) === hash);
+                } else {
+                    isActive = (cleanLinkPage === page && (!hash || hash === '#home'));
+                }
+
+                if (isActive) {
                     link.classList.add('active');
+                    const parentDropdown = link.closest('.nav-item-dropdown');
+                    if (parentDropdown) {
+                        const trigger = parentDropdown.querySelector('.dropdown-trigger');
+                        if (trigger) trigger.classList.add('active');
+                    }
                 } else {
                     link.classList.remove('active');
                 }
@@ -760,6 +859,43 @@
                 if (!e.target.closest('.nav-container')) {
                     this.closeHamburgerMenu();
                 }
+                const personCard = e.target.closest('[data-person-id]');
+                if (personCard) {
+                    const personId = personCard.getAttribute('data-person-id');
+                    this.openPersonModal(personId, personCard);
+                }
+            });
+        },
+
+        initContactForm() {
+            const form = document.getElementById('contactForm');
+            const statusEl = document.getElementById('contactFormStatus');
+            if (!form) return;
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('contactName')?.value.trim();
+                const contact = document.getElementById('contactContact')?.value.trim();
+                const message = document.getElementById('contactMessage')?.value.trim();
+
+                if (!name || !contact || !message) {
+                    if (statusEl) {
+                        statusEl.style.display = 'block';
+                        statusEl.style.background = '#fee2e2';
+                        statusEl.style.color = '#991b1b';
+                        statusEl.textContent = 'يرجى تعبئة الحقول الإلزامية (*)';
+                    }
+                    return;
+                }
+
+                if (statusEl) {
+                    statusEl.style.display = 'block';
+                    statusEl.style.background = '#dcfce7';
+                    statusEl.style.color = '#166534';
+                    statusEl.textContent = `شكراً لك أ. ${name}، تم إرسال رسالتك بنجاح إلى إدارة المدرسة وسنتواصل معك قريباً.`;
+                }
+
+                form.reset();
             });
         },
 
@@ -789,17 +925,102 @@
             }
         },
 
+        routePage() {
+            const currentPage = this.getCurrentPage();
+            const rawHash = (window.location.hash || '').trim();
+
+            this.updateActiveNav(currentPage, rawHash);
+
+            if (currentPage === 'index.html') {
+                if (rawHash && rawHash !== '#home' && rawHash !== '#' && rawHash !== '') {
+                    this.dispatchHashView(rawHash);
+                } else {
+                    this.showHomeView();
+                }
+                return;
+            }
+
+            // Dedicated Page Rendering:
+            if (currentPage === 'about.html') {
+                if (rawHash === '#vision-mission') {
+                    this.renderVisionMissionView();
+                } else {
+                    this.renderSchoolAboutView();
+                }
+            } else if (currentPage === 'staff.html') {
+                if (rawHash === '#school-structure') {
+                    this.renderSchoolStructureView();
+                } else if (rawHash === '#development-team') {
+                    this.renderDevelopmentTeamView();
+                } else {
+                    this.renderStaffView();
+                }
+            } else if (currentPage === 'development-plan.html') {
+                if (rawHash === '#development-learning' || rawHash === '#learning') {
+                    this.renderDevelopmentAreaView('learning');
+                } else if (rawHash === '#development-environment' || rawHash === '#environment') {
+                    this.renderDevelopmentAreaView('environment');
+                } else if (rawHash === '#development-community' || rawHash === '#community') {
+                    this.renderDevelopmentAreaView('community');
+                } else if (rawHash === '#development-leadership' || rawHash === '#leadership') {
+                    this.renderDevelopmentAreaView('leadership');
+                } else {
+                    this.renderDevelopmentPlanOverview();
+                }
+            } else if (currentPage === 'grades.html') {
+                if (rawHash === '#grade-4') {
+                    this.renderGradeDetailView('grade-4');
+                } else if (rawHash === '#grade-5') {
+                    this.renderGradeDetailView('grade-5');
+                } else if (rawHash === '#support-programs') {
+                    this.renderSupportProgramsView();
+                } else {
+                    this.renderGradesOverview();
+                }
+            } else if (currentPage === 'events.html') {
+                if (rawHash.startsWith('#event/')) {
+                    const eventId = rawHash.replace('#event/', '');
+                    this.renderEventDetailView(eventId);
+                } else {
+                    this.renderEventsListView();
+                }
+            } else if (currentPage === 'initiatives.html') {
+                if (rawHash.startsWith('#initiative/')) {
+                    const initId = rawHash.replace('#initiative/', '');
+                    this.renderInitiativeDetailView(initId);
+                } else if (rawHash === '#achievements') {
+                    this.renderAchievementsView();
+                } else if (rawHash.startsWith('#achievement/')) {
+                    const achId = rawHash.replace('#achievement/', '');
+                    this.renderAchievementDetailView(achId);
+                } else {
+                    this.renderInitiativesListView();
+                }
+            } else if (currentPage === 'resources.html') {
+                this.renderResourcesView();
+            } else if (currentPage === 'links.html') {
+                this.renderLinksView();
+            } else if (currentPage === 'contact.html') {
+                this.renderContactView();
+                this.initContactForm();
+            }
+        },
+
+        dispatchHashView(hash) {
+            this.handleRouteWithHash(hash);
+        },
+
         handleRoute() {
-            const rawHash = window.location.hash || '#home';
-            const hash = rawHash.trim();
+            this.routePage();
+        },
+
+        handleRouteWithHash(rawHash) {
+            const hash = (rawHash || '#home').trim();
 
             if (this.historyStack[this.historyStack.length - 1] !== hash) {
                 this.historyStack.push(hash);
             }
             this.currentRoute = hash;
-
-            // Update main navbar active link
-            this.updateActiveNav(hash);
 
             // Scroll to top upon route change
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -869,7 +1090,7 @@
             const internalView = document.getElementById('internalView');
             if (homeView) homeView.classList.remove('hidden-view');
             if (internalView) internalView.classList.add('hidden-view');
-            this.updateActiveNav('#home');
+            this.updateActiveNav('index.html', '#home');
         },
 
         showInternalView(breadcrumbs, contentHtml) {
@@ -881,7 +1102,7 @@
             if (homeView) homeView.classList.add('hidden-view');
             if (internalView) internalView.classList.remove('hidden-view');
 
-            if (breadcrumbList) {
+            if (breadcrumbList && breadcrumbs) {
                 breadcrumbList.innerHTML = '';
                 breadcrumbs.forEach((item, index) => {
                     const li = document.createElement('li');
@@ -890,7 +1111,8 @@
                         li.className = 'active';
                         li.textContent = item.label;
                     } else {
-                        li.innerHTML = `<a href="${item.route}">${item.label}</a>`;
+                        const targetUrl = this.resolveHref(item.route);
+                        li.innerHTML = `<a href="${targetUrl}">${item.label}</a>`;
                     }
                     breadcrumbList.appendChild(li);
                 });
