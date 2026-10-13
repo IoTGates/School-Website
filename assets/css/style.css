@@ -3059,6 +3059,10 @@ button {
     .dept-card {
         padding: 1.15rem 1.2rem;
     }
+
+    .satellite-iframe-wrapper {
+        height: 340px !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -3068,6 +3072,10 @@ button {
 
     .goal-item-card {
         padding: 1rem 1rem;
+    }
+
+    .satellite-iframe-wrapper {
+        height: 290px !important;
     }
     .container {
         padding: 0 var(--spacing-md);

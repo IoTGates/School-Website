@@ -2572,10 +2572,14 @@
         // 19. تواصل معنا (#contact)
         renderContactView() {
             const s = siteData.school;
+            const targetEmail = s.email || 'abkrschool1410@gmail.com';
+            const mapUrl = s.mapUrl || 'https://maps.app.goo.gl/DQMmVkj5XPuor3Az9';
+            const lat = (s.coordinates && s.coordinates.lat) || 32.545269;
+            const lng = (s.coordinates && s.coordinates.lng) || 35.862892;
 
             const html = `
                 <div class="internal-page-header">
-                    <span class="page-tag">قنوات الاتصال المباشر</span>
+                    <span class="page-tag">قنوات الاتصال والموقع الجغرافي</span>
                     <h1 class="page-title">تواصل مع إدارة مدرسة أبي بكر الصديق الأساسية الثانية</h1>
                     <p class="page-subtitle">يسعدنا دائماً استقبال استفساراتكم وملاحظاتكم ومشاركتكم في بناء بيئة تعليمية أفضل</p>
                 </div>
@@ -2590,6 +2594,20 @@
                                 <div>
                                     <strong>اسم المدرسة:</strong>
                                     <p>${s.name}</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">📍</span>
+                                <div>
+                                    <strong>الموقع الجغرافي:</strong>
+                                    <p>مدينة إربد، لواء قصبة إربد، المملكة الأردنية الهاشمية</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">📧</span>
+                                <div>
+                                    <strong>البريد الإلكتروني المعتمد:</strong>
+                                    <p><a href="mailto:${targetEmail}" style="color: var(--blue); font-weight: 700; text-decoration: underline;">${targetEmail}</a></p>
                                 </div>
                             </div>
                             <div class="info-item">
@@ -2630,34 +2648,96 @@
                     <!-- Direct Message Form -->
                     <div class="contact-form-card card" style="padding: 2rem;">
                         <h2 class="section-title-sm">أرسل رسالة أو استفساراً</h2>
-                        <p style="font-size: 0.9rem; color: var(--dark-muted); margin-bottom: 1.5rem;">سيتم تحويل رسالتكم مباشرة لمتابعة الإدارة المدرسية أو المرشد التربوي.</p>
-                        <form id="internalContactForm">
+                        <p style="font-size: 0.9rem; color: var(--dark-muted); margin-bottom: 1.25rem;">
+                            سيتم توجيه رسالتكم مباشرة إلى البريد الرسمي لإدارة المدرسة (<strong style="color: var(--navy);">${targetEmail}</strong>).
+                        </p>
+
+                        <!-- Live Status / Alert Box -->
+                        <div id="contactFormStatusBox" style="display: none;"></div>
+
+                        <form id="internalContactForm" novalidate>
                             <div class="form-group" style="margin-bottom: 1rem;">
                                 <label for="mFullName" style="display: block; font-weight: 700; margin-bottom: 0.3rem;">الاسم الكامل *</label>
-                                <input type="text" id="mFullName" class="form-control" placeholder="أدخل اسمك الكريم" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit;">
+                                <input type="text" id="mFullName" name="fullName" class="form-control" placeholder="أدخل اسمك الكريم" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit;">
                             </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                                <div class="form-group">
+                                    <label for="mEmail" style="display: block; font-weight: 700; margin-bottom: 0.3rem;">بريد المرسل الإلكتروني *</label>
+                                    <input type="email" id="mEmail" name="email" class="form-control" placeholder="example@domain.com" required dir="ltr" style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit; text-align: left;">
+                                    <span style="font-size: 0.78rem; color: var(--dark-muted); display: block; margin-top: 0.2rem;">مهم جداً لإعادة التواصل والرد</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mPhone" style="display: block; font-weight: 700; margin-bottom: 0.3rem;">رقم هاتف المرسل / التليفون *</label>
+                                    <input type="tel" id="mPhone" name="phone" class="form-control" placeholder="07XXXXXXXX" required dir="ltr" style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit; text-align: left;">
+                                    <span style="font-size: 0.78rem; color: var(--dark-muted); display: block; margin-top: 0.2rem;">للتواصل الهاتفي السريع والمتابعة</span>
+                                </div>
+                            </div>
+
                             <div class="form-group" style="margin-bottom: 1rem;">
                                 <label for="mRole" style="display: block; font-weight: 700; margin-bottom: 0.3rem;">الصفة *</label>
-                                <select id="mRole" class="form-control" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit;">
+                                <select id="mRole" name="role" class="form-control" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit;">
                                     <option value="ولي أمر">ولي أمر</option>
                                     <option value="طالب">طالب</option>
                                     <option value="معلمة / زائرة">معلمة / زائرة</option>
                                     <option value="مؤسسة مجتمعية">مؤسسة مجتمعية</option>
+                                    <option value="أخرى">أخرى</option>
                                 </select>
                             </div>
+
                             <div class="form-group" style="margin-bottom: 1rem;">
                                 <label for="mSubject" style="display: block; font-weight: 700; margin-bottom: 0.3rem;">الموضوع أو الاستفسار *</label>
-                                <input type="text" id="mSubject" class="form-control" placeholder="موضوع الرسالة" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit;">
+                                <input type="text" id="mSubject" name="subject" class="form-control" placeholder="موضوع الرسالة أو الاستفسار" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit;">
                             </div>
+
                             <div class="form-group" style="margin-bottom: 1.25rem;">
                                 <label for="mMessage" style="display: block; font-weight: 700; margin-bottom: 0.3rem;">الرسالة بالتفصيل *</label>
-                                <textarea id="mMessage" class="form-control" rows="4" placeholder="اكتب تفاصيل الرسالة هنا..." required style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit;"></textarea>
+                                <textarea id="mMessage" name="message" class="form-control" rows="4" placeholder="اكتب تفاصيل استفسارك أو ملاحظتك هنا..." required style="width: 100%; padding: 0.65rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: inherit;"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">إرسال الرسالة إلى الإدارة المدرسية</button>
+
+                            <button type="submit" id="submitContactBtn" class="btn btn-primary btn-block" style="padding: 0.85rem; font-weight: 700;">
+                                إرسال الرسالة إلى إدارة المدرسة
+                            </button>
                         </form>
-                        <div id="internalFormSuccess" class="form-success-message hidden" style="margin-top: 1rem; padding: 1rem; background: #dcfce7; color: #166534; border-radius: var(--radius-sm); border: 1px solid #bbf7d0;">
-                            ✓ شكراً لتواصلكم! تم استلام رسالتكم وسيتم الرد والمتابعة من قبل إدارة المدرسة.
+                    </div>
+                </div>
+
+                <!-- Modern Satellite Map Section -->
+                <div class="satellite-map-card card" style="padding: 2rem; margin-bottom: 2.5rem; border-top: 5px solid var(--blue);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+                        <div>
+                            <h2 class="section-title-sm" style="display: flex; align-items: center; gap: 0.6rem; margin: 0; color: var(--navy);">
+                                <span style="font-size: 1.6rem;">🛰️</span>
+                                <span>موقع المدرسة على الخريطة (عرض الستالايت - القمر الصناعي)</span>
+                            </h2>
+                            <p style="margin: 0.4rem 0 0 0; color: var(--dark-muted); font-size: 0.95rem; line-height: 1.6;">
+                                تقع المدرسة في مدينة إربد، ضمن محافظة إربد في المملكة الأردنية الهاشمية
+                            </p>
                         </div>
+                        <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark btn-sm" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1rem;">
+                            <span>فتح في خرائط Google</span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+
+                    <!-- Responsive Satellite Map Embed Container -->
+                    <div class="satellite-iframe-wrapper" style="position: relative; width: 100%; height: 430px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--gray-300); box-shadow: var(--shadow-sm);">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=${lat},${lng}&t=k&z=17&ie=UTF8&iwloc=&output=embed" 
+                            width="100%" 
+                            height="100%" 
+                            style="border: 0; display: block;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="موقع مدرسة أبي بكر الصديق الأساسية الثانية - عرض القمر الصناعي">
+                        </iframe>
+                    </div>
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 1.75rem; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--gray-200); font-size: 0.9rem; color: var(--dark-muted);">
+                        <span>📍 <strong>المدينة واللواء:</strong> مدينة إربد - لواء قصبة إربد</span>
+                        <span>🔢 <strong>الإحداثيات الجغرافية:</strong> ${lat}° N, ${lng}° E</span>
+                        <span>🧭 <strong>التوجيه والملاحة:</strong> متوفر بنقرة واحدة عبر تطبيق خرائط Google لسهولة الوصول المباشر</span>
                     </div>
                 </div>
             `;
@@ -2667,19 +2747,158 @@
                 { label: 'تواصل معنا', route: '#contact' }
             ], html);
 
-            // Bind internal form submit handler
+            // Bind internal form submit handler with strict validation and live email delivery
             const form = document.getElementById('internalContactForm');
             if (form) {
-                form.addEventListener('submit', (e) => {
+                form.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const success = document.getElementById('internalFormSuccess');
-                    if (success) {
-                        success.classList.remove('hidden');
-                        setTimeout(() => {
-                            success.classList.add('hidden');
-                        }, 5000);
+                    const statusBox = document.getElementById('contactFormStatusBox');
+                    const submitBtn = document.getElementById('submitContactBtn');
+
+                    const fullName = document.getElementById('mFullName')?.value.trim();
+                    const email = document.getElementById('mEmail')?.value.trim();
+                    const phone = document.getElementById('mPhone')?.value.trim();
+                    const role = document.getElementById('mRole')?.value.trim();
+                    const subject = document.getElementById('mSubject')?.value.trim();
+                    const message = document.getElementById('mMessage')?.value.trim();
+
+                    // Reset field highlight states
+                    ['mFullName', 'mEmail', 'mPhone', 'mRole', 'mSubject', 'mMessage'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.style.borderColor = 'var(--gray-300)';
+                    });
+
+                    // Strict validation
+                    const errors = [];
+                    if (!fullName || fullName.length < 2) {
+                        errors.push('الاسم الكامل مطلوب (أدخل اسمك الكريم)');
+                        const el = document.getElementById('mFullName');
+                        if (el) el.style.borderColor = '#ef4444';
                     }
-                    form.reset();
+
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!email || !emailPattern.test(email)) {
+                        errors.push('بريد المرسل الإلكتروني مطلوب بصيغة صحيحة (مثال: name@domain.com) لإعادة التواصل');
+                        const el = document.getElementById('mEmail');
+                        if (el) el.style.borderColor = '#ef4444';
+                    }
+
+                    const phoneClean = phone ? phone.replace(/[\s\-\+\(\)]/g, '') : '';
+                    if (!phone || phoneClean.length < 7 || !/^\d+$/.test(phoneClean)) {
+                        errors.push('رقم هاتف المرسل مطلوب بشكل مكتمل للتواصل الهاتفي والمتابعة');
+                        const el = document.getElementById('mPhone');
+                        if (el) el.style.borderColor = '#ef4444';
+                    }
+
+                    if (!subject || subject.length < 2) {
+                        errors.push('موضوع الرسالة أو الاستفسار مطلوب');
+                        const el = document.getElementById('mSubject');
+                        if (el) el.style.borderColor = '#ef4444';
+                    }
+
+                    if (!message || message.length < 5) {
+                        errors.push('نص الرسالة بالتفصيل مطلوب (على الأقل 5 أحرف)');
+                        const el = document.getElementById('mMessage');
+                        if (el) el.style.borderColor = '#ef4444';
+                    }
+
+                    // If any error exists, block submission immediately
+                    if (errors.length > 0) {
+                        if (statusBox) {
+                            statusBox.style.display = 'block';
+                            statusBox.style.background = '#fef2f2';
+                            statusBox.style.color = '#991b1b';
+                            statusBox.style.border = '1px solid #fecaca';
+                            statusBox.style.padding = '0.9rem 1.1rem';
+                            statusBox.style.borderRadius = 'var(--radius-sm)';
+                            statusBox.style.marginBottom = '1.25rem';
+                            statusBox.innerHTML = `
+                                <strong>⚠️ لا يمكن إرسال الرسالة قبل استكمال البيانات الإلزامية التالية:</strong>
+                                <ul style="margin: 0.5rem 1.25rem 0 0; padding: 0; line-height: 1.7;">
+                                    ${errors.map(err => `<li>${err}</li>`).join('')}
+                                </ul>
+                            `;
+                            statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                        return false;
+                    }
+
+                    // If valid, start sending
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = '⏳ جاري إرسال الرسالة إلى إدارة المدرسة...';
+                    }
+
+                    if (statusBox) {
+                        statusBox.style.display = 'block';
+                        statusBox.style.background = '#eff6ff';
+                        statusBox.style.color = '#1e40af';
+                        statusBox.style.border = '1px solid #bfdbfe';
+                        statusBox.style.padding = '0.9rem 1.1rem';
+                        statusBox.style.borderRadius = 'var(--radius-sm)';
+                        statusBox.style.marginBottom = '1.25rem';
+                        statusBox.innerHTML = '🔄 جاري إرسال الرسالة إلى بريد المدرسة (abkrschool1410@gmail.com)...';
+                    }
+
+                    try {
+                        const response = await fetch('https://formsubmit.co/ajax/' + targetEmail, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                _subject: `رسالة جديدة من الموقع المدرسي: ${subject} (${fullName})`,
+                                _replyto: email,
+                                "الاسم الكامل": fullName,
+                                "الصفة": role,
+                                "البريد الإلكتروني للمرسل": email,
+                                "رقم الهاتف": phone,
+                                "الموضوع": subject,
+                                "نص الرسالة": message,
+                                _template: "table"
+                            })
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok || (data && data.success === 'true')) {
+                            if (statusBox) {
+                                statusBox.style.background = '#f0fdf4';
+                                statusBox.style.color = '#166534';
+                                statusBox.style.border = '1px solid #bbf7d0';
+                                statusBox.innerHTML = `
+                                    ✓ <strong>تم إرسال رسالتكم بنجاح!</strong><br>
+                                    وصلت الرسالة إلى البريد الرسمي لإدارة مدرسة أبي بكر الصديق (${targetEmail}).<br>
+                                    سيتم التواصل معكم والرد على هاتفكم (<strong>${phone}</strong>) أو بريدكم الإلكتروني (<strong>${email}</strong>) قريباً.
+                                `;
+                            }
+                            form.reset();
+                        } else {
+                            throw new Error((data && data.message) || 'تعذر الإرسال');
+                        }
+                    } catch (err) {
+                        // Resilient Fallback to direct mailto client
+                        const mailtoSubject = encodeURIComponent(`رسالة من الموقع المدرسي: ${subject} - ${fullName}`);
+                        const mailtoBody = encodeURIComponent(`الاسم: ${fullName}\nالصفة: ${role}\nالهاتف: ${phone}\nالبريد: ${email}\n\nالرسالة:\n${message}`);
+                        const mailtoUrl = `mailto:${targetEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+                        if (statusBox) {
+                            statusBox.style.background = '#fffbeb';
+                            statusBox.style.color = '#92400e';
+                            statusBox.style.border = '1px solid #fde68a';
+                            statusBox.innerHTML = `
+                                ℹ️ <strong>تم حفظ بيانات رسالتكم:</strong><br>
+                                يمكنك أيضاً إرسال الرسالة مباشرة بنقرة واحدة عبر تطبيق البريد المعتمد:<br>
+                                <a href="${mailtoUrl}" class="btn btn-primary btn-sm" style="margin-top: 0.6rem; display: inline-block;">إرسال عبر تطبيق البريد الإلكتروني ↗</a>
+                            `;
+                        }
+                    } finally {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'إرسال الرسالة إلى الإدارة المدرسية';
+                        }
+                    }
                 });
             }
         }
