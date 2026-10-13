@@ -573,6 +573,148 @@ button {
     box-shadow: var(--shadow-md);
 }
 
+/* ==================== PILLARS & INTERNAL CARDS BREATHING ROOM ==================== */
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.pillar-card {
+    padding: 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+}
+
+.pillar-icon {
+    font-size: 2.1rem;
+    margin-bottom: 0.35rem;
+    line-height: 1;
+}
+
+.pillar-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0;
+}
+
+.pillar-card p {
+    font-size: 0.95rem;
+    color: var(--dark-muted);
+    line-height: 1.75;
+    margin: 0;
+}
+
+/* Goals Grid & Goal Item Card */
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.goal-item-card {
+    padding: 1.35rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.1rem;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+}
+
+.goal-item-card .goal-icon {
+    font-size: 1.85rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 0.15rem;
+}
+
+.goal-item-card h4 {
+    margin: 0 0 0.35rem 0;
+    color: var(--navy);
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.goal-item-card p {
+    margin: 0;
+    color: var(--dark-muted);
+    font-size: 0.92rem;
+    line-height: 1.65;
+}
+
+/* Department Card */
+.dept-card {
+    padding: 1.35rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+}
+
+.dept-card h4 {
+    margin: 0 0 0.25rem 0;
+    color: var(--navy);
+    font-size: 1.1rem;
+}
+
+.dept-card p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--dark);
+    line-height: 1.65;
+}
+
+/* Statistics in About */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background: var(--light);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1rem;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--navy);
+}
+
+.stat-label {
+    font-size: 0.88rem;
+    color: var(--dark-muted);
+    margin-top: 0.35rem;
+}
+
+/* Related Initiative Chip */
+.related-init-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1.1rem;
+    text-decoration: none;
+    color: var(--dark);
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--white);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--gray-200);
+}
+
 /* ==================== HERO IMAGE SLIDER ==================== */
 .hero-slider-section {
     position: relative;
@@ -2882,9 +3024,32 @@ button {
     .person-modal-dialog {
         padding: 1.5rem 1.25rem;
     }
+
+    .pillars-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pillar-card {
+        padding: 1.25rem 1.25rem;
+    }
+
+    .goal-item-card {
+        padding: 1.15rem 1.2rem;
+    }
+
+    .dept-card {
+        padding: 1.15rem 1.2rem;
+    }
 }
 
 @media (max-width: 480px) {
+    .pillar-card {
+        padding: 1.15rem 1.1rem;
+    }
+
+    .goal-item-card {
+        padding: 1rem 1rem;
+    }
     .container {
         padding: 0 var(--spacing-md);
     }

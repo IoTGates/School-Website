@@ -15,9 +15,15 @@
         isSliderPaused: false,
 
         getCurrentPage() {
-            const path = window.location.pathname;
-            const filename = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
-            if (!filename || filename === 'index.html' || filename === '') return 'index.html';
+            let path = window.location.pathname || '';
+            if (path.endsWith('/')) {
+                path = path.slice(0, -1);
+            }
+            let filename = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
+            if (!filename || filename === 'index.html' || filename === 'index' || filename === '') return 'index.html';
+            if (!filename.endsWith('.html')) {
+                filename += '.html';
+            }
             return filename;
         },
 
@@ -238,7 +244,10 @@
                 const parts = route.split('#');
                 const linkPage = parts[0];
                 const linkHash = parts.length > 1 ? parts[1] : '';
-                const cleanLinkPage = (!linkPage || linkPage === 'index.html' || linkPage === '') ? 'index.html' : linkPage;
+                let cleanLinkPage = (!linkPage || linkPage === 'index.html' || linkPage === '') ? 'index.html' : linkPage;
+                if (!cleanLinkPage.endsWith('.html')) {
+                    cleanLinkPage += '.html';
+                }
 
                 let isActive = false;
                 if (linkHash) {
