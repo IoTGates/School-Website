@@ -1129,7 +1129,6 @@
 
             if (contentArea) {
                 contentArea.innerHTML = contentHtml;
-                contentArea.focus();
             }
         },
 

@@ -1364,6 +1364,25 @@ button {
     padding: var(--spacing-xl) var(--spacing-lg);
 }
 
+.internal-content-area,
+#internalContentArea,
+[tabindex="-1"] {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.internal-content-area:focus,
+.internal-content-area:focus-visible,
+#internalContentArea:focus,
+#internalContentArea:focus-visible,
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
 .internal-nav-bar {
     display: flex;
     justify-content: space-between;
