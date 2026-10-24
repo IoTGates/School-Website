@@ -1983,6 +1983,56 @@ button {
     color: var(--navy);
 }
 
+/* ==================== FOOTER VISIT COUNTER ==================== */
+.footer-counter-wrap {
+    margin-top: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.footer-counter-wrap:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.counter-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+}
+
+.counter-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.counter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace, var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--yellow);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.15rem 0.55rem;
+    border-radius: var(--radius-sm);
+    min-width: 3.2rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: var(--spacing-lg);

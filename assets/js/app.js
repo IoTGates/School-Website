@@ -101,6 +101,7 @@
             this.populateFooter();
             this.initPersonModal();
             this.setupEventListeners();
+            this.initVisitCounter();
 
             const currentPage = this.getCurrentPage();
 
@@ -692,6 +693,80 @@
                     a.innerHTML = `<span class="icon">${item.icon}</span> <span>${item.label}</span> <span>↗</span>`;
                     socialContainer.appendChild(a);
                 });
+            }
+
+            if (this.visitCounterState && this.visitCounterState.currentCount !== null) {
+                this.updateCounterDisplay(this.visitCounterState.currentCount);
+            }
+        },
+
+        // ==================== SITE VISIT COUNTER ====================
+        visitCounterState: {
+            initialized: false,
+            currentCount: null,
+            lastRecordedPath: null
+        },
+
+        initVisitCounter() {
+            if (this.visitCounterState.initialized) return;
+            this.visitCounterState.initialized = true;
+
+            const initialPath = this.getNormalizedRouteKey();
+            this.recordVisit(initialPath);
+
+            window.addEventListener('hashchange', () => {
+                const newPath = this.getNormalizedRouteKey();
+                if (newPath !== this.visitCounterState.lastRecordedPath) {
+                    this.recordVisit(newPath);
+                }
+            });
+        },
+
+        getNormalizedRouteKey() {
+            const pathname = window.location.pathname || '/';
+            const hash = (window.location.hash || '').trim();
+            return pathname + (hash ? hash : '#home');
+        },
+
+        async recordVisit(routeKey) {
+            if (this.visitCounterState.lastRecordedPath === routeKey && this.visitCounterState.currentCount !== null) {
+                return;
+            }
+            this.visitCounterState.lastRecordedPath = routeKey;
+
+            try {
+                const res = await fetch('/api/counter', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+                const data = await res.json();
+                if (data && typeof data.count === 'number') {
+                    this.visitCounterState.currentCount = data.count;
+                    this.updateCounterDisplay(data.count);
+                } else if (this.visitCounterState.currentCount === null) {
+                    this.updateCounterDisplay(null);
+                }
+            } catch (err) {
+                console.warn('Visit counter notice:', err);
+                if (this.visitCounterState.currentCount === null) {
+                    this.updateCounterDisplay(null);
+                }
+            }
+        },
+
+        updateCounterDisplay(count) {
+            const el = document.getElementById('siteVisitCounter');
+            if (!el) return;
+            if (typeof count === 'number') {
+                el.textContent = count.toLocaleString('en-US');
+            } else {
+                el.textContent = '---';
             }
         },
 
