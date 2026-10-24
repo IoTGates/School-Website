@@ -16,6 +16,9 @@
 
         getCurrentPage() {
             let path = window.location.pathname || '';
+            if (path.includes('initiatives/ajyal') || path.endsWith('/ajyal') || path.endsWith('/ajyal.html')) {
+                return 'ajyal.html';
+            }
             if (path.endsWith('/')) {
                 path = path.slice(0, -1);
             }
@@ -33,58 +36,61 @@
                 return route;
             }
             if (route.endsWith('.html') || route.includes('.html#')) {
-                return route;
+                return route.startsWith('/') ? route : `/${route}`;
             }
             if (route === '#home' || route === '#' || route === '') {
-                return 'index.html';
+                return '/index.html';
             }
             if (route === '#school' || route === '#about') {
-                return 'about.html';
+                return '/about.html';
             }
             if (route === '#vision-mission') {
-                return 'about.html#vision-mission';
+                return '/about.html#vision-mission';
             }
             if (route === '#staff') {
-                return 'staff.html';
+                return '/staff.html';
             }
             if (route === '#school-structure') {
-                return 'staff.html#school-structure';
+                return '/staff.html#school-structure';
             }
             if (route === '#development-team') {
-                return 'staff.html#development-team';
+                return '/staff.html#development-team';
             }
             if (route === '#development-plan') {
-                return 'development-plan.html';
+                return '/development-plan.html';
             }
             if (route.startsWith('#development-')) {
-                return `development-plan.html${route}`;
+                return `/development-plan.html${route}`;
             }
             if (route === '#grades') {
-                return 'grades.html';
+                return '/grades.html';
             }
             if (route.startsWith('#grade-') || route === '#support-programs') {
-                return `grades.html${route}`;
+                return `/grades.html${route}`;
             }
             if (route === '#events') {
-                return 'events.html';
+                return '/events.html';
             }
             if (route.startsWith('#event/')) {
-                return `events.html${route}`;
+                return `/events.html${route}`;
             }
             if (route === '#initiatives') {
-                return 'initiatives.html';
+                return '/initiatives.html';
+            }
+            if (route === '/initiatives/ajyal' || route === 'initiatives/ajyal' || route === '#ajyal' || route === '#initiative/ajyal') {
+                return '/initiatives/ajyal';
             }
             if (route.startsWith('#initiative/') || route === '#achievements' || route.startsWith('#achievement/')) {
-                return `initiatives.html${route}`;
+                return `/initiatives.html${route}`;
             }
             if (route === '#resources') {
-                return 'resources.html';
+                return '/resources.html';
             }
             if (route === '#links') {
-                return 'links.html';
+                return '/links.html';
             }
             if (route === '#contact') {
-                return 'contact.html';
+                return '/contact.html';
             }
             return route;
         },
@@ -154,7 +160,7 @@
                     triggerWrap.className = 'dropdown-trigger-wrap';
 
                     const parentLink = document.createElement('a');
-                    parentLink.href = item.route;
+                    parentLink.href = this.resolveHref(item.route);
                     parentLink.className = 'dropdown-trigger';
                     parentLink.setAttribute('data-route', item.route);
                     parentLink.innerHTML = `<span>${item.label}</span> <span class="dropdown-caret" aria-hidden="true">▾</span>`;
@@ -186,7 +192,7 @@
                     item.children.forEach(sub => {
                         const subLi = document.createElement('li');
                         const subA = document.createElement('a');
-                        subA.href = sub.route;
+                        subA.href = this.resolveHref(sub.route);
                         subA.textContent = sub.label;
                         subA.setAttribute('data-route', sub.route);
                         subA.addEventListener('click', () => {
@@ -200,7 +206,7 @@
                 } else {
                     const a = document.createElement('a');
                     a.textContent = item.label;
-                    a.href = item.route;
+                    a.href = this.resolveHref(item.route);
                     a.setAttribute('data-route', item.route);
                     a.addEventListener('click', () => {
                         this.closeHamburgerMenu();
@@ -643,7 +649,7 @@
                 aboutLinks.innerHTML = '';
                 aboutList.forEach(item => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<a href="${item.route}">${item.label}</a>`;
+                    li.innerHTML = `<a href="${this.resolveHref(item.route)}">${item.label}</a>`;
                     aboutLinks.appendChild(li);
                 });
             }
@@ -655,7 +661,7 @@
                 schoolPagesLinks.innerHTML = '';
                 pagesList.forEach(item => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<a href="${item.route}">${item.label}</a>`;
+                    li.innerHTML = `<a href="${this.resolveHref(item.route)}">${item.label}</a>`;
                     schoolPagesLinks.appendChild(li);
                 });
             }
@@ -667,7 +673,7 @@
                 portalsLinks.innerHTML = '';
                 portalsList.forEach(item => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<a href="${item.route}">${item.label}</a>`;
+                    li.innerHTML = `<a href="${this.resolveHref(item.route)}">${item.label}</a>`;
                     portalsLinks.appendChild(li);
                 });
             }
@@ -994,9 +1000,15 @@
                     this.renderEventsListView();
                 }
             } else if (currentPage === 'initiatives.html') {
-                if (rawHash.startsWith('#initiative/')) {
+                if (rawHash === '#ajyal' || rawHash === '#initiative/ajyal') {
+                    this.renderAjyalGuideView();
+                } else if (rawHash.startsWith('#initiative/')) {
                     const initId = rawHash.replace('#initiative/', '');
-                    this.renderInitiativeDetailView(initId);
+                    if (initId === 'ajyal') {
+                        this.renderAjyalGuideView();
+                    } else {
+                        this.renderInitiativeDetailView(initId);
+                    }
                 } else if (rawHash === '#achievements') {
                     this.renderAchievementsView();
                 } else if (rawHash.startsWith('#achievement/')) {
@@ -1005,6 +1017,8 @@
                 } else {
                     this.renderInitiativesListView();
                 }
+            } else if (currentPage === 'ajyal.html') {
+                this.renderAjyalGuideView();
             } else if (currentPage === 'resources.html') {
                 this.renderResourcesView();
             } else if (currentPage === 'links.html') {
@@ -1075,9 +1089,15 @@
                 this.renderEventDetailView(eventId);
             } else if (hash === '#initiatives') {
                 this.renderInitiativesListView();
+            } else if (hash === '#ajyal' || hash === '#initiative/ajyal') {
+                this.renderAjyalGuideView();
             } else if (hash.startsWith('#initiative/')) {
                 const initId = hash.replace('#initiative/', '');
-                this.renderInitiativeDetailView(initId);
+                if (initId === 'ajyal') {
+                    this.renderAjyalGuideView();
+                } else {
+                    this.renderInitiativeDetailView(initId);
+                }
             } else if (hash === '#achievements') {
                 this.renderAchievementsView();
             } else if (hash.startsWith('#achievement/')) {
@@ -2300,7 +2320,7 @@
                         <h3>${init.name}</h3>
                         <p>${init.briefDescription}</p>
                         <div class="init-footer">
-                            <a href="${init.route}" class="btn btn-secondary btn-sm btn-block">تفاصيل المبادرة الكاملة ←</a>
+                            <a href="${init.route}" class="btn btn-secondary btn-sm btn-block">${init.buttonText || 'تفاصيل المبادرة الكاملة ←'}</a>
                         </div>
                     </div>
                 `;
@@ -2326,6 +2346,10 @@
 
         // 14. تفاصيل المبادرة (#initiative/:id)
         renderInitiativeDetailView(initId) {
+            if (initId === 'ajyal') {
+                this.renderAjyalGuideView();
+                return;
+            }
             const init = siteData.initiatives.find(i => i.id === initId);
             if (!init) {
                 this.renderInitiativesListView();
@@ -2386,6 +2410,544 @@
                 { label: 'المبادرات والبرامج', route: '#initiatives' },
                 { label: init.name, route: init.route }
             ], html);
+        },
+
+        // 14.1 دليل منصة أجيال التعليمي (/initiatives/ajyal)
+        renderAjyalGuideView() {
+            const guides = (typeof window !== 'undefined' && window.ajyalGuidesData && window.ajyalGuidesData.length > 0)
+                ? window.ajyalGuidesData
+                : [
+                    {
+                        id: "login",
+                        title: "تسجيل الدخول إلى منصة أجيال",
+                        category: "الحسابات والدخول",
+                        icon: "🔑",
+                        audiences: ["students", "parents", "teachers", "school-admin"],
+                        audiencesLabels: ["الطلاب", "أولياء الأمور", "المعلمون", "الإدارة المدرسية"],
+                        description: "شرح خطوات تسجيل الدخول إلى منصة أجيال الرسمية باستخدام الرقم الوطني وكلمة المرور المعتمدة لجميع أفراد المجتمع المدرسي.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "account-recovery",
+                        title: "استعادة بيانات الحساب",
+                        category: "الحسابات والدخول",
+                        icon: "🔄",
+                        audiences: ["students", "parents", "teachers"],
+                        audiencesLabels: ["الطلاب", "أولياء الأمور", "المعلمون"],
+                        description: "إرشادات استرجاع اسم المستخدم وكلمة المرور في حال نسيانها وتحديث بيانات الاتصال المرتبطة بالحساب.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "schedule",
+                        title: "الجدول الدراسي",
+                        category: "التعليم والتعلم",
+                        icon: "📅",
+                        audiences: ["students", "parents", "teachers"],
+                        audiencesLabels: ["الطلاب", "أولياء الأمور", "المعلمون"],
+                        description: "استعراض جدول الحصص اليومية والأسبوعية وتوزيع المباحث ومواعيد الحصص والأنشطة المدرسية.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "assignments-courses",
+                        title: "الواجبات والمواد الدراسية",
+                        category: "التعليم والتعلم",
+                        icon: "📚",
+                        audiences: ["students", "parents"],
+                        audiencesLabels: ["الطلاب", "أولياء الأمور"],
+                        description: "الوصول إلى المواد التعليمية والمناهج المرفوعة، وتحميل أوراق العمل وحل الواجبات وتسليمها إلكترونياً.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "online-exams",
+                        title: "الاختبارات الإلكترونية",
+                        category: "التقييم والاختبارات",
+                        icon: "📝",
+                        audiences: ["students", "parents"],
+                        audiencesLabels: ["الطلاب", "أولياء الأمور"],
+                        description: "طريقة تأدية الاختبارات الإلكترونية والتقييمات القصيرة عبر المنصة، ومتابعة الوقت المتبقي وتسليم الإجابات.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "grades-evaluations",
+                        title: "العلامات والتقييمات",
+                        category: "التقييم والاختبارات",
+                        icon: "📊",
+                        audiences: ["students", "parents"],
+                        audiencesLabels: ["الطلاب", "أولياء الأمور"],
+                        description: "الاطلاع على نتائج التقييمات الشهرية والفصلية، وسجلات الأداء وتقارير التحصيل الأكاديمي.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "parent-followup",
+                        title: "متابعة الأبناء لأولياء الأمور",
+                        category: "أولياء الأمور",
+                        icon: "👨‍👩‍👦",
+                        audiences: ["parents"],
+                        audiencesLabels: ["أولياء الأمور"],
+                        description: "دليل ولي الأمر لمتابعة سجل الحضور والغياب اليومي للابن، وملاحظات المعلمات والواجبات المنجزة.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "teacher-communication",
+                        title: "التواصل مع المعلمين",
+                        category: "التواصل المدرسي",
+                        icon: "💬",
+                        audiences: ["parents", "students"],
+                        audiencesLabels: ["أولياء الأمور", "الطلاب"],
+                        description: "آلية إرسال واستقبال الرسائل والاستفسارات التعليمية والتربوية مع معلمات المدرسة وإدارتها.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "classes-management",
+                        title: "إدارة الصفوف والمباحث",
+                        category: "المعلمون",
+                        icon: "👩‍🏫",
+                        audiences: ["teachers"],
+                        audiencesLabels: ["المعلمون"],
+                        description: "إرشادات تنظيم الشعب الصفية والمباحث الدراسية، وتقسيم المجموعات الطلابية وفق الخطط الصفية.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "lessons-assignments-prep",
+                        title: "إعداد الدروس والواجبات",
+                        category: "المعلمون",
+                        icon: "💻",
+                        audiences: ["teachers"],
+                        audiencesLabels: ["المعلمون"],
+                        description: "خطوات إنشاء الدروس التفاعلية، ورفع المحتوى الإثرائي والمرفقات وتعيين الواجبات المنزلية ومواعيد استلامها.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "grades-attendance-entry",
+                        title: "رصد العلامات والحضور",
+                        category: "التقييم والرصد",
+                        icon: "📋",
+                        audiences: ["teachers", "school-admin"],
+                        audiencesLabels: ["المعلمون", "الإدارة المدرسية"],
+                        description: "آلية إدخال علامات الفترات والتقييمات التكوينية والختامية، وتثبيت الحضور والغياب اليومي للطلبة.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    },
+                    {
+                        id: "admin-accounts-reports",
+                        title: "إدارة الحسابات والجداول والتقارير",
+                        category: "الإدارة المدرسية",
+                        icon: "⚙️",
+                        audiences: ["school-admin"],
+                        audiencesLabels: ["الإدارة المدرسية"],
+                        description: "دليل الإدارة المدرسية لتوليد حسابات الطلبة والمعلمين، اعتماد التوزيعات والجداول واستخراج التقارير الرسمية.",
+                        youtubeVideoId: null,
+                        duration: "قريبًا",
+                        status: "coming_soon"
+                    }
+                ];
+
+            const playlistUrl = (typeof window !== 'undefined' && window.ajyalConfig && window.ajyalConfig.officialPlaylistUrl)
+                ? window.ajyalConfig.officialPlaylistUrl
+                : 'https://www.youtube.com/playlist?list=PLZzPNcIWVeaM';
+
+            const html = `
+                <div class="internal-page-header">
+                    <span class="page-tag">إرشادات تعليمية رقمية</span>
+                    <h1 class="page-title">دليل منصة أجيال</h1>
+                    <p class="page-subtitle">تعلم استخدام منصة أجيال بسهولة من خلال شروحات مصوّرة لجميع أفراد المجتمع المدرسي</p>
+                    <div style="margin-top: 1rem; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.75rem;">
+                        <span class="meta-pill" style="background: rgba(255,255,255,0.18); color: #fff; font-weight: 600;">
+                            🎓 الدليل التعليمي المعتمد 2026-2027
+                        </span>
+                        <a href="${playlistUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="color: #fff; border-color: rgba(255,255,255,0.5);">
+                            ▶ قائمة الشروحات الرسمية على YouTube
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Search and Filters Panel -->
+                <div class="ajyal-controls-card">
+                    <div class="ajyal-search-wrapper">
+                        <span class="ajyal-search-icon" aria-hidden="true">🔍</span>
+                        <input type="text" id="ajyalSearchInput" class="ajyal-search-input" 
+                               placeholder="ابحث في شروحات منصة أجيال... (مثال: تسجيل الدخول، الواجبات، رصد العلامات...)" 
+                               aria-label="البحث في شروحات منصة أجيال">
+                        <button type="button" id="ajyalClearSearchBtn" class="ajyal-clear-btn" aria-label="مسح نص البحث">✕</button>
+                    </div>
+
+                    <div class="ajyal-filters-wrap">
+                        <div class="ajyal-filter-pills" role="tablist" aria-label="تصفية حسب الجمهور المستهدف">
+                            <button type="button" class="filter-pill active" data-audience="all" role="tab" aria-selected="true">الكل</button>
+                            <button type="button" class="filter-pill" data-audience="students" role="tab" aria-selected="false">الطلاب</button>
+                            <button type="button" class="filter-pill" data-audience="parents" role="tab" aria-selected="false">أولياء الأمور</button>
+                            <button type="button" class="filter-pill" data-audience="teachers" role="tab" aria-selected="false">المعلمون</button>
+                            <button type="button" class="filter-pill" data-audience="school-admin" role="tab" aria-selected="false">الإدارة المدرسية</button>
+                        </div>
+                        <div class="ajyal-counter" id="ajyalResultsCount" aria-live="polite">
+                            عرض ${guides.length} شرحاً تعليمياً
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guides Grid -->
+                <div class="ajyal-grid" id="ajyalGuidesGrid"></div>
+
+                <div class="action-buttons-wrap" style="margin-top: 2rem; margin-bottom: 2rem;">
+                    <a href="initiatives.html" class="btn btn-secondary">العودة لكافة المبادرات المدرسية ←</a>
+                </div>
+            `;
+
+            this.showInternalView([
+                { label: 'الرئيسية', route: '#home' },
+                { label: 'المبادرات والبرامج', route: '#initiatives' },
+                { label: 'دليل منصة أجيال' }
+            ], html);
+
+            this.initAjyalGuideInteractivity(guides);
+            this.ensureVideoModal();
+        },
+
+        initAjyalGuideInteractivity(guides) {
+            const searchInput = document.getElementById('ajyalSearchInput');
+            const clearBtn = document.getElementById('ajyalClearSearchBtn');
+            const grid = document.getElementById('ajyalGuidesGrid');
+            const counter = document.getElementById('ajyalResultsCount');
+            const filterButtons = document.querySelectorAll('.filter-pill');
+
+            if (!grid) return;
+
+            let selectedAudience = 'all';
+            let searchQuery = '';
+
+            const normalize = (str) => {
+                if (!str) return '';
+                return str
+                    .replace(/[إأآا]/g, 'ا')
+                    .replace(/ة/g, 'ه')
+                    .replace(/ى/g, 'ي')
+                    .replace(/[\u064B-\u065F]/g, '')
+                    .toLowerCase()
+                    .trim();
+            };
+
+            const renderGuides = () => {
+                const normQuery = normalize(searchQuery);
+
+                const filtered = guides.filter(guide => {
+                    const audienceMatch = (selectedAudience === 'all') || 
+                                          (guide.audiences && guide.audiences.includes(selectedAudience));
+                    if (!audienceMatch) return false;
+
+                    if (!normQuery) return true;
+
+                    const titleMatch = normalize(guide.title).includes(normQuery);
+                    const descMatch = normalize(guide.description).includes(normQuery);
+                    const catMatch = normalize(guide.category).includes(normQuery);
+                    return titleMatch || descMatch || catMatch;
+                });
+
+                if (counter) {
+                    if (filtered.length === 0) {
+                        counter.textContent = 'لا توجد شروحات مطابقة';
+                    } else if (filtered.length === 1) {
+                        counter.textContent = 'عرض شرح واحد';
+                    } else if (filtered.length === 2) {
+                        counter.textContent = 'عرض شرحين تعليميين';
+                    } else if (filtered.length <= 10) {
+                        counter.textContent = `عرض ${filtered.length} شروحات تعليمية`;
+                    } else {
+                        counter.textContent = `عرض ${filtered.length} شرحاً تعليمياً`;
+                    }
+                }
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `
+                        <div class="ajyal-empty-state">
+                            <div class="ajyal-empty-state-icon" aria-hidden="true">🔍</div>
+                            <h3 class="ajyal-empty-state-title">لم يتم العثور على شروحات مطابقة</h3>
+                            <p class="ajyal-empty-state-text">جرّب البحث بكلمات أخرى أو تغيير مرشح الجمهور المستهدف.</p>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="ajyalResetFiltersBtn">إعادة ضبط التصفية</button>
+                        </div>
+                    `;
+                    const resetBtn = document.getElementById('ajyalResetFiltersBtn');
+                    if (resetBtn) {
+                        resetBtn.addEventListener('click', () => {
+                            selectedAudience = 'all';
+                            searchQuery = '';
+                            if (searchInput) searchInput.value = '';
+                            if (clearBtn) clearBtn.style.display = 'none';
+                            filterButtons.forEach(btn => {
+                                const isAll = btn.getAttribute('data-audience') === 'all';
+                                btn.classList.toggle('active', isAll);
+                                btn.setAttribute('aria-selected', isAll ? 'true' : 'false');
+                            });
+                            renderGuides();
+                        });
+                    }
+                    return;
+                }
+
+                let cardsHtml = '';
+                filtered.forEach(guide => {
+                    const audiencesHtml = (guide.audiencesLabels || [])
+                        .map(lbl => `<span class="ajyal-audience-badge">${lbl}</span>`)
+                        .join('');
+
+                    const hasValidVideo = Boolean(guide.youtubeVideoId && guide.status !== 'coming_soon');
+                    const actionButton = hasValidVideo
+                        ? `<button type="button" class="btn btn-primary btn-sm btn-block ajyal-play-btn" data-video-id="${guide.youtubeVideoId}" data-title="${guide.title}">مشاهدة الشرح ▶</button>`
+                        : `<button type="button" class="btn btn-coming-soon btn-sm btn-block" disabled aria-disabled="true" title="سيتم إتاحة الفيديو عبر قناة المدرسة قريباً">الفيديو قريبًا</button>`;
+
+                    cardsHtml += `
+                        <div class="ajyal-card card">
+                            <div class="ajyal-card-header">
+                                <span class="ajyal-card-icon" aria-hidden="true">${guide.icon}</span>
+                                <span class="ajyal-card-category">${guide.category}</span>
+                            </div>
+                            <h3 class="ajyal-card-title">${guide.title}</h3>
+                            <p class="ajyal-card-desc">${guide.description}</p>
+                            <div class="ajyal-card-meta">
+                                <div class="ajyal-audience-tags" aria-label="الجمهور المستهدف">
+                                    ${audiencesHtml}
+                                </div>
+                                <span class="ajyal-duration-badge" aria-label="مدة الفيديو">⏱️ ${guide.duration || 'قريبًا'}</span>
+                            </div>
+                            <div class="ajyal-card-action">
+                                ${actionButton}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                grid.innerHTML = cardsHtml;
+
+                // Bind video modal openers
+                grid.querySelectorAll('.ajyal-play-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const vId = btn.getAttribute('data-video-id');
+                        const vTitle = btn.getAttribute('data-title');
+                        this.openVideoModal(vId, vTitle);
+                    });
+                });
+            };
+
+            // Search input listener
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    searchQuery = e.target.value.trim();
+                    if (clearBtn) {
+                        clearBtn.style.display = searchQuery ? 'block' : 'none';
+                    }
+                    renderGuides();
+                });
+            }
+
+            // Clear search button
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    searchQuery = '';
+                    if (searchInput) {
+                        searchInput.value = '';
+                        searchInput.focus();
+                    }
+                    clearBtn.style.display = 'none';
+                    renderGuides();
+                });
+            }
+
+            // Audience filter pills
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-selected', 'false');
+                    });
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-selected', 'true');
+                    selectedAudience = btn.getAttribute('data-audience') || 'all';
+                    renderGuides();
+                });
+            });
+
+            // Initial render
+            renderGuides();
+        },
+
+        // ==================== YOUTUBE VIDEO MODAL API ====================
+        ensureVideoModal() {
+            let backdrop = document.getElementById('videoModalBackdrop');
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.id = 'videoModalBackdrop';
+                backdrop.className = 'video-modal-backdrop';
+                backdrop.setAttribute('aria-hidden', 'true');
+                backdrop.setAttribute('role', 'dialog');
+                backdrop.setAttribute('aria-modal', 'true');
+                backdrop.setAttribute('aria-labelledby', 'videoModalTitle');
+                backdrop.innerHTML = `
+                    <div class="video-modal-container">
+                        <div class="video-modal-header">
+                            <h3 id="videoModalTitle" class="video-modal-title">مشاهدة الشرح</h3>
+                            <button type="button" class="video-modal-close" id="videoModalCloseBtn" aria-label="إغلاق المشغل">✕</button>
+                        </div>
+                        <div class="video-modal-body">
+                            <div class="video-responsive-wrapper">
+                                <div id="youtubePlayerTarget"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(backdrop);
+            }
+            this.initVideoModalEvents();
+        },
+
+        initVideoModalEvents() {
+            if (this._videoModalEventsBound) return;
+            this._videoModalEventsBound = true;
+
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('#videoModalCloseBtn')) {
+                    this.closeVideoModal();
+                    return;
+                }
+                const backdrop = document.getElementById('videoModalBackdrop');
+                if (backdrop && backdrop.classList.contains('active') && e.target === backdrop) {
+                    this.closeVideoModal();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const backdrop = document.getElementById('videoModalBackdrop');
+                    if (backdrop && backdrop.classList.contains('active')) {
+                        this.closeVideoModal();
+                    }
+                }
+            });
+        },
+
+        openVideoModal(videoId, title) {
+            if (!videoId || typeof videoId !== 'string') return;
+            const cleanId = videoId.trim();
+            // Validate individual YouTube video ID format (11 characters)
+            if (!/^[a-zA-Z0-9_-]{11}$/.test(cleanId)) {
+                console.warn('Invalid individual YouTube video ID:', cleanId);
+                return;
+            }
+            this.ensureVideoModal();
+
+            const backdrop = document.getElementById('videoModalBackdrop');
+            const titleEl = document.getElementById('videoModalTitle');
+            if (titleEl) titleEl.textContent = title || 'مشاهدة الشرح';
+
+            if (backdrop) {
+                backdrop.classList.add('active');
+                backdrop.setAttribute('aria-hidden', 'false');
+            }
+            document.body.style.overflow = 'hidden';
+
+            // Lazy load YouTube IFrame API
+            if (!window.YT || !window.YT.Player) {
+                if (!document.getElementById('youtubeIframeApiScript')) {
+                    const tag = document.createElement('script');
+                    tag.id = 'youtubeIframeApiScript';
+                    tag.src = 'https://www.youtube.com/iframe_api';
+                    const firstScriptTag = document.getElementsByTagName('script')[0];
+                    if (firstScriptTag && firstScriptTag.parentNode) {
+                        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                    } else {
+                        document.head.appendChild(tag);
+                    }
+                }
+                const prevHandler = window.onYouTubeIframeAPIReady;
+                window.onYouTubeIframeAPIReady = () => {
+                    if (typeof prevHandler === 'function') prevHandler();
+                    this.createYouTubePlayer(cleanId);
+                };
+            } else {
+                this.createYouTubePlayer(cleanId);
+            }
+        },
+
+        createYouTubePlayer(videoId) {
+            if (this.ytPlayerInstance) {
+                try {
+                    this.ytPlayerInstance.destroy();
+                } catch(e) {}
+                this.ytPlayerInstance = null;
+            }
+
+            const target = document.getElementById('youtubePlayerTarget');
+            if (!target) return;
+            target.innerHTML = '';
+
+            const playerContainer = document.createElement('div');
+            playerContainer.id = 'ytPlayerInstanceDiv';
+            target.appendChild(playerContainer);
+
+            try {
+                this.ytPlayerInstance = new window.YT.Player('ytPlayerInstanceDiv', {
+                    width: '100%',
+                    height: '100%',
+                    videoId: videoId,
+                    playerVars: {
+                        autoplay: 1,
+                        rel: 0,
+                        modestbranding: 1
+                    },
+                    events: {
+                        onError: (e) => {
+                            console.warn('YouTube Player notice:', e);
+                        }
+                    }
+                });
+            } catch (err) {
+                console.error('Error creating YouTube player:', err);
+            }
+        },
+
+        closeVideoModal() {
+            const backdrop = document.getElementById('videoModalBackdrop');
+            if (backdrop) {
+                backdrop.classList.remove('active');
+                backdrop.setAttribute('aria-hidden', 'true');
+            }
+            document.body.style.overflow = '';
+
+            if (this.ytPlayerInstance) {
+                try {
+                    if (typeof this.ytPlayerInstance.stopVideo === 'function') {
+                        this.ytPlayerInstance.stopVideo();
+                    }
+                    if (typeof this.ytPlayerInstance.destroy === 'function') {
+                        this.ytPlayerInstance.destroy();
+                    }
+                } catch(e) {}
+                this.ytPlayerInstance = null;
+            }
+
+            const target = document.getElementById('youtubePlayerTarget');
+            if (target) {
+                target.innerHTML = '';
+            }
         },
 
         // 15. الإنجازات (#achievements)

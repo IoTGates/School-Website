@@ -3116,3 +3116,387 @@ button {
         width: 100%;
     }
 }
+
+/* ==========================================================================
+   AJYAL EDUCATIONAL GUIDE & VIDEO MODAL (دليل منصة أجيال)
+   ========================================================================== */
+
+/* Search and Filters Bar */
+.ajyal-controls-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-xl);
+    border: 1px solid var(--gray-200);
+}
+
+.ajyal-search-wrapper {
+    position: relative;
+    margin-bottom: var(--spacing-md);
+}
+
+.ajyal-search-icon {
+    position: absolute;
+    right: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.15rem;
+    color: var(--dark-muted);
+    pointer-events: none;
+}
+
+.ajyal-search-input {
+    width: 100%;
+    padding: 0.85rem 3rem 0.85rem 2.8rem;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 2px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    background: var(--light-bg);
+    color: var(--dark);
+    transition: var(--transition);
+}
+
+.ajyal-search-input:focus {
+    outline: none;
+    border-color: var(--blue);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(16, 135, 201, 0.15);
+}
+
+.ajyal-clear-btn {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    display: none;
+}
+
+.ajyal-clear-btn:hover {
+    color: var(--navy);
+    background: var(--gray-200);
+}
+
+/* Filter Pills */
+.ajyal-filters-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.ajyal-filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filter-pill {
+    background: var(--light-bg);
+    border: 1px solid var(--gray-300);
+    color: var(--dark);
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding: 0.5rem 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.filter-pill:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    background: #fff;
+}
+
+.filter-pill.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(7, 59, 100, 0.25);
+}
+
+.ajyal-counter {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--dark-muted);
+}
+
+/* Guides Grid (Desktop: 3, Tablet: 2, Mobile: 1) */
+.ajyal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+@media (max-width: 991px) {
+    .ajyal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .ajyal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Guide Card */
+.ajyal-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--gray-200);
+    border-top: 4px solid var(--blue);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    height: 100%;
+}
+
+.ajyal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-top-color: var(--navy);
+}
+
+.ajyal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.ajyal-card-icon {
+    font-size: 2.2rem;
+    line-height: 1;
+}
+
+.ajyal-card-category {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+    background: var(--blue-light);
+    padding: 0.25rem 0.65rem;
+    border-radius: 50px;
+}
+
+.ajyal-card-title {
+    color: var(--navy);
+    font-size: 1.18rem;
+    font-weight: 700;
+    margin: 0.6rem 0 0.5rem 0;
+    line-height: 1.4;
+}
+
+.ajyal-card-desc {
+    color: var(--dark);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+    flex: 1;
+}
+
+.ajyal-card-meta {
+    border-top: 1px dashed var(--gray-200);
+    padding-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.ajyal-audience-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.ajyal-audience-badge {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--dark);
+    background: var(--light-bg);
+    border: 1px solid var(--gray-300);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-sm);
+}
+
+.ajyal-duration-badge {
+    font-size: 0.78rem;
+    color: var(--dark-muted);
+    font-weight: 600;
+}
+
+.btn-coming-soon {
+    background: #e9ecef !important;
+    color: #6c757d !important;
+    border: 1px solid #ced4da !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 0.9;
+    font-weight: 600;
+}
+
+/* Empty State */
+.ajyal-empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    border: 2px dashed var(--gray-300);
+}
+
+.ajyal-empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+}
+
+.ajyal-empty-state-title {
+    color: var(--navy);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.ajyal-empty-state-text {
+    color: var(--dark-muted);
+    margin-bottom: 1.25rem;
+}
+
+/* Video Player Modal */
+.video-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 27, 48, 0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.video-modal-backdrop.active {
+    display: flex;
+    opacity: 1;
+}
+
+.video-modal-container {
+    background: #0d1b2a;
+    width: 100%;
+    max-width: 900px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-direction: column;
+    animation: videoModalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes videoModalPop {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.video-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.25rem;
+    background: #071b30;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.video-modal-title {
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 1rem;
+}
+
+.video-modal-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffffff;
+    font-size: 1.25rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.video-modal-close:hover {
+    background: #e63946;
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+.video-modal-body {
+    background: #000000;
+    position: relative;
+    width: 100%;
+}
+
+.video-responsive-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 ratio fallback */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+@supports (aspect-ratio: 16 / 9) {
+    .video-responsive-wrapper {
+        aspect-ratio: 16 / 9;
+        height: auto;
+        padding-bottom: 0;
+    }
+}
+
+.video-responsive-wrapper iframe,
+.video-responsive-wrapper #youtubePlayerTarget,
+.video-responsive-wrapper #ytPlayerInstanceDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
