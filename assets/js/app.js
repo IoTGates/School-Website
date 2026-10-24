@@ -62,6 +62,13 @@
             if (route.startsWith('#development-')) {
                 return `/development-plan.html${route}`;
             }
+            if (route.startsWith('/grades#') || route.startsWith('grades#')) {
+                const sub = route.includes('#') ? route.substring(route.indexOf('#')) : '';
+                return `/grades.html${sub}`;
+            }
+            if (route === '/grades' || route === 'grades') {
+                return '/grades.html';
+            }
             if (route === '#grades') {
                 return '/grades.html';
             }
@@ -1063,7 +1070,10 @@
                 } else if (rawHash === '#grade-5') {
                     this.renderGradeDetailView('grade-5');
                 } else if (rawHash.startsWith('#support-program/')) {
-                    const progId = rawHash.replace('#support-program/', '');
+                    let progId = rawHash.replace('#support-program/', '');
+                    if (progId === 'remedial-support') {
+                        progId = 'remedial-interventions';
+                    }
                     this.renderSupportProgramDetailView(progId);
                 } else if (rawHash === '#support-programs') {
                     this.renderSupportProgramsView();
@@ -1084,6 +1094,9 @@
                     const initId = rawHash.replace('#initiative/', '');
                     if (initId === 'ajyal') {
                         this.renderAjyalGuideView();
+                    } else if (initId === 'remedial-support' || initId === 'remedial-interventions') {
+                        window.location.replace('/grades.html#support-program/remedial-interventions');
+                        return;
                     } else {
                         this.renderInitiativeDetailView(initId);
                     }
@@ -1159,7 +1172,10 @@
             } else if (hash === '#grade-5') {
                 this.renderGradeDetailView('grade-5');
             } else if (hash.startsWith('#support-program/')) {
-                const progId = hash.replace('#support-program/', '');
+                let progId = hash.replace('#support-program/', '');
+                if (progId === 'remedial-support') {
+                    progId = 'remedial-interventions';
+                }
                 this.renderSupportProgramDetailView(progId);
             } else if (hash === '#support-programs') {
                 this.renderSupportProgramsView();
@@ -1176,6 +1192,9 @@
                 const initId = hash.replace('#initiative/', '');
                 if (initId === 'ajyal') {
                     this.renderAjyalGuideView();
+                } else if (initId === 'remedial-support' || initId === 'remedial-interventions') {
+                    window.location.replace('/grades.html#support-program/remedial-interventions');
+                    return;
                 } else {
                     this.renderInitiativeDetailView(initId);
                 }
@@ -2016,17 +2035,27 @@
                 `;
             });
 
-            // Related Initiatives
+            // Related Initiatives & Support Programs
             let relatedInitsHtml = '';
             plan.relatedInitiatives.forEach(initId => {
                 const init = siteData.initiatives.find(i => i.id === initId);
                 if (init) {
                     relatedInitsHtml += `
-                        <a href="${init.route}" class="related-init-chip card">
+                        <a href="${this.resolveHref(init.route)}" class="related-init-chip card">
                             <span class="icon">${init.icon}</span>
                             <span>${init.name}</span>
                         </a>
                     `;
+                } else {
+                    const prog = siteData.supportPrograms.find(p => p.id === initId || (initId === 'remedial-support' && p.id === 'remedial-interventions'));
+                    if (prog) {
+                        relatedInitsHtml += `
+                            <a href="${this.resolveHref(prog.route)}" class="related-init-chip card">
+                                <span class="icon">${prog.icon}</span>
+                                <span>${prog.title}</span>
+                            </a>
+                        `;
+                    }
                 }
             });
 
@@ -2163,9 +2192,9 @@
 
             const html = `
                 <div class="internal-page-header">
-                    <span class="page-tag">المرحلة الأساسية والدعم التعليمي</span>
-                    <h1 class="page-title">فصول الدراسة وبرامج الدعم والتميز</h1>
-                    <p class="page-subtitle">المرحلة الأساسية المعتمدة في المدرسة (الصفان الرابع والخامس) وبرامج الدعم والتميز المكملة</p>
+                    <span class="page-tag">المرحلة الأساسية والموارد التعليمية</span>
+                    <h1 class="page-title">الفصول الدراسية والموارد التعليمية</h1>
+                    <p class="page-subtitle">المرحلة الأساسية المعتمدة في المدرسة (الصفان الرابع والخامس) وبرامج الدعم والتميز والموارد التعليمية المكملة</p>
                 </div>
 
                 <div class="grades-block" style="margin-bottom: 3rem;">
@@ -2191,7 +2220,7 @@
 
             this.showInternalView([
                 { label: 'الرئيسية', route: '#home' },
-                { label: 'فصول الدراسة وبرامج الدعم', route: '#grades' }
+                { label: 'الفصول الدراسية والموارد التعليمية', route: '#grades' }
             ], html);
         },
 
@@ -2243,7 +2272,7 @@
 
             this.showInternalView([
                 { label: 'الرئيسية', route: '#home' },
-                { label: 'فصول الدراسة', route: '#grades' },
+                { label: 'الفصول الدراسية والموارد التعليمية', route: '#grades' },
                 { label: grade.title, route: grade.route }
             ], html);
         },
@@ -2285,7 +2314,7 @@
                 <div class="internal-page-header">
                     <span class="page-tag">التميز التربوي</span>
                     <h1 class="page-title">برامج الدعم والتميز</h1>
-                    <p class="page-subtitle">برامج وجوائز جمعية جائزة الملكة رانيا العبدالله للتميز التربوي المعتمدة بالمدرسة لتعزيز الابتكار والتعلم النشط والارتقاء بنوعية التعليم</p>
+                    <p class="page-subtitle">برامج وجوائز التميز والريادة التربوية وبرامج التدخلات العلاجية المعتمدة بالمدرسة لتعزيز الابتكار والتعلم النشط والارتقاء بنوعية التعليم</p>
                 </div>
 
                 <div class="support-list-wrapper">
@@ -2307,14 +2336,13 @@
 
             this.showInternalView([
                 { label: 'الرئيسية', route: '#home' },
-                { label: 'فصول الدراسة', route: '#grades' },
                 { label: 'برامج الدعم والتميز', route: '#support-programs' }
             ], html);
         },
 
         // 10.1 تفاصيل برنامج الدعم والتميز (#support-program/:id)
         renderSupportProgramDetailView(progId) {
-            const prog = siteData.supportPrograms.find(p => p.id === progId);
+            const prog = siteData.supportPrograms.find(p => p.id === progId || (progId === 'remedial-support' && p.id === 'remedial-interventions'));
             if (!prog) {
                 this.renderSupportProgramsView();
                 return;
@@ -2372,7 +2400,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--gray-200); padding-top: 1.5rem;">
                         <a href="#support-programs" class="btn btn-outline-dark">← الرجوع لبرامج الدعم والتميز</a>
                         <a href="${prog.officialUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                            <span>زيارة الموقع الرسمي لجائزة الملكة رانيا للتميز التربوي</span>
+                            <span>${prog.officialLabel || ('زيارة الموقع الرسمي (' + prog.attribution + ')')}</span>
                             <span aria-hidden="true">↗</span>
                         </a>
                     </div>
@@ -2381,7 +2409,6 @@
 
             this.showInternalView([
                 { label: 'الرئيسية', route: '#home' },
-                { label: 'فصول الدراسة وبرامج الدعم', route: '#grades' },
                 { label: 'برامج الدعم والتميز', route: '#support-programs' },
                 { label: prog.title, route: `#support-program/${prog.id}` }
             ], html);
@@ -3349,6 +3376,7 @@
 
             this.showInternalView([
                 { label: 'الرئيسية', route: '#home' },
+                { label: 'الفصول الدراسية والموارد التعليمية', route: '#grades' },
                 { label: 'الموارد التعليمية', route: '#resources' }
             ], html);
         },

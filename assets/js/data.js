@@ -104,18 +104,29 @@ const siteData = {
     },
     {
       id: "grades-menu",
-      label: "فصول الدراسة وبرامج الدعم",
+      label: "الفصول الدراسية والموارد التعليمية",
       route: "grades.html",
       children: [
         { id: "grades-overview", label: "فصول الدراسة", route: "grades.html" },
         { id: "grade-4-nav", label: "الصف الرابع الأساسي", route: "grades.html#grade-4" },
         { id: "grade-5-nav", label: "الصف الخامس الأساسي", route: "grades.html#grade-5" },
-        { id: "support-prog-nav", label: "برامج الدعم والتميز", route: "grades.html#support-programs" }
+        { id: "resources-nav", label: "الموارد التعليمية والمنصات", route: "resources.html" }
       ]
     },
     { id: "events", label: "الفعاليات", route: "events.html" },
     { id: "initiatives", label: "المبادرات", route: "initiatives.html" },
-    { id: "resources", label: "الموارد التعليمية", route: "resources.html" },
+    {
+      id: "support-programs-menu",
+      label: "برامج الدعم والتميز",
+      route: "grades.html#support-programs",
+      children: [
+        { id: "interactive-walls-nav", label: "الجدران التفاعلية", route: "grades.html#support-program/interactive-walls" },
+        { id: "electronic-library-nav", label: "المكتبة الإلكترونية", route: "grades.html#support-program/electronic-library" },
+        { id: "math-kit-nav", label: "حقيبة الرياضيات", route: "grades.html#support-program/math-kit" },
+        { id: "distinguished-teacher-nav", label: "المعلم المتميز", route: "grades.html#support-program/distinguished-teacher" },
+        { id: "remedial-interventions-nav", label: "برنامج التدخلات العلاجية", route: "grades.html#support-program/remedial-interventions" }
+      ]
+    },
     { id: "links", label: "روابط مهمة", route: "links.html" },
     { id: "contact", label: "تواصل معنا", route: "contact.html" }
   ],
@@ -712,7 +723,7 @@ const siteData = {
         { outcome: "تحسن مهارة المعلمات في استراتيجيات التقييم والتأمل", criterion: "استخدام الاستراتيجيات المناسبة لتقييم أداء الطلبة نهاية الحصة", weak: "لا تستخدم المعلمات الاستراتيجيات", low: "بعض المعلمات تستخدم", acceptable: "تستخدم المعلمات بشكل مقبول", strong: "معظم المعلمات تستخدم بفاعلية", veryStrong: "جميع المعلمات تستخدم الاستراتيجيات بكفاءة عالية" }
       ],
       strategicAlignment: "مواءمة استراتيجية مع محور جودة التعليم والتعلم في الخطة الوطنية 2026-2030، والتركيز على القرار المبني على البيانات وبرامج التداخلات العلاجية ومجتمعات التعلم المهني (PLC).",
-      relatedInitiatives: ["know-and-need", "remedial-support", "reading-club", "talents-program"]
+      relatedInitiatives: ["know-and-need", "remedial-interventions", "reading-club", "talents-program"]
     },
 
     {
@@ -1173,6 +1184,31 @@ const siteData = {
         "إبراز النماذج التعليمية الملهمة وتطوير كفايات المعلمين التدريسية"
       ],
       outcomes: "بيئة مدرسية تنافسية إيجابية تقود إلى تميز الأداء التدريسي وتنعكس مباشرة على تفوق الطلبة ونمائهم المتكامل."
+    },
+    {
+      id: "remedial-interventions",
+      title: "برنامج التدخلات العلاجية",
+      category: "برنامج دعم أكاديمي",
+      badge: "برنامج أكاديمي علاجي",
+      icon: "🎯",
+      color: "#073B64",
+      desc: "خطة التدخل العلاجي التأسيسي للطلبة لتمكينهم من المعارف والمهارات الأساسية في القراءة والحساب، وتطبيق استراتيجيات تدريس علاجية موجهة ومكثفة لسد الفجوات التعليمية.",
+      attribution: "وزارة التربية والتعليم - مديرية لواء قصبة إربد",
+      officialUrl: "https://moe.gov.jo/",
+      officialLabel: "زيارة البوابة الرسمية لوزارة التربية والتعليم",
+      route: "grades.html#support-program/remedial-interventions",
+      targetGroup: "الطلبة ذوو التحصيل المتدني المستهدفون بالخطط العلاجية",
+      activities: [
+        "تحليل نتائج الاختبارات التشخيصية وتحديد المهارات المفتاحية ذات الفجوات التعليمية",
+        "تطبيق استراتيجيات تدريس علاجية موجهة ومكثفة في مبحثي اللغة العربية والرياضيات",
+        "المتابعة والتقويم المستمر لقياس تقدم الطلبة وانتقالهم إلى مستوى الإتقان والتميز"
+      ],
+      goals: [
+        "معالجة الضعف التراكمي في القراءة والكتابة والعمليات الحسابية",
+        "رفع ثقة الطالب بنفسه وقدرته على مواكبة زملائه",
+        "تحسين مؤشرات الأداء والتحصيل في الاختبارات المدرسية"
+      ],
+      outcomes: "اجتياز الطلبة لمعايير الإتقان والانتقال إلى مرحلة التميز."
     }
   ],
 
@@ -1435,23 +1471,6 @@ const siteData = {
       targetAudience: "الطلبة وأولياء الأمور والمعلمات",
       outcomes: "استخدام رقمي متوازن ووعي عالٍ بقواعد الأمان على الإنترنت.",
       relatedAreaId: "community"
-    },
-    {
-      id: "remedial-support",
-      route: "initiatives.html#initiative/remedial-support",
-      name: "برنامج التداخلات العلاجية",
-      category: "برنامج أكاديمي علاجي",
-      icon: "🎯",
-      briefDescription: "خطة التدخل العلاجي التأسيسي للطلبة لتمكينهم من المعارف والمهارات الأساسية في القراءة والحساب.",
-      fullDescription: "تطبيق استراتيجيات تدريس علاجية موجهة ومكثفة تركز على المهارات المفتاحية التي أظهرت الاختبارات التشخيصية وجود فجوات فيها، مما يضمن وصول جميع الطلبة لمستوى الإتقان المطلوب لمرحلتهم العمرية.",
-      goals: [
-        "معالجة الضعف التراكمي في القراءة والكتابة والعمليات الحسابية",
-        "رفع ثقة الطالب بنفسه وقدرته على مواكبة زملائه",
-        "تحسين مؤشرات الأداء والتحصيل في الاختبارات المدرسية"
-      ],
-      targetAudience: "الطلبة ذوو التحصيل المتدني المستهدفون بالخطط العلاجية",
-      outcomes: "اجتياز الطلبة لمعايير الإتقان والانتقال إلى مرحلة التميز.",
-      relatedAreaId: "learning"
     },
     {
       id: "reading-club",
