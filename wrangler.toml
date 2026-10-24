@@ -2,7 +2,19 @@ name = "abs2e-school"
 compatibility_date = "2026-09-27"
 pages_build_output_dir = "."
 
-[[d1_databases]]
+[env.production]
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "abs2e-prod-counter"
+database_id = "764dc093-5b74-499d-8dd1-93e2dfe2e990"
+
+[env.preview]
+[[env.preview.d1_databases]]
 binding = "DB"
 database_name = "abs2e-preview-counter"
 database_id = "767d8014-0c18-4482-bd22-a945a96245a5"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "abs2e-prod-counter"
+database_id = "764dc093-5b74-499d-8dd1-93e2dfe2e990"

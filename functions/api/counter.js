@@ -7,7 +7,7 @@
 export async function onRequest(context) {
     const { request, env } = context;
     // Support either DB or abs2e_preview_counter binding
-    const db = env.DB || env.abs2e_preview_counter;
+    const db = env.DB || env.abs2e_prod_counter || env.abs2e_preview_counter;
 
     const headers = {
         'Content-Type': 'application/json; charset=utf-8',
