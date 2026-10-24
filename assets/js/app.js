@@ -65,7 +65,7 @@
             if (route === '#grades') {
                 return '/grades.html';
             }
-            if (route.startsWith('#grade-') || route === '#support-programs') {
+            if (route.startsWith('#grade-') || route === '#support-programs' || route.startsWith('#support-program/')) {
                 return `/grades.html${route}`;
             }
             if (route === '#events') {
@@ -1062,6 +1062,9 @@
                     this.renderGradeDetailView('grade-4');
                 } else if (rawHash === '#grade-5') {
                     this.renderGradeDetailView('grade-5');
+                } else if (rawHash.startsWith('#support-program/')) {
+                    const progId = rawHash.replace('#support-program/', '');
+                    this.renderSupportProgramDetailView(progId);
                 } else if (rawHash === '#support-programs') {
                     this.renderSupportProgramsView();
                 } else {
@@ -1155,6 +1158,9 @@
                 this.renderGradeDetailView('grade-4');
             } else if (hash === '#grade-5') {
                 this.renderGradeDetailView('grade-5');
+            } else if (hash.startsWith('#support-program/')) {
+                const progId = hash.replace('#support-program/', '');
+                this.renderSupportProgramDetailView(progId);
             } else if (hash === '#support-programs') {
                 this.renderSupportProgramsView();
             } else if (hash === '#events') {
@@ -2146,7 +2152,10 @@
                         <div style="font-size: 2rem; margin-bottom: 0.5rem;">${p.icon}</div>
                         <span class="badge-mini" style="background: ${p.color}20; color: ${p.color}; font-weight: 700;">${p.badge}</span>
                         <h3 style="color: var(--navy); margin: 0.6rem 0;">${p.title}</h3>
-                        <p style="font-size: 0.92rem; line-height: 1.7; margin-bottom: 1rem;">${p.desc}</p>
+                        <p style="font-size: 0.92rem; line-height: 1.7; margin-bottom: 0.8rem;">${p.desc}</p>
+                        <div style="font-size: 0.78rem; color: var(--navy); margin-bottom: 0.8rem; font-weight: 600; background: var(--blue-light); padding: 0.35rem 0.6rem; border-radius: var(--radius-sm);">
+                            🏛️ ${p.attribution}
+                        </div>
                         <a href="${p.route}" class="btn btn-outline-dark btn-sm btn-block">تفاصيل البرنامج ←</a>
                     </div>
                 `;
@@ -2155,8 +2164,8 @@
             const html = `
                 <div class="internal-page-header">
                     <span class="page-tag">المرحلة الأساسية والدعم التعليمي</span>
-                    <h1 class="page-title">فصول الدراسة وبرامج الدعم والرعاية التربوية</h1>
-                    <p class="page-subtitle">المرحلة الأساسية المعتمدة في المدرسة (الصفان الرابع والخامس) وبرامج الدعم المكملة</p>
+                    <h1 class="page-title">فصول الدراسة وبرامج الدعم والتميز</h1>
+                    <p class="page-subtitle">المرحلة الأساسية المعتمدة في المدرسة (الصفان الرابع والخامس) وبرامج الدعم والتميز المكملة</p>
                 </div>
 
                 <div class="grades-block" style="margin-bottom: 3rem;">
@@ -2169,10 +2178,10 @@
                     </div>
                 </div>
 
-                <div class="support-block" style="margin-bottom: 2.5rem;">
+                <div class="support-block" style="margin-bottom: 2.5rem;" id="support-programs">
                     <div class="sub-header-flex" style="margin-bottom: 1.5rem;">
-                        <h2 class="section-title-sm">برامج الدعم التعليمي والرعاية التربوية</h2>
-                        <a href="#support-programs" class="btn btn-outline-dark btn-sm">عرض دليل برامج الدعم كاملاً ←</a>
+                        <h2 class="section-title-sm">برامج الدعم والتميز</h2>
+                        <a href="#support-programs" class="btn btn-outline-dark btn-sm">عرض دليل برامج الدعم والتميز كاملاً ←</a>
                     </div>
                     <div class="support-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
                         ${progHtml}
@@ -2226,9 +2235,9 @@
                 </div>
 
                 <div class="support-link-callout card" style="padding: 1.5rem; background: var(--blue-light); border-color: var(--blue); margin-bottom: 2rem;">
-                    <h3 style="color: var(--navy); margin-bottom: 0.4rem;">برامج الدعم والرعاية المخصصة لطلبة ${grade.title}:</h3>
-                    <p style="margin-bottom: 1rem; color: var(--dark);">توفر المدرسة لطلبة الصف خطط تداخلات علاجية لتأسيس المهارات، ورعاية للموهوبين، ونادي قراءة ومطالعة، وبرنامج صف الفرح للدعم النفسي.</p>
-                    <a href="#support-programs" class="btn btn-secondary btn-sm">استعراض برامج الدعم والرعاية ←</a>
+                    <h3 style="color: var(--navy); margin-bottom: 0.4rem;">برامج الدعم والتميز المعتمدة لطلبة ${grade.title}:</h3>
+                    <p style="margin-bottom: 1rem; color: var(--dark);">تتبنى المدرسة برامج ومبادرات جمعية جائزة الملكة رانيا العبدالله للتميز التربوي (الجدران التفاعلية، المكتبة الإلكترونية، وحقيبة الرياضيات) لدعم التعلم النشط وبناء البيئة المدرسية الإبداعية.</p>
+                    <a href="#support-programs" class="btn btn-secondary btn-sm">استعراض برامج الدعم والتميز ←</a>
                 </div>
             `;
 
@@ -2239,7 +2248,7 @@
             ], html);
         },
 
-        // 10. برامج الدعم التعليمي (#support-programs)
+        // 10. برامج الدعم والتميز (#support-programs)
         renderSupportProgramsView() {
             let cardsHtml = '';
             siteData.supportPrograms.forEach(prog => {
@@ -2255,11 +2264,14 @@
                             </div>
                             <a href="${prog.route}" class="btn btn-outline-dark btn-sm">التفاصيل الكاملة ←</a>
                         </div>
+                        <div style="font-size: 0.85rem; color: var(--navy); font-weight: 600; margin-bottom: 0.75rem;">
+                            🏛️ الجهة الراعية: ${prog.attribution}
+                        </div>
                         <p style="font-size: 1.05rem; line-height: 1.8; color: var(--dark); margin: 0.8rem 0;">${prog.desc}</p>
                         <div style="background: var(--light-bg); border-radius: var(--radius-sm); padding: 1rem; margin-top: 1rem;">
                             <strong style="color: var(--navy);">الفئة المستهدفة:</strong> ${prog.targetGroup}
                             <div style="margin-top: 0.5rem;">
-                                <strong>أبرز الأنشطة:</strong>
+                                <strong>أبرز الأنشطة والمحاور:</strong>
                                 <ul style="padding-right: 1.2rem; margin-top: 0.3rem;">
                                     ${prog.activities.map(a => `<li>${a}</li>`).join('')}
                                 </ul>
@@ -2271,9 +2283,9 @@
 
             const html = `
                 <div class="internal-page-header">
-                    <span class="page-tag">الرعاية المتكاملة</span>
-                    <h1 class="page-title">برامج الدعم التعليمي والرعاية التربوية والنفسية</h1>
-                    <p class="page-subtitle">برامج نوعية لدعم التحصيل، ورعاية الفروق الفردية، وتنمية المواهب، وتوفير بيئة نفسية إيجابية</p>
+                    <span class="page-tag">التميز التربوي</span>
+                    <h1 class="page-title">برامج الدعم والتميز</h1>
+                    <p class="page-subtitle">برامج وجوائز جمعية جائزة الملكة رانيا العبدالله للتميز التربوي المعتمدة بالمدرسة لتعزيز الابتكار والتعلم النشط والارتقاء بنوعية التعليم</p>
                 </div>
 
                 <div class="support-list-wrapper">
@@ -2281,10 +2293,14 @@
                 </div>
 
                 <div class="strategy-callout-box" style="margin-top: 2rem;">
-                    <div class="strategy-icon">🌟</div>
+                    <div class="strategy-icon">👑</div>
                     <div>
-                        <strong>ملاحظة تصنيفية معتمدة:</strong>
-                        <p>تؤكد المدرسة أن الفصول الدراسية الرسمية المعتمدة هي <strong>الصف الرابع الأساسي والصف الخامس الأساسي</strong>، في حين يُصنف برنامج <strong>"صف الفرح"</strong> كبرنامج دعم ورعاية تربوية ونفسية ونشاط هادف لخدمة الطلبة ولا يعد فصلاً دراسياً مستقلاً.</p>
+                        <strong>جمعية جائزة الملكة رانيا العبدالله للتميز التربوي:</strong>
+                        <p>تتبنى مدرسة أبي بكر الصديق الأساسية الثانية برامج ومبادرات جمعية جائزة الملكة رانيا العبدالله للتميز التربوي لنشر ثقافة التميز وتوفير بيئة تعليمية محفزة وداعمة للطلبة والمعلمين.</p>
+                        <a href="https://qra.jo/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="margin-top: 0.6rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+                            <span>زيارة الموقع الرسمي لجمعية جائزة الملكة رانيا للتميز التربوي</span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
                     </div>
                 </div>
             `;
@@ -2292,7 +2308,82 @@
             this.showInternalView([
                 { label: 'الرئيسية', route: '#home' },
                 { label: 'فصول الدراسة', route: '#grades' },
-                { label: 'برامج الدعم التعليمي', route: '#support-programs' }
+                { label: 'برامج الدعم والتميز', route: '#support-programs' }
+            ], html);
+        },
+
+        // 10.1 تفاصيل برنامج الدعم والتميز (#support-program/:id)
+        renderSupportProgramDetailView(progId) {
+            const prog = siteData.supportPrograms.find(p => p.id === progId);
+            if (!prog) {
+                this.renderSupportProgramsView();
+                return;
+            }
+
+            const html = `
+                <div class="internal-page-header">
+                    <span class="page-tag">${prog.badge || prog.category}</span>
+                    <h1 class="page-title">${prog.title}</h1>
+                    <p class="page-subtitle">${prog.desc}</p>
+                </div>
+
+                <div class="support-program-detail card" style="padding: 2rem; margin-bottom: 2rem; border-right: 5px solid ${prog.color};">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 3rem;">${prog.icon}</span>
+                            <div>
+                                <span class="badge-mini" style="background: ${prog.color}20; color: ${prog.color}; font-weight: 700;">${prog.badge}</span>
+                                <h2 style="color: var(--navy); font-size: 1.5rem; margin-top: 0.3rem;">${prog.title}</h2>
+                            </div>
+                        </div>
+                        <div style="background: var(--blue-light); border: 1px solid var(--blue); padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.9rem; color: var(--navy);">
+                            🏛️ <strong>المرجعية الرسمية:</strong> ${prog.attribution}
+                        </div>
+                    </div>
+
+                    <h3 class="section-title-sm">الوصف التفصيلي للبرنامج</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.9; color: var(--dark); margin-bottom: 1.5rem;">${prog.desc}</p>
+
+                    <div style="background: var(--light-bg); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.5rem;">
+                        <h3 style="color: var(--navy); font-size: 1.1rem; margin-bottom: 0.6rem;">الأهداف والمخرجات المستهدفة:</h3>
+                        <ul style="padding-right: 1.5rem; line-height: 1.9; color: var(--dark);">
+                            ${(prog.goals || []).map(g => `<li>${g}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+                        <div style="border: 1px solid var(--gray-200); padding: 1.2rem; border-radius: var(--radius-sm);">
+                            <strong style="color: var(--navy); display: block; margin-bottom: 0.3rem;">الفئة المستهدفة:</strong>
+                            <p style="color: var(--dark); line-height: 1.7;">${prog.targetGroup}</p>
+                        </div>
+                        <div style="border: 1px solid var(--gray-200); padding: 1.2rem; border-radius: var(--radius-sm);">
+                            <strong style="color: var(--navy); display: block; margin-bottom: 0.3rem;">الأثر والتطبيق العملي:</strong>
+                            <p style="color: var(--dark); line-height: 1.7;">${prog.outcomes}</p>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--light-bg); border-radius: var(--radius-sm); padding: 1.2rem; margin-bottom: 1.5rem;">
+                        <strong style="color: var(--navy); display: block; margin-bottom: 0.5rem;">أبرز محاور وأنشطة البرنامج:</strong>
+                        <ul style="padding-right: 1.5rem; line-height: 1.8; color: var(--dark);">
+                            ${(prog.activities || []).map(a => `<li>${a}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--gray-200); padding-top: 1.5rem;">
+                        <a href="#support-programs" class="btn btn-outline-dark">← الرجوع لبرامج الدعم والتميز</a>
+                        <a href="${prog.officialUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                            <span>زيارة الموقع الرسمي لجائزة الملكة رانيا للتميز التربوي</span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            this.showInternalView([
+                { label: 'الرئيسية', route: '#home' },
+                { label: 'فصول الدراسة وبرامج الدعم', route: '#grades' },
+                { label: 'برامج الدعم والتميز', route: '#support-programs' },
+                { label: prog.title, route: `#support-program/${prog.id}` }
             ], html);
         },
 
