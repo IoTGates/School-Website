@@ -2639,46 +2639,100 @@
             const normalize = (str) => {
                 if (!str) return '';
                 return str
+                    .normalize('NFKD')
+                    .replace(/[\u064B-\u065F\u0670]/g, '')
                     .replace(/[إأآا]/g, 'ا')
                     .replace(/ة/g, 'ه')
-                    .replace(/ى/g, 'ي')
-                    .replace(/[\u064B-\u065F]/g, '')
+                    .replace(/[يىئ]/g, 'ي')
+                    .replace(/ؤ/g, 'و')
+                    .replace(/ـ/g, '')
                     .toLowerCase()
                     .trim();
             };
 
+            const normalizeAudience = (raw) => {
+                if (!raw) return 'all';
+                const s = String(raw).trim().toLowerCase();
+                if (s === 'all') return 'all';
+                if (s === 'student' || s === 'students') return 'student';
+                if (s === 'parent' || s === 'parents') return 'parent';
+                if (s === 'teacher' || s === 'teachers') return 'teacher';
+                if (s === 'admin' || s === 'school-admin' || s === 'admins') return 'admin';
+                return s;
+            };
+
+            const audienceDisplayLabels = {
+                'student': 'الطلاب',
+                'parent': 'أولياء الأمور',
+                'teacher': 'المعلمون',
+                'admin': 'الإدارة المدرسية'
+            };
+
             const renderGuides = () => {
                 const normQuery = normalize(searchQuery);
+                const targetAudience = normalizeAudience(selectedAudience);
 
-                const filtered = guides.filter(guide => {
-                    const audienceMatch = (selectedAudience === 'all') || 
-                                          (guide.audiences && guide.audiences.includes(selectedAudience));
-                    if (!audienceMatch) return false;
+                // Step A: Determine allowed cards and allowed videos per card
+                const processedCards = [];
 
-                    if (!normQuery) return true;
+                guides.forEach(guide => {
+                    const allVideos = guide.videos || [];
+                    const verifiedVideos = allVideos.filter(v => v.reviewStatus === 'verified' || !v.reviewStatus);
 
-                    const titleMatch = normalize(guide.title).includes(normQuery);
-                    const descMatch = normalize(guide.description).includes(normQuery);
-                    const catMatch = normalize(guide.category).includes(normQuery);
-                    const videoMatch = guide.videos && guide.videos.some(v => normalize(v.title).includes(normQuery));
-                    return titleMatch || descMatch || catMatch || videoMatch;
+                    let allowedVideos = [];
+                    if (targetAudience === 'all') {
+                        allowedVideos = verifiedVideos;
+                    } else {
+                        allowedVideos = verifiedVideos.filter(v => {
+                            if (!v.audiences || !Array.isArray(v.audiences)) return false;
+                            const videoAudiences = v.audiences.map(normalizeAudience);
+                            return videoAudiences.includes(targetAudience);
+                        });
+                    }
+
+                    // Strict Visibility Rule:
+                    // Under audience-specific filters, cards with no allowed videos are hidden.
+                    if (targetAudience !== 'all' && allowedVideos.length === 0) {
+                        return; // Excluded from this audience!
+                    }
+
+                    // Search isolation:
+                    // Search must operate ONLY on allowed videos and card metadata for this audience.
+                    if (normQuery) {
+                        const titleMatch = normalize(guide.title).includes(normQuery);
+                        const descMatch = normalize(guide.description).includes(normQuery);
+                        const catMatch = normalize(guide.category).includes(normQuery);
+                        const allowedVideoMatch = allowedVideos.some(v => normalize(v.title).includes(normQuery));
+
+                        if (!titleMatch && !descMatch && !catMatch && !allowedVideoMatch) {
+                            return; // Excluded by search!
+                        }
+                    }
+
+                    processedCards.push({
+                        guide,
+                        allowedVideos
+                    });
                 });
 
+                // Step B: Update visible counters based on actual filtered results
                 if (counter) {
-                    if (filtered.length === 0) {
+                    const count = processedCards.length;
+                    if (count === 0) {
                         counter.textContent = 'لا توجد شروحات مطابقة';
-                    } else if (filtered.length === 1) {
+                    } else if (count === 1) {
                         counter.textContent = 'عرض شرح واحد';
-                    } else if (filtered.length === 2) {
+                    } else if (count === 2) {
                         counter.textContent = 'عرض شرحين تعليميين';
-                    } else if (filtered.length <= 10) {
-                        counter.textContent = `عرض ${filtered.length} شروحات تعليمية`;
+                    } else if (count <= 10) {
+                        counter.textContent = `عرض ${count} شروحات تعليمية`;
                     } else {
-                        counter.textContent = `عرض ${filtered.length} شرحاً تعليمياً`;
+                        counter.textContent = `عرض ${count} شرحاً تعليمياً`;
                     }
                 }
 
-                if (filtered.length === 0) {
+                // Step C: Empty state
+                if (processedCards.length === 0) {
                     grid.innerHTML = `
                         <div class="ajyal-empty-state">
                             <div class="ajyal-empty-state-icon" aria-hidden="true">🔍</div>
@@ -2705,19 +2759,30 @@
                     return;
                 }
 
+                // Step D: Render cards
                 let cardsHtml = '';
-                filtered.forEach(guide => {
-                    const audiencesHtml = (guide.audiencesLabels || [])
+                processedCards.forEach(({ guide, allowedVideos }) => {
+                    const hasVerifiedVideos = allowedVideos.length > 0;
+
+                    let audienceBadges = [];
+                    if (targetAudience !== 'all') {
+                        audienceBadges = [audienceDisplayLabels[targetAudience] || targetAudience];
+                    } else if (hasVerifiedVideos) {
+                        const set = new Set();
+                        allowedVideos.forEach(v => {
+                            (v.audiences || []).forEach(a => {
+                                const normA = normalizeAudience(a);
+                                if (audienceDisplayLabels[normA]) set.add(audienceDisplayLabels[normA]);
+                            });
+                        });
+                        audienceBadges = Array.from(set);
+                    } else {
+                        audienceBadges = (guide.audiencesLabels || []);
+                    }
+
+                    const audiencesHtml = audienceBadges
                         .map(lbl => `<span class="ajyal-audience-badge">${lbl}</span>`)
                         .join('');
-
-                    const vList = (guide.videos && guide.videos.length > 0)
-                        ? guide.videos
-                        : (guide.youtubeVideoId && guide.status !== 'coming_soon'
-                            ? [{ videoId: guide.youtubeVideoId, title: guide.title, duration: guide.duration }]
-                            : []);
-
-                    const hasVerifiedVideos = vList.length > 0;
 
                     let videoActionHtml = '';
                     let attributionHtml = '';
@@ -2725,13 +2790,13 @@
                     if (hasVerifiedVideos) {
                         attributionHtml = `<div class="ajyal-source-badge">🏛️ وزارة التربية والتعليم - الأردن</div>`;
 
-                        if (vList.length === 1) {
-                            const singleV = vList[0];
+                        if (allowedVideos.length === 1) {
+                            const singleV = allowedVideos[0];
                             videoActionHtml = `
                                 <button type="button" class="btn btn-primary btn-sm btn-block ajyal-play-btn" data-video-id="${singleV.videoId}" data-title="${singleV.title || guide.title}">مشاهدة الشرح ▶</button>
                             `;
                         } else {
-                            const videoItemsHtml = vList.map(v => `
+                            const videoItemsHtml = allowedVideos.map(v => `
                                 <button type="button" class="ajyal-video-item-btn ajyal-play-btn" data-video-id="${v.videoId}" data-title="${v.title}">
                                     <span class="ajyal-video-item-title">
                                         <span aria-hidden="true">▶</span>
@@ -2743,7 +2808,7 @@
 
                             videoActionHtml = `
                                 <div class="ajyal-multi-header">
-                                    <span>اختر الشرح المطلوب (${vList.length} شروحات مصورة):</span>
+                                    <span>اختر الشرح المطلوب (${allowedVideos.length} شروحات مصورة):</span>
                                 </div>
                                 <div class="ajyal-video-list">
                                     ${videoItemsHtml}
@@ -2755,6 +2820,10 @@
                             <button type="button" class="btn btn-coming-soon btn-sm btn-block" disabled aria-disabled="true" title="سيتم إتاحة الفيديو عبر قناة المدرسة قريباً">الفيديو قريبًا</button>
                         `;
                     }
+
+                    const displayDuration = hasVerifiedVideos
+                        ? (allowedVideos.length === 1 ? allowedVideos[0].duration : `${allowedVideos.length} شروحات`)
+                        : 'قريبًا';
 
                     cardsHtml += `
                         <div class="ajyal-card card">
@@ -2769,7 +2838,7 @@
                                 <div class="ajyal-audience-tags" aria-label="الجمهور المستهدف">
                                     ${audiencesHtml}
                                 </div>
-                                <span class="ajyal-duration-badge" aria-label="مدة الفيديو">⏱️ ${guide.duration || 'قريبًا'}</span>
+                                <span class="ajyal-duration-badge" aria-label="مدة الفيديو">⏱️ ${displayDuration}</span>
                             </div>
                             <div class="ajyal-card-action">
                                 ${videoActionHtml}
