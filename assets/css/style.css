@@ -3343,6 +3343,92 @@ button {
     font-weight: 600;
 }
 
+/* Video Attribution & Multi-Video Selection */
+.ajyal-source-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--navy);
+    background: #edf6f9;
+    border: 1px solid #d0e8f2;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.ajyal-video-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: 0.65rem;
+    margin-bottom: 0.25rem;
+}
+
+.ajyal-video-item-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: var(--light-bg);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    font-size: 0.83rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--navy);
+    cursor: pointer;
+    text-align: right;
+    transition: var(--transition);
+}
+
+.ajyal-video-item-btn:hover {
+    background: #ffffff;
+    border-color: var(--blue);
+    color: var(--blue);
+    transform: translateX(-3px);
+    box-shadow: 0 2px 6px rgba(16, 135, 201, 0.12);
+}
+
+.ajyal-video-item-title {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ajyal-video-item-target {
+    font-size: 0.72rem;
+    color: var(--blue-dark);
+    background: var(--blue-light);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.ajyal-video-item-dur {
+    font-size: 0.75rem;
+    color: var(--dark-muted);
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-right: 0.4rem;
+}
+
+.ajyal-multi-header {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--dark-muted);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
 .btn-coming-soon {
     background: #e9ecef !important;
     color: #6c757d !important;
@@ -3397,7 +3483,7 @@ button {
 }
 
 .video-modal-backdrop.active {
-    display: flex;
+    display: flex !important;
     opacity: 1;
 }
 

@@ -2660,7 +2660,8 @@
                     const titleMatch = normalize(guide.title).includes(normQuery);
                     const descMatch = normalize(guide.description).includes(normQuery);
                     const catMatch = normalize(guide.category).includes(normQuery);
-                    return titleMatch || descMatch || catMatch;
+                    const videoMatch = guide.videos && guide.videos.some(v => normalize(v.title).includes(normQuery));
+                    return titleMatch || descMatch || catMatch || videoMatch;
                 });
 
                 if (counter) {
@@ -2710,10 +2711,50 @@
                         .map(lbl => `<span class="ajyal-audience-badge">${lbl}</span>`)
                         .join('');
 
-                    const hasValidVideo = Boolean(guide.youtubeVideoId && guide.status !== 'coming_soon');
-                    const actionButton = hasValidVideo
-                        ? `<button type="button" class="btn btn-primary btn-sm btn-block ajyal-play-btn" data-video-id="${guide.youtubeVideoId}" data-title="${guide.title}">مشاهدة الشرح ▶</button>`
-                        : `<button type="button" class="btn btn-coming-soon btn-sm btn-block" disabled aria-disabled="true" title="سيتم إتاحة الفيديو عبر قناة المدرسة قريباً">الفيديو قريبًا</button>`;
+                    const vList = (guide.videos && guide.videos.length > 0)
+                        ? guide.videos
+                        : (guide.youtubeVideoId && guide.status !== 'coming_soon'
+                            ? [{ videoId: guide.youtubeVideoId, title: guide.title, duration: guide.duration }]
+                            : []);
+
+                    const hasVerifiedVideos = vList.length > 0;
+
+                    let videoActionHtml = '';
+                    let attributionHtml = '';
+
+                    if (hasVerifiedVideos) {
+                        attributionHtml = `<div class="ajyal-source-badge">🏛️ وزارة التربية والتعليم - الأردن</div>`;
+
+                        if (vList.length === 1) {
+                            const singleV = vList[0];
+                            videoActionHtml = `
+                                <button type="button" class="btn btn-primary btn-sm btn-block ajyal-play-btn" data-video-id="${singleV.videoId}" data-title="${singleV.title || guide.title}">مشاهدة الشرح ▶</button>
+                            `;
+                        } else {
+                            const videoItemsHtml = vList.map(v => `
+                                <button type="button" class="ajyal-video-item-btn ajyal-play-btn" data-video-id="${v.videoId}" data-title="${v.title}">
+                                    <span class="ajyal-video-item-title">
+                                        <span aria-hidden="true">▶</span>
+                                        <span>${v.title}</span>
+                                    </span>
+                                    <span class="ajyal-video-item-dur">${v.duration}</span>
+                                </button>
+                            `).join('');
+
+                            videoActionHtml = `
+                                <div class="ajyal-multi-header">
+                                    <span>اختر الشرح المطلوب (${vList.length} شروحات مصورة):</span>
+                                </div>
+                                <div class="ajyal-video-list">
+                                    ${videoItemsHtml}
+                                </div>
+                            `;
+                        }
+                    } else {
+                        videoActionHtml = `
+                            <button type="button" class="btn btn-coming-soon btn-sm btn-block" disabled aria-disabled="true" title="سيتم إتاحة الفيديو عبر قناة المدرسة قريباً">الفيديو قريبًا</button>
+                        `;
+                    }
 
                     cardsHtml += `
                         <div class="ajyal-card card">
@@ -2723,6 +2764,7 @@
                             </div>
                             <h3 class="ajyal-card-title">${guide.title}</h3>
                             <p class="ajyal-card-desc">${guide.description}</p>
+                            ${attributionHtml}
                             <div class="ajyal-card-meta">
                                 <div class="ajyal-audience-tags" aria-label="الجمهور المستهدف">
                                     ${audiencesHtml}
@@ -2730,7 +2772,7 @@
                                 <span class="ajyal-duration-badge" aria-label="مدة الفيديو">⏱️ ${guide.duration || 'قريبًا'}</span>
                             </div>
                             <div class="ajyal-card-action">
-                                ${actionButton}
+                                ${videoActionHtml}
                             </div>
                         </div>
                     `;
@@ -2860,6 +2902,7 @@
 
             if (backdrop) {
                 backdrop.classList.add('active');
+                backdrop.style.display = 'flex';
                 backdrop.setAttribute('aria-hidden', 'false');
             }
             document.body.style.overflow = 'hidden';
@@ -2928,6 +2971,7 @@
             const backdrop = document.getElementById('videoModalBackdrop');
             if (backdrop) {
                 backdrop.classList.remove('active');
+                backdrop.style.display = 'none';
                 backdrop.setAttribute('aria-hidden', 'true');
             }
             document.body.style.overflow = '';
