@@ -2620,6 +2620,18 @@
                         status: "coming_soon"
                     },
                     {
+                        id: "student-homework",
+                        title: "متابعة الواجبات المنزلية",
+                        category: "الواجبات المدرسية",
+                        icon: "📚",
+                        audiences: ["students"],
+                        audiencesLabels: ["الطلاب"],
+                        description: "شرح طريقة عرض الواجبات المنزلية ومتابعتها من حساب الطالب على منصة أجيال.",
+                        youtubeVideoId: "Lmcinof4k9s",
+                        duration: "1:23",
+                        status: "verified"
+                    },
+                    {
                         id: "assignments-courses",
                         title: "الواجبات والمواد الدراسية",
                         category: "التعليم والتعلم",

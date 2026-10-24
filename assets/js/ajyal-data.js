@@ -65,6 +65,16 @@
             reviewStatus: "verified"
         },
         {
+            videoId: "Lmcinof4k9s",
+            title: "متابعة الواجبات",
+            duration: "1:23",
+            audiences: ["student"],
+            topicId: "student-homework",
+            source: "وزارة التربية والتعليم - الأردن",
+            classificationEvidence: "شرح طريقة عرض الواجبات المنزلية ومتابعتها من حساب الطالب على منصة أجيال",
+            reviewStatus: "verified"
+        },
+        {
             videoId: "kfk-lpSIsaI",
             title: "إرسال الملاحظات إلى مدير المدرسة من حساب ولي الأمر",
             duration: "1:34",
@@ -289,6 +299,29 @@
             ]
         },
         {
+            id: "student-homework",
+            title: "متابعة الواجبات المنزلية",
+            category: "الواجبات المدرسية",
+            icon: "📚",
+            description: "شرح طريقة عرض الواجبات المنزلية ومتابعتها من حساب الطالب على منصة أجيال.",
+            status: "verified",
+            youtubeVideoId: "Lmcinof4k9s",
+            duration: "1:23",
+            audiences: ["student"],
+            audiencesLabels: ["الطلاب"],
+            videos: [
+                {
+                    videoId: "Lmcinof4k9s",
+                    title: "متابعة الواجبات",
+                    duration: "1:23",
+                    audiences: ["student"],
+                    source: "وزارة التربية والتعليم - الأردن",
+                    classificationEvidence: "شرح طريقة عرض الواجبات المنزلية ومتابعتها من حساب الطالب على منصة أجيال",
+                    reviewStatus: "verified"
+                }
+            ]
+        },
+        {
             id: "assignments-courses",
             title: "الواجبات والمواد الدراسية",
             category: "التعليم والتعلم",
@@ -466,7 +499,7 @@
         platformName: "منصة أجيال التعليمية",
         allDiscoveredVideos: allDiscoveredVideos,
         classificationSummary: {
-            studentVideoIds: ["5BMAEgvMVZg", "obaB5k8iCBo"],
+            studentVideoIds: ["5BMAEgvMVZg", "obaB5k8iCBo", "Lmcinof4k9s"],
             parentVideoIds: ["DOhhyniDdqk", "kfk-lpSIsaI"],
             teacherVideoIds: ["QXrVS7EwUB8", "E31tg_yH_Es", "8lk7o43geXk"],
             adminVideoIds: ["Qu3vt-R8IVo", "xEVa3PZTXXI", "RcGCl0orKqo", "554oly8PkdE", "SEWClHC4rZI", "9pcRPcj8OBc", "Oj9achRh6H8"],
