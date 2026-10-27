@@ -107,6 +107,7 @@
             this.populateNavigation();
             this.populateFooter();
             this.initPersonModal();
+            this.initPdfModalEvents();
             this.setupEventListeners();
             this.initVisitCounter();
 
@@ -712,6 +713,343 @@
             initialized: false,
             currentCount: null,
             lastRecordedPath: null
+        },
+
+
+        // ==================== THERAPEUTIC INTERVENTIONS PDF MODAL ====================
+        ensurePdfModal() {
+            let backdrop = document.getElementById('pdfModalBackdrop');
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.id = 'pdfModalBackdrop';
+                backdrop.className = 'pdf-modal-backdrop';
+                backdrop.setAttribute('aria-hidden', 'true');
+                backdrop.setAttribute('role', 'dialog');
+                backdrop.setAttribute('aria-modal', 'true');
+                backdrop.setAttribute('aria-label', 'عارض ملف إنجاز التدخلات العلاجية');
+                backdrop.innerHTML = `
+                    <div class="pdf-modal-container" id="pdfModalContainer">
+                        <button type="button" class="pdf-modal-close" id="pdfModalCloseBtn" aria-label="إغلاق المستند">✕</button>
+                        <div class="pdf-pages-scroll-container" id="pdfPagesScrollContainer" tabindex="0" aria-label="صفحات ملف إنجاز برنامج التدخلات العلاجية">
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(backdrop);
+            }
+            this.initPdfModalEvents();
+        },
+
+        initPdfModalEvents() {
+            if (this._pdfModalEventsBound) return;
+            this._pdfModalEventsBound = true;
+
+            // Global delegation for opening the therapeutic portfolio modal
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('#openTherapeuticPortfolioBtn');
+                if (btn) {
+                    e.preventDefault();
+                    const pdfPath = '/assets/documents/therapeutic-interventions-portfolio-2026-2027-abs.pdf';
+                    this.openPdfModal(pdfPath, btn);
+                    return;
+                }
+
+                if (e.target.closest('#pdfModalCloseBtn')) {
+                    this.closePdfModal();
+                    return;
+                }
+
+                const backdrop = document.getElementById('pdfModalBackdrop');
+                if (backdrop && backdrop.classList.contains('active') && e.target === backdrop) {
+                    this.closePdfModal();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const backdrop = document.getElementById('pdfModalBackdrop');
+                    if (backdrop && backdrop.classList.contains('active')) {
+                        this.closePdfModal();
+                    }
+                }
+            });
+        },
+
+        loadPdfJsLibrary(callback) {
+            if (window.pdfjsLib) {
+                callback(null, window.pdfjsLib);
+                return;
+            }
+
+            const existingScript = document.getElementById('pdfJsLibScript');
+            if (existingScript) {
+                existingScript.addEventListener('load', () => {
+                    if (window.pdfjsLib) {
+                        this.configurePdfWorker();
+                        callback(null, window.pdfjsLib);
+                    } else {
+                        callback(new Error('pdfjsLib not defined after load'));
+                    }
+                }, { once: true });
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.id = 'pdfJsLibScript';
+            // Resolve script path relative to root or current directory
+            const isSubdir = window.location.pathname.includes('/initiatives/');
+            script.src = isSubdir ? '../assets/js/pdfjs/pdf.min.js' : 'assets/js/pdfjs/pdf.min.js';
+            script.onload = () => {
+                if (window.pdfjsLib) {
+                    this.configurePdfWorker();
+                    callback(null, window.pdfjsLib);
+                } else {
+                    callback(new Error('pdfjsLib not available after script load'));
+                }
+            };
+            script.onerror = (err) => {
+                callback(new Error('Failed to load local PDF.js script: ' + err));
+            };
+            document.head.appendChild(script);
+        },
+
+        configurePdfWorker() {
+            if (window.pdfjsLib && !window.pdfjsLib.GlobalWorkerOptions.workerSrc) {
+                const isSubdir = window.location.pathname.includes('/initiatives/');
+                window.pdfjsLib.GlobalWorkerOptions.workerSrc = isSubdir ? '../assets/js/pdfjs/pdf.worker.min.js' : 'assets/js/pdfjs/pdf.worker.min.js';
+            }
+        },
+
+        openPdfModal(pdfUrl, triggerEl) {
+            this._pdfTriggerElement = triggerEl || document.activeElement;
+            this.ensurePdfModal();
+
+            const backdrop = document.getElementById('pdfModalBackdrop');
+            const container = document.getElementById('pdfPagesScrollContainer');
+            const closeBtn = document.getElementById('pdfModalCloseBtn');
+
+            if (backdrop) {
+                backdrop.classList.add('active');
+                backdrop.style.display = 'flex';
+                backdrop.setAttribute('aria-hidden', 'false');
+            }
+            document.body.style.overflow = 'hidden';
+
+            if (closeBtn) {
+                closeBtn.focus();
+            }
+
+            if (container) {
+                container.scrollTop = 0;
+                container.innerHTML = `
+                    <div class="pdf-loading-state" id="pdfLoadingState" role="status" aria-live="polite">
+                        <div class="pdf-spinner" aria-hidden="true"></div>
+                        <p style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 0.35rem;">جاري تحميل ملف الإنجاز...</p>
+                        <p style="font-size: 0.9rem; color: #94a3b8;">برنامج التدخلات العلاجية للعام الدراسي 2026–2027</p>
+                    </div>
+                `;
+            }
+
+            this.loadPdfJsLibrary((err, pdfjsLib) => {
+                if (err) {
+                    console.error('PDF.js library error:', err);
+                    this.renderPdfError(pdfUrl);
+                    return;
+                }
+
+                // Resolve PDF document URL
+                let resolvedUrl = pdfUrl;
+                if (!resolvedUrl.startsWith('http://') && !resolvedUrl.startsWith('https://')) {
+                    if (window.location.pathname.includes('/initiatives/')) {
+                        resolvedUrl = '.' + pdfUrl;
+                    }
+                }
+
+                const loadingTask = pdfjsLib.getDocument({
+                    url: resolvedUrl,
+                    cMapPacked: true
+                });
+
+                this._activePdfLoadingTask = loadingTask;
+
+                loadingTask.promise.then((pdfDoc) => {
+                    this._activePdfDoc = pdfDoc;
+                    this.setupPdfPages(pdfDoc);
+                }).catch((loadErr) => {
+                    console.error('PDF load error:', loadErr);
+                    this.renderPdfError(pdfUrl);
+                });
+            });
+        },
+
+        renderPdfError(pdfUrl) {
+            const container = document.getElementById('pdfPagesScrollContainer');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="pdf-error-state" role="alert">
+                    <div class="pdf-error-icon" aria-hidden="true">⚠️</div>
+                    <h4 class="pdf-error-title">تعذر عرض ملف الإنجاز</h4>
+                    <p class="pdf-error-desc">عذرًا، تعذر تحميل المستند في الوقت الحالي. يرجى التحقق من اتصال الإنترنت أو المحاولة لاحقًا.</p>
+                    <button type="button" class="btn btn-primary btn-sm" id="retryPdfBtn">إعادة المحاولة</button>
+                </div>
+            `;
+
+            const retryBtn = document.getElementById('retryPdfBtn');
+            if (retryBtn) {
+                retryBtn.addEventListener('click', () => {
+                    this.openPdfModal(pdfUrl, this._pdfTriggerElement);
+                });
+            }
+        },
+
+        setupPdfPages(pdfDoc) {
+            const container = document.getElementById('pdfPagesScrollContainer');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            if (this._pdfObserver) {
+                this._pdfObserver.disconnect();
+                this._pdfObserver = null;
+            }
+
+            this._activeRenderTasks = this._activeRenderTasks || [];
+            const numPages = pdfDoc.numPages;
+
+            // Generate slots for each page
+            for (let i = 1; i <= numPages; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'pdf-page-slot';
+                slot.id = `pdfPageSlot_${i}`;
+                slot.setAttribute('data-page', i);
+                slot.innerHTML = `
+                    <div class="pdf-page-placeholder" id="pdfPagePlaceholder_${i}">
+                        <div class="pdf-spinner" style="width: 28px; height: 28px; border-width: 3px;" aria-hidden="true"></div>
+                        <span style="margin-right: 0.6rem; font-size: 0.9rem;">تحميل صفحة ${i} من ${numPages}...</span>
+                    </div>
+                    <span class="pdf-page-badge" aria-hidden="true">صفحة ${i} من ${numPages}</span>
+                `;
+                container.appendChild(slot);
+            }
+
+            const renderedPages = new Set();
+            const renderingPages = new Set();
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const pageNum = parseInt(entry.target.getAttribute('data-page'), 10);
+                        if (!renderedPages.has(pageNum) && !renderingPages.has(pageNum)) {
+                            renderingPages.add(pageNum);
+                            this.renderPdfPage(pdfDoc, pageNum, entry.target, () => {
+                                renderingPages.delete(pageNum);
+                                renderedPages.add(pageNum);
+                            });
+                        }
+                    }
+                });
+            }, {
+                root: container,
+                rootMargin: '450px 0px 450px 0px',
+                threshold: 0.01
+            });
+
+            this._pdfObserver = observer;
+            const slots = container.querySelectorAll('.pdf-page-slot');
+            slots.forEach(slot => observer.observe(slot));
+        },
+
+        renderPdfPage(pdfDoc, pageNum, slotEl, onComplete) {
+            pdfDoc.getPage(pageNum).then((page) => {
+                const containerWidth = Math.min(slotEl.clientWidth || 800, 850);
+                const unscaledViewport = page.getViewport({ scale: 1.0 });
+                const scale = containerWidth / unscaledViewport.width;
+                const viewport = page.getViewport({ scale: scale });
+                const outputScale = window.devicePixelRatio || 1;
+
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.floor(viewport.width * outputScale);
+                canvas.height = Math.floor(viewport.height * outputScale);
+                canvas.style.width = Math.floor(viewport.width) + 'px';
+                canvas.style.height = Math.floor(viewport.height) + 'px';
+                canvas.setAttribute('aria-label', `صفحة ${pageNum} من ملف إنجاز برنامج التدخلات العلاجية`);
+
+                const ctx = canvas.getContext('2d');
+                ctx.scale(outputScale, outputScale);
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                const renderTask = page.render(renderContext);
+                if (this._activeRenderTasks) {
+                    this._activeRenderTasks.push(renderTask);
+                }
+
+                renderTask.promise.then(() => {
+                    const placeholder = slotEl.querySelector('.pdf-page-placeholder');
+                    if (placeholder) {
+                        placeholder.remove();
+                    }
+                    const badge = slotEl.querySelector('.pdf-page-badge');
+                    if (badge) {
+                        slotEl.insertBefore(canvas, badge);
+                    } else {
+                        slotEl.appendChild(canvas);
+                    }
+                    if (onComplete) onComplete();
+                }).catch((err) => {
+                    if (err && err.name === 'RenderingCancelledException') return;
+                    console.warn(`Render error on page ${pageNum}:`, err);
+                    if (onComplete) onComplete();
+                });
+            }).catch((err) => {
+                console.warn(`GetPage error on page ${pageNum}:`, err);
+                if (onComplete) onComplete();
+            });
+        },
+
+        closePdfModal() {
+            const backdrop = document.getElementById('pdfModalBackdrop');
+            if (backdrop) {
+                backdrop.classList.remove('active');
+                backdrop.style.display = 'none';
+                backdrop.setAttribute('aria-hidden', 'true');
+            }
+            document.body.style.overflow = '';
+
+            if (this._pdfObserver) {
+                this._pdfObserver.disconnect();
+                this._pdfObserver = null;
+            }
+
+            if (this._activeRenderTasks) {
+                this._activeRenderTasks.forEach((task) => {
+                    try { task.cancel(); } catch(e) {}
+                });
+                this._activeRenderTasks = [];
+            }
+
+            if (this._activePdfLoadingTask) {
+                try { this._activePdfLoadingTask.destroy(); } catch(e) {}
+                this._activePdfLoadingTask = null;
+            }
+
+            if (this._activePdfDoc) {
+                try { this._activePdfDoc.destroy(); } catch(e) {}
+                this._activePdfDoc = null;
+            }
+
+            const container = document.getElementById('pdfPagesScrollContainer');
+            if (container) {
+                container.innerHTML = '';
+            }
+
+            if (this._pdfTriggerElement && typeof this._pdfTriggerElement.focus === 'function') {
+                this._pdfTriggerElement.focus();
+                this._pdfTriggerElement = null;
+            }
         },
 
         initVisitCounter() {
@@ -2371,6 +2709,16 @@
 
                     <h3 class="section-title-sm">الوصف التفصيلي للبرنامج</h3>
                     <p style="font-size: 1.1rem; line-height: 1.9; color: var(--dark); margin-bottom: 1.5rem;">${prog.desc}</p>
+
+                    ${(prog.id === 'remedial-interventions' || prog.id === 'remedial-support') ? `
+                    <div class="therapeutic-portfolio-action-block">
+                        <p class="therapeutic-portfolio-title">الملف التوثيقي لبرنامج التدخلات العلاجية للعام الدراسي 2026–2027</p>
+                        <button type="button" class="btn btn-primary btn-therapeutic-portfolio" id="openTherapeuticPortfolioBtn" aria-label="عرض ملف إنجاز برنامج التدخلات العلاجية">
+                            <span class="btn-icon" aria-hidden="true">📄</span>
+                            <span>عرض ملف إنجاز برنامج التدخلات العلاجية</span>
+                        </button>
+                    </div>
+                    ` : ''}
 
                     <div style="background: var(--light-bg); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.5rem;">
                         <h3 style="color: var(--navy); font-size: 1.1rem; margin-bottom: 0.6rem;">الأهداف والمخرجات المستهدفة:</h3>
